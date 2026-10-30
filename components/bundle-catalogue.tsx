@@ -2,12 +2,12 @@
 
 import {useState} from 'react';
 import Link from 'next/link';
-import {ArrowRight, Check, Layers3, Search, SlidersHorizontal, X} from 'lucide-react';
+import {ArrowRight, Check, Download, Layers3, Search, SlidersHorizontal, X} from 'lucide-react';
 import {audiences, money, rate, services, type Audience, type Selection} from '../lib/catalog';
 import {bundleAuthorshipNotice, bundlePricingNotice, getBundle, quoteBundle, serviceBundles, type ServiceBundle} from '../lib/service-bundles';
 import {bundleDeskUrl} from '../lib/bundle-handoff';
 import {Dialog} from './research-context';
-import {PdfDownload} from './pdf-download';
+import {packagePdfUrl} from '../lib/package-pdf';
 
 export function BundleCatalogue() {
   const [query, setQuery] = useState('');
@@ -60,13 +60,6 @@ function BundleConfigurator({bundle}: {bundle: ServiceBundle}) {
   const [addOns, setAddOns] = useState<Selection[]>([]);
   const [message, setMessage] = useState('');
   const quote = quoteBundle(bundle.id, audience, addOns);
-  async function createPdf() {
-    const {createEstimatePdf} = await import('../lib/estimate-pdf');
-    return createEstimatePdf({pathway: audiences.find(item => item.id === audience)!.label,
-      items: quote.lines.map(line => ({...line, deliverables: [line.scope, ...line.deliverables]})),
-      packageProposal: {title: bundle.title, notes: [`Proposed timing: ${bundle.timeline}`, `Revisions: ${bundle.revisionPolicy}`,
-        `Required inputs: ${bundle.prerequisites.join(' ')}`, `Excluded: ${bundle.exclusions.join(' ')}`, bundleAuthorshipNotice, bundlePricingNotice]}});
-  }
   return <div className="bundle-configurator"><span className="draft-pill">PACKAGE ESTIMATE · NOT A CONFIRMED QUOTE</span><h2>{bundle.title}</h2><p>{bundle.summary}</p>
     <label className="field">Client level<select value={audience} onChange={event => {setAudience(event.target.value as Audience); setAddOns([]); setMessage('Client level updated; optional extras reset.');}}>{bundle.audiences.map(id => <option key={id} value={id}>{audiences.find(item => item.id === id)?.label}</option>)}</select></label>
     <h3>Included in the package</h3><ol className="bundle-inclusions">{quote.lines.filter(line => line.kind === 'included').map(line => <li key={line.id}><div className="flex-between"><strong>{line.title}</strong><span>GHS {money(line.total)}</span></div><p>{line.scope}</p><small>{line.quantity} × GHS {money(line.unitPrice)} per {line.unit}</small></li>)}</ol>
@@ -75,7 +68,7 @@ function BundleConfigurator({bundle}: {bundle: ServiceBundle}) {
     <details open className="bundle-scope-details"><summary>Scope, delivery & exclusions</summary><h4>Required from you</h4><ul>{bundle.prerequisites.map(value => <li key={value}>{value}</li>)}</ul><h4>Delivery</h4><p>{bundle.timeline}</p><h4>Revisions</h4><p>{bundle.revisionPolicy}</p><h4>Not included</h4><ul>{bundle.exclusions.map(value => <li key={value}>{value}</li>)}</ul></details>
     <p className="fine-print">{bundlePricingNotice}</p><p className="fine-print">{bundle.pricingRationale}</p>
     <a className="button full" href={bundleDeskUrl({bundleId: bundle.id, audience, addOns})}>Prepare a bundle brief <ArrowRight size={17}/></a>
-    <PdfDownload key={JSON.stringify([bundle.id, audience, addOns])} createPdf={createPdf} filename={`Fullview-Signature-${bundle.id}-package.pdf`} label="Prepare package PDF"/>
+    <a className="button outline full" href={packagePdfUrl({bundleId: bundle.id, audience, addOns})} download><Download size={17}/>Download package PDF</a>
     {message && <p role="status" className="muted-info">{message}</p>}
   </div>;
 }

@@ -1,0 +1,4 @@
+import {z} from 'zod';
+import {context,readJson,respond} from '../../../../../../lib/operations/http';
+import {issueQuote,acceptQuote} from '../../../../../../lib/operations/quotes';
+export async function POST(request:Request,{params}:{params:Promise<{projectId:string;quoteId:string}>}){return respond(async()=>{const input=z.discriminatedUnion('action',[z.object({action:z.literal('issue'),version:z.number().int().positive()}).strict(),z.object({action:z.literal('accept'),version:z.number().int().positive(),termsAccepted:z.literal(true)}).strict()]).parse(await readJson(request));const {db,actor}=await context();const {projectId,quoteId}=await params;return input.action==='issue'?issueQuote(db,actor,projectId,quoteId,input.version):acceptQuote(db,actor,projectId,quoteId,{version:input.version,termsAccepted:true});});}

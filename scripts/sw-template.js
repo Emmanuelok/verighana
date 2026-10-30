@@ -19,7 +19,7 @@ self.addEventListener('fetch', event => {
   const url = new URL(request.url);
   if (request.method !== 'GET' || url.origin !== self.location.origin) return;
   // Private research briefs, sign-in, account pages and RSC data never enter Cache Storage.
-  if (/^\/(api|workspace|signin-with-chatgpt|signout-with-chatgpt|callback)(\/|$)/.test(url.pathname) || url.searchParams.has('_rsc') || request.headers.has('RSC')) return;
+  if (/^\/(api|workspace|account|projects|staff|contact|signin-with-chatgpt|signout-with-chatgpt|callback)(\/|$)/.test(url.pathname) || url.searchParams.has('_rsc') || request.headers.has('RSC')) return;
   if (request.mode === 'navigate') {
     event.respondWith(fetch(request).catch(async () => (await (await caches.open(SHELL)).match('/offline.html')) || new Response('Please reconnect to open Fullview Signature.', { status: 503, headers: { 'Content-Type': 'text/plain; charset=utf-8' } })));
     return;

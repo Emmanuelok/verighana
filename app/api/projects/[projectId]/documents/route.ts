@@ -1,0 +1,5 @@
+import {context,respond,requireSameOrigin} from '../../../../../lib/operations/http';
+import {createDocumentService} from '../../../../../lib/operations/documents';
+import {requireProjectAccess,OperationError} from '../../../../../lib/operations/core';
+export async function GET(_request:Request,{params}:{params:Promise<{projectId:string}>}){return respond(async()=>{const {db,actor}=await context();const projectId=(await params).projectId;return {available:false,documents:await createDocumentService({db}).list(actor,projectId),message:'Private storage, scanning and the transfer policy must be verified before uploads can be enabled.'};});}
+export async function POST(request:Request,{params}:{params:Promise<{projectId:string}>}){return respond(async()=>{requireSameOrigin(request);const {db,actor}=await context();await requireProjectAccess(db,actor,(await params).projectId);throw new OperationError(503,'documents_unavailable','Secure document exchange is not available yet. Do not upload private research files.');});}
