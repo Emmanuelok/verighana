@@ -39,7 +39,14 @@ def word(text, x, y, size, font='sans', fill=INK, spacing=0):
 
 
 def glyph(fill=IVORY, gold=GOLD):
-    return f'<path d="M26 27H90V42H43V57H77V72H43V101H26Z" fill="{fill}"/><path d="M55 77L75 103L108 28" fill="none" stroke="{gold}" stroke-width="12" stroke-linejoin="miter"/>'
+    # Panorama: interlaced planes around an open, asymmetric horizon.
+    return f'''<g transform="translate(0 12)">
+      <path d="M3 45C22 9 57 -4 87 6C64 2 50 38 3 45Z" fill="{fill}"/>
+      <path d="M49 30C64 15 73 6 85 10C104 15 117 31 125 44C96 40 80 20 49 30Z" fill="{fill}"/>
+      <path d="M3 49C14 76 37 88 58 77C43 77 26 54 3 49Z" fill="{gold}"/>
+      <path d="M14 50C44 55 76 59 112 48C90 55 73 70 61 78C43 70 29 57 14 50Z" fill="{fill}"/>
+      <path d="M36 91C74 102 108 75 125 49C104 44 84 54 69 71C55 88 48 93 36 91Z" fill="{gold}"/>
+    </g>'''
 
 
 def svg(body, width, height, title):
@@ -48,17 +55,18 @@ def svg(body, width, height, title):
 
 for dark in [False, True]:
     fill = IVORY if dark else INK
-    body = '<g transform="translate(0 7) scale(.875)"><rect width="128" height="128" rx="26" fill="#073d35"/>' + glyph() + '</g>'
-    name, width = word('Fullview', 137, 72, 49, 'semibold', fill, -.8)
-    signature, signature_width = word('Signature', 137 + width + 12, 72, 65, 'serif', GOLD if dark else INK, -.4)
-    endorsement, _ = word('BY VERIDANTH', 140, 104, 14, 'sans', GOLD if dark else '#506b5d', 2)
+    gold = GOLD if dark else '#b48942'
+    body = '<g transform="translate(0 14) scale(1.6)">' + glyph(fill, gold) + '</g>'
+    name, width = word('Fullview', 236, 107, 108, 'serif', fill, -1.4)
+    signature, _ = word('SIGNATURE', 243, 151, 26, 'sans', fill, 8.0)
+    endorsement, _ = word('by Avalon Group', 243, 186, 21, 'sans', GOLD if dark else '#617565', 1.4)
     body += name + signature + endorsement
-    total_width = round(137 + width + 12 + signature_width + 20)
-    (OUT / ('logo-light.svg' if dark else 'logo-dark.svg')).write_text(svg(body, total_width, 128, 'Fullview Signature — by Veridanth'))
+    total_width = round(236 + width + 30)
+    (OUT / ('logo-light.svg' if dark else 'logo-dark.svg')).write_text(svg(body, total_width, 220, 'Fullview Signature — by Avalon Group'))
 
-(OUT / 'monogram.svg').write_text(svg(glyph(INK, '#af803c'), 128, 128, 'Fullview Signature FV monogram'))
+(OUT / 'monogram.svg').write_text(svg(glyph(INK, '#af803c'), 128, 128, 'Fullview Signature panorama emblem'))
 icon = '<defs><linearGradient id="jade" x2="1" y2="1"><stop stop-color="#155c4b"/><stop offset="1" stop-color="#052c28"/></linearGradient></defs><rect width="512" height="512" fill="url(#jade)"/>'
-icon += '<g transform="translate(22 18) scale(3.65)">' + glyph() + '</g>'
+icon += '<g transform="translate(41 37) scale(3.36)">' + glyph() + '</g>'
 (OUT / 'app-icon.svg').write_text(svg(icon, 512, 512, 'Fullview Signature app icon'))
 maskable = '<rect width="512" height="512" fill="#073d35"/><g transform="translate(76 76) scale(2.8)">' + glyph() + '</g>'
 (OUT / 'app-icon-maskable.svg').write_text(svg(maskable, 512, 512, 'Fullview Signature maskable app icon'))
@@ -71,30 +79,30 @@ if background.exists():
     body = f'<rect width="1200" height="630" fill="#042820"/><image href="data:image/png;base64,{embedded}" width="1200" height="630" preserveAspectRatio="xMidYMid slice"/>'
     body += '<defs><linearGradient id="shade"><stop stop-color="#031f1d" stop-opacity=".45"/><stop offset=".53" stop-color="#031f1d" stop-opacity=".10"/><stop offset=".7" stop-color="#031f1d" stop-opacity="0"/></linearGradient></defs><rect width="1200" height="630" fill="url(#shade)"/>'
     body += '<g transform="translate(60 47) scale(.72)">' + glyph() + '</g>'
-    body += word('BY VERIDANTH', 171, 99, 18, 'semibold', GOLD, 2.5)[0]
-    body += word('Fullview', 62, 292, 104, 'semibold', IVORY, -2.5)[0]
-    body += word('Signature', 60, 395, 126, 'serif', GOLD, -1)[0]
+    body += word('BY AVALON GROUP', 171, 99, 17, 'sans', GOLD, 2.0)[0]
+    body += word('Fullview', 62, 293, 118, 'serif', IVORY, -1.3)[0]
+    body += word('SIGNATURE', 73, 356, 37, 'sans', GOLD, 9)[0]
     body += word('Research. In full view.', 71, 474, 29, 'sans', IVORY, -.5)[0]
     body += '<path d="M72 521H462" stroke="#d5b16d" stroke-opacity=".5"/>'
     body += word('100 SPECIALIST SERVICES', 72, 554, 13, 'semibold', '#d3dfd4', 1.5)[0]
     body += word('GHANA & BEYOND', 72, 580, 13, 'sans', '#b4c9bc', 1.5)[0]
-    (OUT / 'og-master.svg').write_text(svg(body, 1200, 630, 'Fullview Signature — by Veridanth. Research. In full view.'))
+    (OUT / 'og-master.svg').write_text(svg(body, 1200, 630, 'Fullview Signature — by Avalon Group. Research. In full view.'))
 
 manifest = {
-    'id': '/', 'name': 'Fullview Signature — by Veridanth', 'short_name': 'Fullview',
+    'id': '/', 'name': 'Fullview Signature — by Avalon Group', 'short_name': 'Fullview',
     'description': 'Explore research services, build an estimate and see the fuller picture.',
     'start_url': '/?source=pwa', 'scope': '/', 'display': 'standalone',
     'background_color': '#f7f4ec', 'theme_color': INK, 'lang': 'en',
     'categories': ['education', 'business', 'productivity'],
     'icons': [
-        {'src': '/brand/icon-192.png', 'sizes': '192x192', 'type': 'image/png', 'purpose': 'any'},
-        {'src': '/brand/icon-512.png', 'sizes': '512x512', 'type': 'image/png', 'purpose': 'any'},
-        {'src': '/brand/icon-maskable-512.png', 'sizes': '512x512', 'type': 'image/png', 'purpose': 'maskable'},
+        {'src': '/brand/icon-192.png?v=panorama-2', 'sizes': '192x192', 'type': 'image/png', 'purpose': 'any'},
+        {'src': '/brand/icon-512.png?v=panorama-2', 'sizes': '512x512', 'type': 'image/png', 'purpose': 'any'},
+        {'src': '/brand/icon-maskable-512.png?v=panorama-2', 'sizes': '512x512', 'type': 'image/png', 'purpose': 'maskable'},
     ],
     'shortcuts': [
-        {'name': 'Explore services', 'short_name': 'Services', 'url': '/services', 'icons': [{'src': '/brand/icon-192.png', 'sizes': '192x192'}]},
-        {'name': 'Services and pricing', 'short_name': 'Pricing', 'url': '/pricing', 'icons': [{'src': '/brand/icon-192.png', 'sizes': '192x192'}]},
-        {'name': 'Your research desk', 'short_name': 'Research desk', 'url': '/workspace', 'icons': [{'src': '/brand/icon-192.png', 'sizes': '192x192'}]},
+        {'name': 'Explore services', 'short_name': 'Services', 'url': '/services', 'icons': [{'src': '/brand/icon-192.png?v=panorama-2', 'sizes': '192x192'}]},
+        {'name': 'Services and pricing', 'short_name': 'Pricing', 'url': '/pricing', 'icons': [{'src': '/brand/icon-192.png?v=panorama-2', 'sizes': '192x192'}]},
+        {'name': 'Your research desk', 'short_name': 'Research desk', 'url': '/workspace', 'icons': [{'src': '/brand/icon-192.png?v=panorama-2', 'sizes': '192x192'}]},
     ],
 }
 (ROOT / 'public/manifest.webmanifest').write_text(json.dumps(manifest, indent=2) + '\n')

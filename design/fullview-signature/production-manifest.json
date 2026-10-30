@@ -2,15 +2,15 @@
   "schema_version": "1.0",
   "project": {
     "id": "fullview-signature-brand",
-    "name": "Fullview Signature \u2014 by Veridanth",
+    "name": "Fullview Signature — by Avalon Group",
     "mode": "screen-production",
     "objective": "Rebrand the research platform and deliver a cohesive logo, social preview, favicon and installable PWA.",
     "audience": "Students, researchers, organisations and institutions in Ghana and beyond.",
-    "governing_idea": "A fuller perspective, expressed through an FV monogram and aligned architectural frames.",
-    "status": "delivered"
+    "governing_idea": "A fuller perspective, expressed through an open panorama emblem, refined serif wordmark and architectural frames.",
+    "status": "validated"
   },
   "creative_system": {
-    "visual_thesis": "Warm gold perspective geometry on deep emerald, with an exact vector monogram and generous typographic hierarchy.",
+    "visual_thesis": "An interlaced panorama in emerald and gold; Fullview in Libre Caslon Display above an airy, uppercase Signature and the Avalon Group endorsement.",
     "anti_goals": [
       "Generic academic clip art",
       "Uncontrolled generated typography",
@@ -31,7 +31,7 @@
     "interface": "Keep existing research pathways and readable mobile navigation.",
     "invariants": [
       "Exact spelling: Fullview Signature",
-      "Endorsement: by Veridanth",
+      "Endorsement: by Avalon Group",
       "Existing research services and records preserved"
     ],
     "permitted_variations": [
@@ -49,8 +49,8 @@
       "source": "public/brand/monogram.svg",
       "role": "identity",
       "rights_status": "owned",
-      "description": "Original FV vector geometry authored in this task.",
-      "status": "approved"
+      "description": "Original vector panorama geometry, refined from the generated Panorama direction.",
+      "status": "ready-for-review"
     },
     {
       "id": "ast-logo",
@@ -59,7 +59,7 @@
       "role": "identity",
       "rights_status": "licensed",
       "description": "Original vector lockup with outlined DM Sans and Libre Caslon Display; included OFL licences.",
-      "status": "approved"
+      "status": "ready-for-review"
     },
     {
       "id": "ast-og",
@@ -68,7 +68,7 @@
       "role": "brand",
       "rights_status": "owned",
       "description": "Original composition using a commissioned ImageGen architectural background and controlled vector lettering.",
-      "status": "approved"
+      "status": "ready-for-review"
     },
     {
       "id": "ast-icon",
@@ -77,7 +77,7 @@
       "role": "identity",
       "rights_status": "owned",
       "description": "App icon from the FV vector master.",
-      "status": "approved"
+      "status": "ready-for-review"
     }
   ],
   "elements": [],
@@ -98,10 +98,10 @@
       "format": "svg",
       "language": "en",
       "captions": false,
-      "alt_text": "Fullview Signature \u2014 by Veridanth",
+      "alt_text": "Fullview Signature — by Avalon Group",
       "variant_of": "",
-      "version": 1,
-      "status": "approved"
+      "version": 2,
+      "status": "ready-for-review"
     },
     {
       "id": "del-og",
@@ -116,10 +116,10 @@
       "format": "png",
       "language": "en",
       "captions": false,
-      "alt_text": "Fullview Signature \u2014 by Veridanth. Research. In full view.",
+      "alt_text": "Fullview Signature — by Avalon Group. Research. In full view.",
       "variant_of": "",
-      "version": 1,
-      "status": "approved"
+      "version": 2,
+      "status": "ready-for-review"
     },
     {
       "id": "del-app-icon",
@@ -134,10 +134,10 @@
       "format": "png",
       "language": "en",
       "captions": false,
-      "alt_text": "Fullview FV monogram",
+      "alt_text": "Fullview Signature panorama emblem",
       "variant_of": "",
-      "version": 1,
-      "status": "approved"
+      "version": 2,
+      "status": "ready-for-review"
     }
   ],
   "rights_and_claims": [
@@ -145,7 +145,7 @@
       "id": "right-brand",
       "category": "source-media",
       "description": "New vector identity created for the user; commissioned image generated in this task. No legal trademark clearance claimed.",
-      "evidence": "User instructed rebrand to Fullview Signature (by Veridanth); original vector geometry and generated background.",
+      "evidence": "User requested replacement of the initial logo, endorsement by Avalon Group, and connection of fvsignature.com.",
       "status": "confirmed"
     }
   ],
@@ -162,12 +162,11 @@
     "acceptance_threshold": 85,
     "critical_failures": [],
     "review_notes": [
-      "Vector identity and social-card composition inspected visually.",
-      "192px, 512px, maskable and 180px Apple icons verified; maskable geometry sits inside the 40% safe-zone radius.",
-      "Desktop and 390px mobile header reviewed with no horizontal overflow.",
-      "Live offline catalogue renders all 100 services; query and audience filters work.",
-      "Next.js production build, TypeScript and catalogue/estimate tests passed.",
-      "Service-worker tests verify offline fallback, private-route exclusions and cache-quota recovery."
+      "Panorama logo board, light and dark wordmarks, and social preview visually reviewed.",
+      "Icon dimensions and maskable safe area checked.",
+      "Production builds passed for Next.js and the authenticated research desk.",
+      "100-service catalogue, pricing, handoff and PWA cache tests passed.",
+      "Live domain and responsive verification follows publication."
     ]
   },
   "gates": [
@@ -216,26 +215,17 @@
       "name": "Finish",
       "status": "passed",
       "evidence": [
-        "Vector identity and social-card composition inspected visually.",
-        "192px, 512px, maskable and 180px Apple icons verified; maskable geometry sits inside the 40% safe-zone radius.",
-        "Desktop and 390px mobile header reviewed with no horizontal overflow.",
-        "Live offline catalogue renders all 100 services; query and audience filters work.",
-        "Next.js production build, TypeScript and catalogue/estimate tests passed.",
-        "Service-worker tests verify offline fallback, private-route exclusions and cache-quota recovery."
+        "Panorama logo board, light and dark wordmarks, and social preview visually reviewed.",
+        "Icon dimensions and maskable safe area checked.",
+        "Production builds passed for Next.js and the authenticated research desk.",
+        "100-service catalogue, pricing, handoff and PWA cache tests passed."
       ]
     },
     {
       "id": "gate-delivery",
       "name": "Delivery",
-      "status": "passed",
-      "evidence": [
-        "Vector identity and social-card composition inspected visually.",
-        "192px, 512px, maskable and 180px Apple icons verified; maskable geometry sits inside the 40% safe-zone radius.",
-        "Desktop and 390px mobile header reviewed with no horizontal overflow.",
-        "Live offline catalogue renders all 100 services; query and audience filters work.",
-        "Next.js production build, TypeScript and catalogue/estimate tests passed.",
-        "Service-worker tests verify offline fallback, private-route exclusions and cache-quota recovery."
-      ]
+      "status": "pending",
+      "evidence": []
     }
   ],
   "assumptions": [

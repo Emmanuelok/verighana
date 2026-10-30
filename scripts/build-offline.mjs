@@ -5,7 +5,7 @@ import { createHash } from 'node:crypto';
 const { outputFiles } = await build({ entryPoints: ['lib/catalog.ts'], bundle: true, write: false, platform: 'node', format: 'esm', logLevel: 'silent' });
 const { audiences, categories, services, rate } = await import('data:text/javascript;base64,' + Buffer.from(outputFiles[0].text).toString('base64'));
 const catalogue = {
-  brand: 'Fullview Signature — by Veridanth',
+  brand: 'Fullview Signature — by Avalon Group',
   audiences: audiences.map(({ id, label }) => ({ id, label })),
   services: services.map(service => ({ id: service.id, title: service.title, description: service.description, category: categories.find(category => category.id === service.category)?.title || service.category, audiences: service.audiences, unit: service.unit, days: service.days, prices: Object.fromEntries(service.audiences.map(audience => [audience, rate(service, audience)])) })),
 };

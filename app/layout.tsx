@@ -8,9 +8,9 @@ import "./brand.css";
 
 export const viewport: Viewport = {width:'device-width',initialScale:1,themeColor:brand.theme};
 export const metadata: Metadata = {
-  metadataBase: new URL('https://verighana-two.vercel.app'),
+  metadataBase: new URL('https://fvsignature.com'),
   applicationName: brand.name,
-  title: 'Fullview Signature — by Veridanth | Research. In full view.',
+  title: 'Fullview Signature — by Avalon Group | Research. In full view.',
   description: brand.description,
   manifest: '/manifest.webmanifest',
   appleWebApp: {capable:true,title:'Fullview',statusBarStyle:'default'},
@@ -18,14 +18,14 @@ export const metadata: Metadata = {
     siteName: brand.title,
     title: brand.title,
     description: brand.description,
-    images: [{url:'/brand/og-fullview-signature.png',width:1200,height:630,alt:'Fullview Signature — by Veridanth. Research. In full view.'}],
+    images: [{url:'/brand/og-fullview-signature.png?v=panorama-2',width:1200,height:630,alt:'Fullview Signature — by Avalon Group. Research. In full view.'}],
     type:'website',
   },
-  twitter: {card:'summary_large_image',title:brand.title,description:brand.description,images:['/brand/og-fullview-signature.png']},
+  twitter: {card:'summary_large_image',title:brand.title,description:brand.description,images:['/brand/og-fullview-signature.png?v=panorama-2']},
   icons: {
-    icon: [{url:'/favicon.svg',type:'image/svg+xml'},{url:'/favicon.ico',sizes:'any'}],
-    shortcut: '/favicon.ico',
-    apple: [{url:'/brand/apple-touch-icon.png',sizes:'180x180'}],
+    icon: [{url:'/favicon.svg?v=panorama-2',type:'image/svg+xml'},{url:'/favicon.ico?v=panorama-2',sizes:'any'}],
+    shortcut: '/favicon.ico?v=panorama-2',
+    apple: [{url:'/brand/apple-touch-icon.png?v=panorama-2',sizes:'180x180'}],
   },
 };
 export default function RootLayout({children}:{children:React.ReactNode}) {

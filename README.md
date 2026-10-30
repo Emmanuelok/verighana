@@ -1,4 +1,4 @@
-# Fullview Signature — by Veridanth
+# Fullview Signature — by Avalon Group
 
 The complete website source imported from ChatGPT Sites, with the public frontend adapted to native Next.js on Vercel.
 

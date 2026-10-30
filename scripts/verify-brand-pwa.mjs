@@ -4,13 +4,13 @@ import vm from 'node:vm';
 import sharp from 'sharp';
 
 const manifest = JSON.parse(readFileSync('public/manifest.webmanifest', 'utf8'));
-assert.equal(manifest.name, 'Fullview Signature — by Veridanth');
+assert.equal(manifest.name, 'Fullview Signature — by Avalon Group');
 assert.equal(manifest.display, 'standalone');
 assert.equal(manifest.scope, '/');
 assert.equal(manifest.id, '/');
 assert.ok(manifest.icons.some(icon => icon.purpose === 'maskable'));
 for (const icon of manifest.icons) {
-  const image = await sharp('public' + icon.src).metadata();
+  const image = await sharp('public' + new URL(icon.src, 'https://fvsignature.com').pathname).metadata();
   assert.equal(`${image.width}x${image.height}`, icon.sizes);
 }
 const og = await sharp('public/brand/og-fullview-signature.png').metadata();
