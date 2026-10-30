@@ -1,0 +1,31 @@
+{
+  "generationTool": "Built-in image_gen",
+  "assets": [
+    {
+      "id": "research-consultation",
+      "index": 0,
+      "title": "Research clarity consultation",
+      "src": "/services/photography/research-consultation.webp",
+      "alt": "Empty consultation room with mustard chairs, a research notebook and proposal on a walnut table",
+      "prompt": "Use case: photorealistic-natural. Asset type: service photograph for Research Clarity Consultation at Veridanth Research Ghana. Make a highly believable editorial interior photograph, as if shot with a real full-frame camera and 50mm lens, not a render or illustration. A welcoming contemporary Ghana-inspired research consultation room with two EMPTY mustard fabric chairs facing each other across a small round walnut meeting table. On the table, an open research-planning notebook, one annotated printed proposal in a dark-green folder, a black pen and two water glasses. The chairs and the practical research materials are the focus. Morning daylight enters a large side window with tropical foliage outside; warm wooden shelving and a few ordinary books softly out of focus. Natural colours, attractive green and warm yellow accents, accurate fabric, paper and wood textures, realistic perspective and soft photographic shadows. Medium-wide three-quarter view, landscape3:2 composition, centrally framed for a16:10 crop, no decorative text overlay. The scene must look like a real usable professional consultation space. No humans, hands, faces, portraits, silhouettes, mannequins, human reflections, artwork depicting people, logos or watermarks. No impossible objects, sculptures, optical prisms, metallic abstractions, floating geometry, toy-like CGI or fantasy. Papers contain only discreet generic printing, no personal data or dominant legible fake text.",
+      "source": "/workspace/scratch/b51b7f048be9/generated_images/exec-3ee7858c-4657-4b38-be0d-ad1f4d9c65e4.png",
+      "visualReview": "Passed: realistic photographic consultation setting; no people or abstract artwork.",
+      "width": 1200,
+      "height": 800,
+      "sha256": "c106092902d41fcd6e879013badc675389ef7570db481b5cfa70a57e2bc15ee3"
+    },
+    {
+      "id": "gallery-hero",
+      "index": 100,
+      "title": "Research in focus",
+      "src": "/services/photography/gallery-hero.webp",
+      "alt": "Sunlit empty research library with journals, a map and notebook on a reading table",
+      "prompt": "Use case: photorealistic-natural. Create a beautiful, completely believable editorial architectural PHOTOGRAPH of an EMPTY contemporary research library in Ghana-inspired tropical surroundings. A generous oak reading table in foreground has neatly arranged academic journals, a realistic open research notebook, printed map sheets and a closed dark-green research folder. Modern blue upholstered study chairs, warm timber shelving with real ordinary books, tall windows looking onto lush palms and garden, natural morning sunlight with gentle shadows. Camera height slightly above the table, 35mm full-frame lens, refined realistic architecture and imperfect tactile wood/paper/fabric textures. Warm, bright, inspiring, professional institutional photography with natural colour, never a CGI or luxury art render. Landscape3:2, wide clear composition, primary table and shelves safely centred for cropping into a website hero. NO people anywhere, no human reflections, faces, hands, silhouettes, mannequins, statues, portraits, human photos on books or screens, logos, watermarks, typography overlays. No sculpture, abstract artwork, floating objects, crystal ornaments, optical prisms or fantasy geometry. Real research setting and ordinary research materials only. Any printed text must be incidental and not the subject; no personal data.",
+      "source": "/workspace/scratch/b51b7f048be9/generated_images/exec-677048d9-215f-41a0-bb8c-c69acc5a7702.png",
+      "visualReview": "Passed: natural photographic library scene; no people, sculptures or fantasy.",
+      "width": 1200,
+      "height": 800,
+      "sha256": "69c96692ef238e5de3f1cadbdcc2de84ea161e41034181ab2502931f4bada22b"
+    }
+  ]
+}

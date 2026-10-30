@@ -1,0 +1,32 @@
+{
+  "assets": [
+    {
+      "id": "research-consultation",
+      "index": 0,
+      "title": "Research clarity consultation",
+      "src": "/services/artworks/research-consultation.webp",
+      "alt": "Amber glass prism casting vivid coloured rays above a cobalt plinth on coral and emerald",
+      "prompt": "Use case: stylized-concept. Asset type: original hero artwork for the Research Clarity Consultation service at Veridanth Research Ghana. Create one exceptionally art-directed editorial 3D still-life artwork, wide landscape 3:2 composition. A large amber optical prism is intersected by one beam of white light that resolves into a precise fan of luminous teal, citrus yellow, coral, and cobalt ribbons, expressing confusion becoming research clarity. Prism stands on a chunky cobalt-blue cylindrical plinth over a saturated coral studio floor, deep emerald backdrop, tiny ceramic ivory sphere for scale. The optical prism is the sole dominant sculpture and fills 60 percent of the frame. Physically convincing thick glass, polished ceramic, realistic refractions, soft grounded shadows, warm key light and crisp rim highlights, tactile luxury design publication aesthetic. Vibrant and surprising, not a stock photo, not a flat icon. Full-bleed finished standalone image, no border or panels, central crop safe with generous margin. NO humans, faces, hands, silhouettes, portraits, text, letters, numbers, logos, watermarks, office interiors, desks, books or laptops. This is a conceptual artefact photographed like a museum object, not an accurate scientific diagram.",
+      "source": "/workspace/scratch/b51b7f048be9/generated_images/exec-def3c7dc-5017-43e1-bf47-28017da54371.png",
+      "visualReview": "Passed: singular optical sculpture, rich colour, no people or text.",
+      "width": 1200,
+      "height": 800,
+      "sha256": "52066ea23fb5750af976f0f595f90399b5af5db642195cdd0391c8c718d6ef63"
+    },
+    {
+      "id": "gallery-hero",
+      "index": 100,
+      "title": "The art of possibility",
+      "src": "/services/artworks/gallery-hero.webp",
+      "alt": "Sculptural vermilion paper and cobalt ceramic petals opening from an emerald seed on travertine",
+      "prompt": "Use case: stylized-concept. Create a spectacular, original panoramic 3D editorial artwork for a Ghanaian research consultancy's service-gallery hero. One large sculptural flower of ideas: a cantilevered spiral of folded vermilion paper petals, milky-white ceramic inner fins and several rich cobalt blue fluted fins unfurls from a dark emerald stone seed, lifted above a low amber travertine platform. The architecture is abstract botanical, intricate and physically plausible, joyful yet sophisticated. Tiny yellow accents between the folds. The whole sculpture occupies right two-thirds, viewed at three-quarter angle with foreground-to-background depth, surrounded by mint sage green floor and pale warm lime seamless studio background. Real tactile paper edges, polished ceramic, natural mineral texture, beautifully believable contact shadows, soft directional museum lighting, high-end creative-agency art direction. Fullbleed landscape 3:2. Keep whole sculpture in frame and no text. Rich graphic colour blocking, no gradient-neon glow. No people, human body parts, faces, hands, silhouettes, portraits, animals, letters, numbers, logos, watermarks, panels, borders, screens, desks, books or laptops. This is art, not scientific information.",
+      "source": "/workspace/scratch/b51b7f048be9/generated_images/exec-6784f4bb-ec23-44a4-8095-8ca764098f25.png",
+      "visualReview": "Passed: tactile botanical sculpture, no people or text.",
+      "width": 1200,
+      "height": 800,
+      "sha256": "49664253eb08465df735305365d7254b69160ed04c20f70326d3da3394a2f9fc"
+    }
+  ],
+  "tool": "image_gen",
+  "direction": "Evidence made tangible: distinct, vibrant conceptual sculptures with physically realistic materials."
+}

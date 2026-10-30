@@ -1,0 +1,254 @@
+[
+  {
+    "id": "government",
+    "source": "/workspace/scratch/b51b7f048be9/generated_images/exec-f18b0635-cac5-40d9-8c69-e39f7e830fd9.png",
+    "output": "public/services/government.webp",
+    "prompt": "Use case: photorealistic-natural. Asset type: landscape premium editorial photograph for an individual research service on Veridanth Research Ghana. Strictly PEOPLE-FREE: no people, no human bodies, no faces, no hands, no silhouettes, no human reflections, no portraits, no photographs of people and no mannequins anywhere in the image, even distant background. Let the objects, materials and setting communicate the research service. Contemporary Ghana-inspired architecture and setting, believable equipment and natural materials, exceptionally refined realistic photography, soft tropical window light or natural morning light, warm ivory, deep forest-green accents and timber, realistic optical depth, no surreal effects. Landscape 3:2 composition with all important objects in the central 65% for a 16:10 service card crop. No readable text, no lettering overlays, no watermark, no logos, no official seals, no branding, no fantasy technology. Original illustrative scene, not a photograph of an actual Veridanth premise.\nScene: An empty elegant contemporary Ghana-inspired civic committee room with a long walnut conference table, neatly arranged plain forest-green policy folders, an open unlabelled evidence report, water glasses and simple comfortable chairs. Tall cream walls and sunlit windows show tropical foliage. A large neutral map composed only of outlines hangs on one wall, without labels. Camera diagonally across the table, policy documents in foreground, refined medium-wide architectural photograph. The entire room and outdoor view are completely unoccupied.",
+    "generator": "Built-in image_gen",
+    "status": "selected; visually inspected; people-free",
+    "illustrative": true,
+    "original": {
+      "width": 1536,
+      "height": 1024,
+      "format": "png"
+    },
+    "web": {
+      "width": 1000,
+      "height": 667,
+      "format": "webp",
+      "bytes": 109886,
+      "sha256": "c19669ec9c56ed915baacc7a0374e60d93e48aa48ea746b0c3fa684d9176e8bc"
+    }
+  },
+  {
+    "id": "public-services",
+    "source": "/workspace/scratch/b51b7f048be9/generated_images/exec-6229f178-d7b2-4278-895c-bbfedb173cec.png",
+    "output": "public/services/public-services.webp",
+    "prompt": "Use case: photorealistic-natural. Asset type: landscape premium editorial photograph for an individual research service on Veridanth Research Ghana. Strictly PEOPLE-FREE: no people, no human bodies, no faces, no hands, no silhouettes, no human reflections, no portraits, no photographs of people and no mannequins anywhere in the image, even distant background. Let the objects, materials and setting communicate the research service. Contemporary Ghana-inspired architecture and setting, believable equipment and natural materials, exceptionally refined realistic photography, soft tropical window light or natural morning light, warm ivory, deep forest-green accents and timber, realistic optical depth, no surreal effects. Landscape 3:2 composition with all important objects in the central 65% for a 16:10 service card crop. No readable text, no lettering overlays, no watermark, no logos, no official seals, no branding, no fantasy technology. Original illustrative scene, not a photograph of an actual Veridanth premise.\nScene: A completely empty modern Ghana-inspired public service hall with orderly timber reception desks, green seats, simple queue fixtures and clerestory light. Close foreground includes an unmarked feedback box, neat anonymous survey forms and pen on a clean counter. No signage and no people anywhere. Refined architectural editorial composition that communicates citizen service quality and research, sunlit cream walls and tactile natural finishes.",
+    "generator": "Built-in image_gen",
+    "status": "selected; visually inspected; people-free",
+    "illustrative": true,
+    "original": {
+      "width": 1536,
+      "height": 1024,
+      "format": "png"
+    },
+    "web": {
+      "width": 1000,
+      "height": 667,
+      "format": "webp",
+      "bytes": 115154,
+      "sha256": "75909f82e812ea9917f450046475da3bf21159fd32fee3c9fa3ee48fa400b3ec"
+    }
+  },
+  {
+    "id": "private-institution",
+    "source": "/workspace/scratch/b51b7f048be9/generated_images/exec-be927eaf-d7f4-4b5e-9cc4-cac3a8d59444.png",
+    "output": "public/services/private-institution.webp",
+    "prompt": "Use case: photorealistic-natural. Asset type: landscape premium editorial photograph for an individual research service on Veridanth Research Ghana. Strictly PEOPLE-FREE: no people, no human bodies, no faces, no hands, no silhouettes, no human reflections, no portraits, no photographs of people and no mannequins anywhere in the image, even distant background. Let the objects, materials and setting communicate the research service. Contemporary Ghana-inspired architecture and setting, believable equipment and natural materials, exceptionally refined realistic photography, soft tropical window light or natural morning light, warm ivory, deep forest-green accents and timber, realistic optical depth, no surreal effects. Landscape 3:2 composition with all important objects in the central 65% for a 16:10 service card crop. No readable text, no lettering overlays, no watermark, no logos, no official seals, no branding, no fantasy technology. Original illustrative scene, not a photograph of an actual Veridanth premise.\nScene: A completely empty contemporary private-institution boardroom with glass partition, a large timber table, sage upholstered chairs and sunlit indoor plants. In the foreground, unlabelled strategic planning charts and forest-green folders are arranged neatly beside a closed laptop. No faces reflected in glass. Medium-wide architectural editorial photography, warm light, professionally credible strategy-workshop environment.",
+    "generator": "Built-in image_gen",
+    "status": "selected; visually inspected; people-free",
+    "illustrative": true,
+    "original": {
+      "width": 1536,
+      "height": 1024,
+      "format": "png"
+    },
+    "web": {
+      "width": 1000,
+      "height": 667,
+      "format": "webp",
+      "bytes": 105928,
+      "sha256": "08639e4e2942c7b4aa894431e6218d34395509d5f5252efc36eb9602a4463bde"
+    }
+  },
+  {
+    "id": "schools",
+    "source": "/workspace/scratch/b51b7f048be9/generated_images/exec-1c3b2cd7-63ce-464e-8091-429df7e11294.png",
+    "output": "public/services/schools.webp",
+    "prompt": "Use case: photorealistic-natural. Asset type: landscape premium editorial photograph for an individual research service on Veridanth Research Ghana. Strictly PEOPLE-FREE: no people, no human bodies, no faces, no hands, no silhouettes, no human reflections, no portraits, no photographs of people and no mannequins anywhere in the image, even distant background. Let the objects, materials and setting communicate the research service. Contemporary Ghana-inspired architecture and setting, believable equipment and natural materials, exceptionally refined realistic photography, soft tropical window light or natural morning light, warm ivory, deep forest-green accents and timber, realistic optical depth, no surreal effects. Landscape 3:2 composition with all important objects in the central 65% for a 16:10 service card crop. No readable text, no lettering overlays, no watermark, no logos, no official seals, no branding, no fantasy technology. Original illustrative scene, not a photograph of an actual Veridanth premise.\nScene: A completely empty bright Ghana-inspired secondary school classroom with clean timber desks, a dark green chalkboard that is blank, open windows, and tropical greenery outside. On a foreground teacher desk lie neatly stacked anonymous assessment sheets, a small bundle of exercise books, pencils and a simple geometric teaching aid. No drawings of people, no portraits, no children, no people through windows. Premium natural architectural photograph with warm hopeful light.",
+    "generator": "Built-in image_gen",
+    "status": "selected; visually inspected; people-free",
+    "illustrative": true,
+    "original": {
+      "width": 1536,
+      "height": 1024,
+      "format": "png"
+    },
+    "web": {
+      "width": 1000,
+      "height": 667,
+      "format": "webp",
+      "bytes": 101950,
+      "sha256": "f6ab48fffb73f49afe886b127f5a6f6faeed44e461daaa967e1f5014369b04d6"
+    }
+  },
+  {
+    "id": "university",
+    "source": "/workspace/scratch/b51b7f048be9/generated_images/exec-0beb20d6-ed92-4234-bf80-853fd09cc886.png",
+    "output": "public/services/university.webp",
+    "prompt": "Use case: photorealistic-natural. Asset type: landscape premium editorial photograph for an individual research service on Veridanth Research Ghana. Strictly PEOPLE-FREE: no people, no human bodies, no faces, no hands, no silhouettes, no human reflections, no portraits, no photographs of people and no mannequins anywhere in the image, even distant background. Let the objects, materials and setting communicate the research service. Contemporary Ghana-inspired architecture and setting, believable equipment and natural materials, exceptionally refined realistic photography, soft tropical window light or natural morning light, warm ivory, deep forest-green accents and timber, realistic optical depth, no surreal effects. Landscape 3:2 composition with all important objects in the central 65% for a 16:10 service card crop. No readable text, no lettering overlays, no watermark, no logos, no official seals, no branding, no fantasy technology. Original illustrative scene, not a photograph of an actual Veridanth premise.\nScene: A completely empty and quiet Ghana-inspired university library study area with warm wooden bookshelves and a long study desk by tall windows. A few open unlabelled journals, a laptop displaying only an abstract literature search interface, notebooks and a brass reading lamp create an appealing research still life. Focus on the desk and book-lined interior, soft green tropical garden seen outside. No portraits or people on book covers, no reflected person, no one in background.",
+    "generator": "Built-in image_gen",
+    "status": "selected; visually inspected; people-free",
+    "illustrative": true,
+    "original": {
+      "width": 1536,
+      "height": 1024,
+      "format": "png"
+    },
+    "web": {
+      "width": 1000,
+      "height": 667,
+      "format": "webp",
+      "bytes": 104528,
+      "sha256": "dd90b0d03b5ca0a79cf60e27b5bc0fd63646d8f506af03c6486d6d57b562e9d6"
+    }
+  },
+  {
+    "id": "nonprofit",
+    "source": "/workspace/scratch/b51b7f048be9/generated_images/exec-fcda6cd1-4e67-4102-a760-14e61f081ccc.png",
+    "output": "public/services/nonprofit.webp",
+    "prompt": "Use case: photorealistic-natural. Asset type: landscape premium editorial photograph for an individual research service on Veridanth Research Ghana. Strictly PEOPLE-FREE: no people, no human bodies, no faces, no hands, no silhouettes, no human reflections, no portraits, no photographs of people and no mannequins anywhere in the image, even distant background. Let the objects, materials and setting communicate the research service. Contemporary Ghana-inspired architecture and setting, believable equipment and natural materials, exceptionally refined realistic photography, soft tropical window light or natural morning light, warm ivory, deep forest-green accents and timber, realistic optical depth, no surreal effects. Landscape 3:2 composition with all important objects in the central 65% for a 16:10 service card crop. No readable text, no lettering overlays, no watermark, no logos, no official seals, no branding, no fantasy technology. Original illustrative scene, not a photograph of an actual Veridanth premise.\nScene: A completely empty, beautifully arranged Ghana-inspired community meeting space shaded by a veranda. Wooden chairs form a welcoming semicircle around a low table with blank coloured workshop cards, unmarked clipboard and pencils. Natural woven textures, cream plaster, green courtyard foliage and warm sunlight. Scene communicates participatory research and nonprofit programme planning with no logos, no signs, and absolutely no people anywhere.",
+    "generator": "Built-in image_gen",
+    "status": "selected; visually inspected; people-free",
+    "illustrative": true,
+    "original": {
+      "width": 1536,
+      "height": 1024,
+      "format": "png"
+    },
+    "web": {
+      "width": 1000,
+      "height": 667,
+      "format": "webp",
+      "bytes": 152226,
+      "sha256": "ac991a159b06e8f36e5956ba3c5520143d5b02ad31025edc2210d73d30ccdc28"
+    }
+  },
+  {
+    "id": "market",
+    "source": "/workspace/scratch/b51b7f048be9/generated_images/exec-bb5047aa-fb56-4250-8638-ba0cf9fd69ac.png",
+    "output": "public/services/market.webp",
+    "prompt": "Use case: photorealistic-natural. Asset type: landscape premium editorial photograph for an individual research service on Veridanth Research Ghana. Strictly PEOPLE-FREE: no people, no human bodies, no faces, no hands, no silhouettes, no human reflections, no portraits, no photographs of people and no mannequins anywhere in the image, even distant background. Let the objects, materials and setting communicate the research service. Contemporary Ghana-inspired architecture and setting, believable equipment and natural materials, exceptionally refined realistic photography, soft tropical window light or natural morning light, warm ivory, deep forest-green accents and timber, realistic optical depth, no surreal effects. Landscape 3:2 composition with all important objects in the central 65% for a 16:10 service card crop. No readable text, no lettering overlays, no watermark, no logos, no official seals, no branding, no fantasy technology. Original illustrative scene, not a photograph of an actual Veridanth premise.\nScene: A beautifully arranged Ghanaian fresh-produce market stall viewed close and slightly wide, completely unoccupied with no vendor or customer or person anywhere in background. Woven baskets and wooden crates hold vivid tomatoes, red and green peppers, garden eggs, plantains and leafy greens in natural market presentation. Unmarked research notebook and simple calculator at the side subtly suggest market analysis. Sunlit tropical setting, authentic materials, rich natural colours, elegant editorial food-and-place photography.",
+    "generator": "Built-in image_gen",
+    "status": "selected; visually inspected; people-free",
+    "illustrative": true,
+    "original": {
+      "width": 1536,
+      "height": 1024,
+      "format": "png"
+    },
+    "web": {
+      "width": 1000,
+      "height": 667,
+      "format": "webp",
+      "bytes": 173404,
+      "sha256": "efaa9905b929ebce5bb141335e64680f735333b69439bb993b4a819918c28167"
+    }
+  },
+  {
+    "id": "sustainability",
+    "source": "/workspace/scratch/b51b7f048be9/generated_images/exec-1e1c77e7-34d9-4553-b65b-fbe37297d8ec.png",
+    "output": "public/services/sustainability.webp",
+    "prompt": "Use case: photorealistic-natural. Asset type: landscape premium editorial photograph for an individual research service on Veridanth Research Ghana. Strictly PEOPLE-FREE: no people, no human bodies, no faces, no hands, no silhouettes, no human reflections, no portraits, no photographs of people and no mannequins anywhere in the image, even distant background. Let the objects, materials and setting communicate the research service. Contemporary Ghana-inspired architecture and setting, believable equipment and natural materials, exceptionally refined realistic photography, soft tropical window light or natural morning light, warm ivory, deep forest-green accents and timber, realistic optical depth, no surreal effects. Landscape 3:2 composition with all important objects in the central 65% for a 16:10 service card crop. No readable text, no lettering overlays, no watermark, no logos, no official seals, no branding, no fantasy technology. Original illustrative scene, not a photograph of an actual Veridanth premise.\nScene: A tranquil Ghana-inspired lush wetland at golden morning light, completely unoccupied. In the foreground on dry ground, an open field sampling case, small capped sample bottles, an unmarked field notebook, a simple handheld water-testing instrument and a tripod stand ready for environmental research. Reflective water, reeds and dense green canopy behind. Equipment arranged naturally, believable scale and materials. No people, hands, human reflections or figures even in the distance.",
+    "generator": "Built-in image_gen",
+    "status": "selected; visually inspected; people-free",
+    "illustrative": true,
+    "original": {
+      "width": 1536,
+      "height": 1024,
+      "format": "png"
+    },
+    "web": {
+      "width": 1000,
+      "height": 667,
+      "format": "webp",
+      "bytes": 189508,
+      "sha256": "0a34539faefad4525674ecfd7d44c7b4e8c8d1d9620e1beedcf1afd9c9dd1681"
+    }
+  },
+  {
+    "id": "digital",
+    "source": "/workspace/scratch/b51b7f048be9/generated_images/exec-5801e27f-031f-4694-ab56-0596aac1f196.png",
+    "output": "public/services/digital.webp",
+    "prompt": "Use case: photorealistic-natural. Asset type: landscape premium editorial photograph for an individual research service on Veridanth Research Ghana. Strictly PEOPLE-FREE: no people, no human bodies, no faces, no hands, no silhouettes, no human reflections, no portraits, no photographs of people and no mannequins anywhere in the image, even distant background. Let the objects, materials and setting communicate the research service. Contemporary Ghana-inspired architecture and setting, believable equipment and natural materials, exceptionally refined realistic photography, soft tropical window light or natural morning light, warm ivory, deep forest-green accents and timber, realistic optical depth, no surreal effects. Landscape 3:2 composition with all important objects in the central 65% for a 16:10 service card crop. No readable text, no lettering overlays, no watermark, no logos, no official seals, no branding, no fantasy technology. Original illustrative scene, not a photograph of an actual Veridanth premise.\nScene: A completely empty digital research and design workstation in a modern Ghana-inspired office. Two believable monitors display neutral interface wireframes and unlabeled simple charts; a laptop, keyboard, mouse, unmarked notebook and green ceramic cup sit on a warm walnut desk. Soft tropical window light and green indoor plants. Focus on tools and screens, realistic cables and clean practical geometry. No people in screens or reflections, no hands, no holograms.",
+    "generator": "Built-in image_gen",
+    "status": "selected; visually inspected; people-free",
+    "illustrative": true,
+    "original": {
+      "width": 1536,
+      "height": 1024,
+      "format": "png"
+    },
+    "web": {
+      "width": 1000,
+      "height": 667,
+      "format": "webp",
+      "bytes": 117818,
+      "sha256": "f2c1a6bd47902f8d64ce78d62f7873265cfb96caa761fc2bc4aab77b437580b6"
+    }
+  },
+  {
+    "id": "evaluation",
+    "source": "/workspace/scratch/b51b7f048be9/generated_images/exec-6dba4a03-3f16-4ed9-ba8c-dd177eb38c75.png",
+    "output": "public/services/evaluation.webp",
+    "prompt": "Use case: photorealistic-natural. Asset type: landscape premium editorial photograph for an individual research service on Veridanth Research Ghana. Strictly PEOPLE-FREE: no people, no human bodies, no faces, no hands, no silhouettes, no human reflections, no portraits, no photographs of people and no mannequins anywhere in the image, even distant background. Let the objects, materials and setting communicate the research service. Contemporary Ghana-inspired architecture and setting, believable equipment and natural materials, exceptionally refined realistic photography, soft tropical window light or natural morning light, warm ivory, deep forest-green accents and timber, realistic optical depth, no surreal effects. Landscape 3:2 composition with all important objects in the central 65% for a 16:10 service card crop. No readable text, no lettering overlays, no watermark, no logos, no official seals, no branding, no fantasy technology. Original illustrative scene, not a photograph of an actual Veridanth premise.\nScene: An empty programme-evaluation workshop room in a contemporary Ghana-inspired institutional office. A large physical cork evidence board displays neatly grouped plain green and ochre cards, anonymous simple chart printouts and connecting strings, with absolutely no readable writing or portraits. Foreground table has unmarked evaluation folders, an open notebook, pencils and a ruler. Empty chairs, cream walls and soft natural tropical light. Detailed editorial photograph centred on evidence and tools.",
+    "generator": "Built-in image_gen",
+    "status": "selected; visually inspected; people-free",
+    "illustrative": true,
+    "original": {
+      "width": 1536,
+      "height": 1024,
+      "format": "png"
+    },
+    "web": {
+      "width": 1000,
+      "height": 667,
+      "format": "webp",
+      "bytes": 106482,
+      "sha256": "072b52b6e6215c5b7779079e84d146d737846d037f741861448db6443b6c8059"
+    }
+  },
+  {
+    "id": "training",
+    "source": "/workspace/scratch/b51b7f048be9/generated_images/exec-6240407b-1332-464f-81f3-22d9360916eb.png",
+    "output": "public/services/training.webp",
+    "prompt": "Use case: photorealistic-natural. Asset type: landscape premium editorial photograph for an individual research service on Veridanth Research Ghana. Strictly PEOPLE-FREE: no people, no human bodies, no faces, no hands, no silhouettes, no human reflections, no portraits, no photographs of people and no mannequins anywhere in the image, even distant background. Let the objects, materials and setting communicate the research service. Contemporary Ghana-inspired architecture and setting, believable equipment and natural materials, exceptionally refined realistic photography, soft tropical window light or natural morning light, warm ivory, deep forest-green accents and timber, realistic optical depth, no surreal effects. Landscape 3:2 composition with all important objects in the central 65% for a 16:10 service card crop. No readable text, no lettering overlays, no watermark, no logos, no official seals, no branding, no fantasy technology. Original illustrative scene, not a photograph of an actual Veridanth premise.\nScene: A completely empty contemporary professional training room in Ghana, thoughtfully arranged with three rows of timber tables, green ergonomic chairs, open unbranded laptops displaying simple neutral blank software windows, notebooks and water glasses. A blank projection screen at front and tall windows with tropical greenery. Warm welcoming architectural photograph from the back corner at desk height. Nobody in the room, on screens, outside windows or in reflections.",
+    "generator": "Built-in image_gen",
+    "status": "selected; visually inspected; people-free",
+    "illustrative": true,
+    "original": {
+      "width": 1536,
+      "height": 1024,
+      "format": "png"
+    },
+    "web": {
+      "width": 1000,
+      "height": 667,
+      "format": "webp",
+      "bytes": 102750,
+      "sha256": "f193e13a403826a75d91af4cf7189f27c05b7e2f763dce34d5e66065321abb5e"
+    }
+  },
+  {
+    "id": "construction",
+    "source": "/workspace/scratch/b51b7f048be9/generated_images/exec-2dd9ef4b-14bd-4fd9-821b-81be81308fa3.png",
+    "output": "public/services/construction.webp",
+    "prompt": "Use case: photorealistic-natural. Asset type: landscape premium editorial photograph for an individual research service on Veridanth Research Ghana. Strictly PEOPLE-FREE: no people, no human bodies, no faces, no hands, no silhouettes, no human reflections, no portraits, no photographs of people and no mannequins anywhere in the image, even distant background. Let the objects, materials and setting communicate the research service. Contemporary Ghana-inspired architecture and setting, believable equipment and natural materials, exceptionally refined realistic photography, soft tropical window light or natural morning light, warm ivory, deep forest-green accents and timber, realistic optical depth, no surreal effects. Landscape 3:2 composition with all important objects in the central 65% for a 16:10 service card crop. No readable text, no lettering overlays, no watermark, no logos, no official seals, no branding, no fantasy technology. Original illustrative scene, not a photograph of an actual Veridanth premise.\nScene: Close editorial still-life photograph of unlabelled architectural plans spread on a temporary solid timber site table, a clean white hard hat, a folded high-visibility vest, a measuring tape, survey notebook and a small realistic surveying instrument. Behind, a contemporary Ghana-inspired building site with concrete structure, carefully staged materials and tropical greenery, entirely empty and with no workers or distant figures anywhere. Warm natural late-afternoon light. Focus on the plans and equipment, detailed realistic materials, no readable writing or logos.",
+    "generator": "Built-in image_gen",
+    "status": "selected; visually inspected; people-free",
+    "illustrative": true,
+    "original": {
+      "width": 1536,
+      "height": 1024,
+      "format": "png"
+    },
+    "web": {
+      "width": 1000,
+      "height": 667,
+      "format": "webp",
+      "bytes": 129736,
+      "sha256": "92ce394c6b304f4969d41d27c3c8aa7ec63358e27e0c059e488614d54f4bd45f"
+    }
+  }
+]

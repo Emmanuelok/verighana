@@ -1,0 +1,177 @@
+{
+  "schema_version": "1.0",
+  "brand": {
+    "name": "Veridanth Research Ghana",
+    "purpose": "Turn research questions into clarity and progress.",
+    "positioning": "Independent Ghana-rooted research support.",
+    "audiences": [
+      "students",
+      "researchers",
+      "organisations"
+    ],
+    "attributes": [
+      "vibrant",
+      "credible",
+      "human",
+      "ambitious"
+    ],
+    "anti_attributes": [
+      "muted",
+      "generic",
+      "unreadable"
+    ]
+  },
+  "identity": {
+    "logo_assets": [
+      "public/favicon.svg"
+    ],
+    "logo_rules": {
+      "clear_space": "",
+      "minimum_size": "",
+      "backgrounds": [],
+      "prohibited_uses": []
+    },
+    "colors": {
+      "primary": [
+        "#064e40",
+        "#123d36"
+      ],
+      "secondary": [
+        "#eef1e6"
+      ],
+      "accent": [
+        "#edbf62"
+      ],
+      "neutral": [
+        "#fafaf5",
+        "#53675e"
+      ],
+      "semantic": [
+        "#197657"
+      ]
+    },
+    "typography": {
+      "display": {
+        "family": "DM Sans",
+        "weight": 600
+      },
+      "heading": {
+        "family": "DM Sans",
+        "weight": 600
+      },
+      "body": {
+        "family": "DM Sans",
+        "weight": 400
+      },
+      "mono_or_data": {
+        "family": "DM Sans"
+      },
+      "scale": [
+        12,
+        14,
+        16,
+        26,
+        42,
+        66,
+        104
+      ],
+      "fallbacks": [
+        "Arial",
+        "Georgia"
+      ]
+    },
+    "grid_and_spacing": {
+      "base_unit": 4,
+      "spacing_scale": [],
+      "layout_grids": []
+    },
+    "shape_and_material": {
+      "geometry": [],
+      "radii": [],
+      "borders": [],
+      "shadows": [],
+      "textures": [],
+      "materials": []
+    },
+    "imagery": {
+      "subjects": [],
+      "composition": [],
+      "camera": [],
+      "lighting": [],
+      "color_treatment": [],
+      "exclusions": []
+    },
+    "illustration_and_icons": {
+      "construction": [],
+      "line_weight": "",
+      "perspective": "",
+      "color_behavior": "",
+      "exclusions": []
+    },
+    "motion": {
+      "principles": [
+        "Calm cinema",
+        "Small progressive reveals",
+        "Clear interaction feedback"
+      ],
+      "duration_bands_ms": {
+        "fast": 200,
+        "entry": 650
+      },
+      "easing": {
+        "standard": "ease"
+      },
+      "transition_families": [
+        "color",
+        "transform"
+      ],
+      "reduced_motion": "Static hero poster; disable nonessential movement; explicit play control."
+    }
+  },
+  "voice": {
+    "principles": [],
+    "headline_behavior": "",
+    "body_behavior": "",
+    "calls_to_action": [],
+    "terms_to_use": [],
+    "terms_to_avoid": []
+  },
+  "interface_tokens": {
+    "breakpoints": {
+      "mobile": 760,
+      "tablet": 1050,
+      "wide": 1600
+    },
+    "containers": {
+      "wide": 1360,
+      "mobileGutter": 20
+    },
+    "component_states": [
+      "hover",
+      "focus-visible",
+      "selected",
+      "loading",
+      "error"
+    ],
+    "focus_style": "3px warm gold outline with 5px offset",
+    "accessibility_targets": [
+      "Readability",
+      "keyboard operation",
+      "reduced-motion parity"
+    ]
+  },
+  "governance": {
+    "owners": [
+      "Veridanth"
+    ],
+    "approval_rules": [
+      "Preserve source catalogue and author integrity",
+      "No unverified claims"
+    ],
+    "asset_sources_and_licenses": [
+      "Original AI-generated hero film and previous generated courtyard"
+    ],
+    "version": "2.0",
+    "updated_at": "2026-10-30"
+  }
+}

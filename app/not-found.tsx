@@ -1,0 +1,1 @@
+export default function NotFound(){return <main className="not-found"><a href="/" className="eyebrow">VERIDANTH RESEARCH GHANA</a><h1>A question<br/><em>without a page.</em></h1><p>This address does not lead to a research page.</p><a className="button" href="/">Return to Veridanth →</a></main>}

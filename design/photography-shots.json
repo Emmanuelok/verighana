@@ -1,0 +1,802 @@
+[
+  {
+    "index": 0,
+    "id": "research-consultation",
+    "title": "Research clarity consultation",
+    "category": "scholar",
+    "description": "A focused conversation to untangle your research question, identify gaps and map the next steps.",
+    "scene": "A welcoming real research consultation room with two empty mustard upholstered chairs and a round walnut table carrying an open planning notebook, a printed proposal and water glasses. Framed tightly around the table with sunlit greenery through a window; natural emerald and warm wood accents."
+  },
+  {
+    "index": 1,
+    "id": "topic-development",
+    "title": "Topic & question development",
+    "category": "design",
+    "description": "Develop an achievable, original research question aligned with your interests and available evidence.",
+    "scene": "Top-down editorial view of a research-question planning session left neatly on a cork-topped desk: handwritten question cards, a mind-map notebook, pencil and colour tabs. Real paper with imperfect edges, no symbolic sculptures."
+  },
+  {
+    "index": 2,
+    "id": "proposal-review",
+    "title": "Research proposal review",
+    "category": "design",
+    "description": "Expert feedback on your own proposal, from the research gap to the logic of your methods.",
+    "scene": "Close oblique view of a thick printed research proposal with red margin annotations and yellow review tabs, a navy document folder and black pen, late-afternoon light on a cream desk."
+  },
+  {
+    "index": 3,
+    "id": "methodology",
+    "title": "Methodology & study design",
+    "category": "design",
+    "description": "Choose and justify methods that fit your question, setting and practical constraints.",
+    "scene": "A real methodological planning wall in a small research office: a tidy flow of paper method cards, sampling worksheets and a desk below with graph paper and ruler. Wide architectural view with no people."
+  },
+  {
+    "index": 4,
+    "id": "ethics",
+    "title": "Ethics application support",
+    "category": "design",
+    "description": "Prepare clear participant information and strengthen an ethics submission for your own institution.",
+    "scene": "A confidential ethics application folder, participant-information sheets and consent forms beside a lockable records cabinet, photographed at desk height in a quiet professional office. No identifiable names."
+  },
+  {
+    "index": 5,
+    "id": "instruments",
+    "title": "Survey & interview instrument design",
+    "category": "design",
+    "description": "Develop or review a focused instrument that produces useful, relevant evidence.",
+    "scene": "A tablet displaying a realistic anonymous questionnaire beside a printed interview guide, audio recorder and pencil on a vivid teal desk pad. Close three-quarter product-detail photograph."
+  },
+  {
+    "index": 6,
+    "id": "sampling",
+    "title": "Sampling & power planning",
+    "category": "design",
+    "description": "Plan recruitment and sample size with assumptions you can explain and defend.",
+    "scene": "Sampling frame printout and a marked neighbourhood street map with small real locator pins, pocket calculator and sampling worksheet. Angled overhead photography on a research planning table."
+  },
+  {
+    "index": 7,
+    "id": "search-strategy",
+    "title": "Literature search strategy",
+    "category": "evidence",
+    "description": "Make your literature search systematic, traceable and easier to update.",
+    "scene": "A university library literature-search workstation: monitor with an academic database search interface and subject keywords, real bound journals on nearby shelving. Wide side view, screen content anonymised."
+  },
+  {
+    "index": 8,
+    "id": "literature-coaching",
+    "title": "Literature review coaching",
+    "category": "evidence",
+    "description": "Strengthen the synthesis, critical voice and structure of a review you have written.",
+    "scene": "Open academic books and a draft literature review with colour-coded citations, index cards and sticky tabs laid across a sunny library reading table. Side-on close photograph with shallow depth of field."
+  },
+  {
+    "index": 9,
+    "id": "systematic-protocol",
+    "title": "Systematic review protocol",
+    "category": "evidence",
+    "description": "Develop a reproducible plan for screening, extracting and synthesising evidence.",
+    "scene": "A systematic-review protocol binder opened to an inclusion-criteria checklist beside organised screening forms and a laptop edge. Top-down photo on a light oak desk; clear practical paper workflow."
+  },
+  {
+    "index": 10,
+    "id": "evidence-synthesis",
+    "title": "Evidence synthesis & rapid review",
+    "category": "evidence",
+    "description": "Commission a bounded evidence review for a business, policy or institutional decision.",
+    "scene": "A realistic evidence-extraction spreadsheet displayed on a large monitor, with a small organised stack of journal articles, highlighted extraction notes and a red coffee mug. Three-quarter close photograph."
+  },
+  {
+    "index": 11,
+    "id": "bibliometrics",
+    "title": "Bibliometric & scientometric analysis",
+    "category": "evidence",
+    "description": "Map a research field through publication patterns, networks and emerging themes.",
+    "scene": "A research workstation monitor showing a dense colourful publication-network visualisation, with citation printouts and a trackball on a dark desk. Crisp actual equipment and natural monitor glow, not floating graphics."
+  },
+  {
+    "index": 12,
+    "id": "survey-digitisation",
+    "title": "Digital survey setup",
+    "category": "data",
+    "description": "Turn an approved questionnaire into a field-ready digital collection instrument.",
+    "scene": "A rugged tablet showing an anonymous mobile survey form beside a smartphone and numbered paper questionnaires, photographed close on a bright outdoor fieldwork table."
+  },
+  {
+    "index": 13,
+    "id": "fieldwork",
+    "title": "Fieldwork & data collection planning",
+    "category": "data",
+    "description": "Plan practical, ethical primary research across your target population.",
+    "scene": "An open fieldwork equipment case containing a handheld GPS, compact recorder, paper maps and waterproof survey forms, set on a veranda overlooking green Ghana-inspired countryside. No people anywhere."
+  },
+  {
+    "index": 14,
+    "id": "data-cleaning",
+    "title": "Data cleaning & preparation",
+    "category": "data",
+    "description": "Resolve missingness, coding problems and structural issues before analysis begins.",
+    "scene": "Close photograph of a computer monitor showing an anonymised data table with visible quality-check columns and highlighted missing-value cells, a keyboard and data-cleaning notes in the foreground."
+  },
+  {
+    "index": 15,
+    "id": "quantitative",
+    "title": "Quantitative data analysis",
+    "category": "data",
+    "description": "Understand your results through a transparent analysis matched to your research questions.",
+    "scene": "A real statistics workstation with two screens showing modest regression plots and a results table, a calculator and open analysis notebook. Sunlit office, warm wood and deep blue desk accents."
+  },
+  {
+    "index": 16,
+    "id": "advanced-modelling",
+    "title": "Advanced statistical modelling",
+    "category": "data",
+    "description": "Specialist support for regression, multilevel, time-series or structural equation models.",
+    "scene": "An advanced analysis workstation displaying a statistical response-surface plot and diagnostics on a high-resolution monitor, graph paper and technical notes nearby. Side-angle screen-led photograph."
+  },
+  {
+    "index": 17,
+    "id": "qualitative",
+    "title": "Qualitative coding & analysis",
+    "category": "data",
+    "description": "Build a transparent analytical framework for interviews, focus groups or documents.",
+    "scene": "Printed interview transcripts arranged in coloured coding folders with highlighted passages, sticky labels and a pencil. Close overhead editorial photograph on a warm timber table; all text anonymous."
+  },
+  {
+    "index": 18,
+    "id": "mixed-methods",
+    "title": "Mixed-methods integration",
+    "category": "data",
+    "description": "Bring quantitative and qualitative findings into a coherent explanation.",
+    "scene": "A research integration board pairing printed numerical charts with coded qualitative notes in a structured side-by-side paper matrix. Photograph of a real pinboard and study desk, no people."
+  },
+  {
+    "index": 19,
+    "id": "gis",
+    "title": "GIS & spatial analysis",
+    "category": "data",
+    "description": "Investigate place-based questions with clear maps and documented spatial methods.",
+    "scene": "A GIS workstation showing a detailed land-use map and map layers, large printed regional map, compass and survey notebook. Photographic office equipment and believable mapped terrain."
+  },
+  {
+    "index": 20,
+    "id": "transcription",
+    "title": "Research transcription",
+    "category": "data",
+    "description": "Create a working English transcript from clear research audio for analysis.",
+    "scene": "Real transcription equipment: padded headphones, digital voice recorder and desktop audio waveform on a monitor. Close side view on a quiet acoustic-treated desk with soft daylight, no human reflections."
+  },
+  {
+    "index": 21,
+    "id": "developmental-edit",
+    "title": "Developmental editing",
+    "category": "publication",
+    "description": "Improve the argument, flow and organisation of your existing research writing.",
+    "scene": "A printed manuscript organised into chapter sections with multicolour index tabs and structural editorial notes, spread naturally across a broad oak worktable. Overhead view, genuine paper and stationery."
+  },
+  {
+    "index": 22,
+    "id": "academic-edit",
+    "title": "Academic language editing",
+    "category": "publication",
+    "description": "Refine clarity, grammar and scholarly expression while preserving your meaning.",
+    "scene": "Macro editorial photograph of an academic paragraph with careful handwritten language corrections in red ink, reading glasses and a fountain pen. Warm cream paper against muted blue fabric desk mat."
+  },
+  {
+    "index": 23,
+    "id": "proofreading",
+    "title": "Final proofreading",
+    "category": "publication",
+    "description": "Give your completed manuscript a careful final check before submission.",
+    "scene": "A proofreading page with subtle pencil correction marks and a fine-point pencil beside a clean final copy. Extreme close detail of real paper fibres and typesetting, no hands."
+  },
+  {
+    "index": 24,
+    "id": "references",
+    "title": "Referencing & formatting",
+    "category": "publication",
+    "description": "Bring references and presentation into line with your chosen style guide.",
+    "scene": "Reference-manager software on a laptop beside a neatly formatted bibliography, citation-style handbook and bookmark tabs. Bright library alcove, diagonal composition, anonymous document text."
+  },
+  {
+    "index": 25,
+    "id": "manuscript-review",
+    "title": "Journal manuscript review",
+    "category": "publication",
+    "description": "Receive a critical, constructive review of your manuscript before journal submission.",
+    "scene": "An anonymous journal manuscript in a blue folder beside a peer-review checklist, review notes and two clipped article copies. Professional desk still life, tight composition, restrained red accents."
+  },
+  {
+    "index": 26,
+    "id": "journal-strategy",
+    "title": "Journal selection & submission support",
+    "category": "publication",
+    "description": "Identify suitable journals and navigate submission requirements with more confidence.",
+    "scene": "A library display of unbranded academic journal issues and printed author-guideline checklists, with a manuscript submission folder. Side view of real publications, realistic paper and binding."
+  },
+  {
+    "index": 27,
+    "id": "reviewer-response",
+    "title": "Response to reviewers coaching",
+    "category": "publication",
+    "description": "Plan clear revisions and a respectful, evidence-led response to peer review.",
+    "scene": "A reviewers-response matrix printed next to a manuscript with tracked amendments on a laptop, green ticks on a revision checklist. Sunny worktable, no named reviewers or institutions."
+  },
+  {
+    "index": 28,
+    "id": "viva",
+    "title": "Viva & defence preparation",
+    "category": "scholar",
+    "description": "Practise explaining your contribution, defending your decisions and responding to difficult questions.",
+    "scene": "An empty university thesis-defence seminar room with lectern, presentation screen, neat table microphones and a row of empty examiner chairs. Warm wood panelling and natural campus daylight."
+  },
+  {
+    "index": 29,
+    "id": "grant-review",
+    "title": "Grant proposal development support",
+    "category": "scholar",
+    "description": "Strengthen the case, work plan and budget logic of your own funding application.",
+    "scene": "A research grant application folder opened beside a detailed anonymous budget worksheet, desktop calculator and a tabbed funding-call printout. Tight elevated angle, emerald folder on a real cream table."
+  },
+  {
+    "index": 30,
+    "id": "fellowship",
+    "title": "Postdoctoral fellowship support",
+    "category": "scholar",
+    "description": "Shape a coherent fellowship plan that communicates your research direction and fit.",
+    "scene": "An academic fellowship application portfolio and travel folder on a desk beside a window overlooking an empty university courtyard. Natural morning light, slate-blue and warm terracotta details."
+  },
+  {
+    "index": 31,
+    "id": "research-profile",
+    "title": "Academic CV & research profile",
+    "category": "scholar",
+    "description": "Present your research contribution clearly for academic roles, collaborations or funding.",
+    "scene": "A professional academic CV and research-profile portfolio with publication list, certificate sleeves and a clean laptop edge. No headshot, no signatures, no real person names. Flat lay on charcoal desk."
+  },
+  {
+    "index": 32,
+    "id": "market-research",
+    "title": "Market research & opportunity assessment",
+    "category": "business",
+    "description": "Understand a Ghanaian market, its demand signals and the opportunity for your organisation.",
+    "scene": "A colourful unstaffed Ghana-inspired produce market stall with carefully arranged mangoes, tomatoes, peppers and woven baskets, practical price tags too soft to read. Golden morning editorial market photograph, absolutely no people in background."
+  },
+  {
+    "index": 33,
+    "id": "customer-insights",
+    "title": "Customer & consumer insights",
+    "category": "business",
+    "description": "Understand the people behind your market and the decisions that shape demand.",
+    "scene": "A real shop customer-feedback station with a tablet survey, paper comment cards and a small suggestion box, colourful retail shelves softly blurred behind it. No staff, shoppers, portraits or faces on packaging."
+  },
+  {
+    "index": 34,
+    "id": "feasibility",
+    "title": "Feasibility & business case research",
+    "category": "business",
+    "description": "Test the evidence and assumptions behind a new investment, programme or venture.",
+    "scene": "Construction feasibility research materials: real architectural plans, a hard hat, measuring tape and site-assessment folder on a table overlooking an empty construction plot with a crane far away. Bright realistic daylight."
+  },
+  {
+    "index": 35,
+    "id": "competitive",
+    "title": "Competitive intelligence",
+    "category": "business",
+    "description": "Build a grounded view of your competitive landscape using publicly available evidence.",
+    "scene": "A competitor-analysis desk with five different unbranded everyday product packages, a printed comparison matrix and a laptop edge. Clean photographic product-research setup, not abstract artwork."
+  },
+  {
+    "index": 36,
+    "id": "ux-research",
+    "title": "User experience research",
+    "category": "business",
+    "description": "Find the friction in a service or product and prioritise improvements around users.",
+    "scene": "A usability-testing station with a real smartphone showing a simple unbranded app interface, a printed task guide, sticky notes and stopwatch. Angled close photo on a contemporary workbench."
+  },
+  {
+    "index": 37,
+    "id": "business-dashboard",
+    "title": "Research dashboards & reporting",
+    "category": "business",
+    "description": "Make a defined dataset useful through a focused, interactive reporting experience.",
+    "scene": "A widescreen research dashboard on an actual desktop monitor with readable chart forms, neutral demo indicators and keyboard, a notebook and plant beside it. Bright professional office photograph, no floating interface."
+  },
+  {
+    "index": 38,
+    "id": "policy-analysis",
+    "title": "Policy research & analysis",
+    "category": "policy",
+    "description": "Assess a public issue and compare policy options using transparent evidence.",
+    "scene": "Policy-analysis research in a quiet institutional reading room: bound policy reports, annotated policy brief and highlighter on a broad wooden table. Tall windows, green accents, no officials or emblems."
+  },
+  {
+    "index": 39,
+    "id": "impact",
+    "title": "Programme & impact evaluation",
+    "category": "policy",
+    "description": "Build an evaluation that can credibly examine implementation, outcomes and contribution.",
+    "scene": "A real community irrigation project in a green agricultural landscape, with a field measurement clipboard and monitoring instrument in the foreground. No people; visual emphasis on an implemented programme and observed outcomes."
+  },
+  {
+    "index": 40,
+    "id": "baseline",
+    "title": "Baseline & endline study design",
+    "category": "policy",
+    "description": "Establish a sound measurement plan before a programme starts or finishes.",
+    "scene": "Baseline survey materials at an empty rural school field station: labelled folders, measuring tape, clipboard and GPS beside a fixed site marker. Dawn natural light, authentic portable research kit."
+  },
+  {
+    "index": 41,
+    "id": "mel",
+    "title": "Monitoring, evaluation & learning",
+    "category": "policy",
+    "description": "Connect programme activities to measurable outcomes and practical learning.",
+    "scene": "A real monitoring-and-evaluation project board in a modest professional office, with a timeline, pinned indicator sheets and colour-coded progress cards. Photograph from a slight angle; not a digital infographic."
+  },
+  {
+    "index": 42,
+    "id": "stakeholder",
+    "title": "Stakeholder & social research",
+    "category": "policy",
+    "description": "Understand institutional relationships, community perspectives and decision needs.",
+    "scene": "An empty community consultation hall with chairs around a large paper stakeholder map on a table, coloured cards and markers ready for a workshop. Airy Ghana-inspired building, daylight, no people."
+  },
+  {
+    "index": 43,
+    "id": "statistics-training",
+    "title": "SPSS, R & Stata training",
+    "category": "training",
+    "description": "Learn practical analysis skills through guided exercises relevant to your research.",
+    "scene": "An empty hands-on statistics computer classroom with a row of computers displaying simple data tables and plots, practice sheets and notebooks. Bright daytime training environment, no people on screens."
+  },
+  {
+    "index": 44,
+    "id": "qualitative-training",
+    "title": "Qualitative methods & NVivo clinic",
+    "category": "training",
+    "description": "Build confidence in qualitative design, coding and transparent interpretation.",
+    "scene": "A qualitative methods workshop table with sample transcripts, codebook sheets, coloured annotation pens and a laptop showing a coding sidebar. Real materials and a few empty chairs, not symbolic shapes."
+  },
+  {
+    "index": 45,
+    "id": "review-training",
+    "title": "Systematic review masterclass",
+    "category": "training",
+    "description": "Understand the review workflow from a clear protocol to a reproducible synthesis.",
+    "scene": "An empty systematic-review training room with a projected screening flow and printed practice articles organised at individual desks. Contemporary classroom photography, natural balanced lighting."
+  },
+  {
+    "index": 46,
+    "id": "team-training",
+    "title": "Bespoke institutional training",
+    "category": "training",
+    "description": "Build your team\u2019s capabilities with a workshop designed around a shared research need.",
+    "scene": "A spacious empty professional team-training room with modular tables, laptops, name-card holders without names and workshop stationery. Sunlit wall windows and realistic muted-green furniture."
+  },
+  {
+    "index": 47,
+    "id": "government-policy-options",
+    "title": "Government policy options appraisal",
+    "category": "policy",
+    "description": "Compare practical policy options, their assumptions and their implications for the people affected.",
+    "scene": "Three policy option briefs laid side by side with distinct paper tabs, supporting charts and a handwritten options checklist. Overhead documentary photograph of a real government-research planning table."
+  },
+  {
+    "index": 48,
+    "id": "government-implementation",
+    "title": "Policy implementation research",
+    "category": "policy",
+    "description": "Investigate the gap between policy intent and implementation across responsible institutions.",
+    "scene": "A Ghana-inspired municipal drainage and road-improvement site under construction, tools parked and no workers present, with an implementation inspection clipboard in the near foreground. Natural street-level photography."
+  },
+  {
+    "index": 49,
+    "id": "government-procurement",
+    "title": "Procurement integrity & risk research",
+    "category": "policy",
+    "description": "Review a procurement process using documented evidence to identify integrity risks and improvement opportunities.",
+    "scene": "A sealed procurement tender envelope, neatly organised bid folders, evaluation checklist and date stamp on a secure office desk. No official emblems, personal details or accusation-like text. Real paper and metal objects."
+  },
+  {
+    "index": 50,
+    "id": "government-investment",
+    "title": "Public investment evidence appraisal",
+    "category": "policy",
+    "description": "Test the evidence, assumptions and public-value case behind a proposed capital investment.",
+    "scene": "An empty completed public bridge crossing a green valley, photographed from a safe roadside overlook with an infrastructure appraisal plan on a clipboard in the foreground. Real civil infrastructure, no miniature model."
+  },
+  {
+    "index": 51,
+    "id": "government-citizens",
+    "title": "Citizen satisfaction research",
+    "category": "data",
+    "description": "Build a transparent plan to understand citizens\u2019 experiences of a defined public service.",
+    "scene": "An unoccupied public-service feedback kiosk with a touchscreen satisfaction form, paper survey station and a few empty waiting seats. Clean welcoming municipal reception photography, no human images."
+  },
+  {
+    "index": 52,
+    "id": "government-local-planning",
+    "title": "District & local development research",
+    "category": "strategy",
+    "description": "Bring local needs, stakeholder perspectives and available evidence into development planning.",
+    "scene": "A district-development planning table with a large real topographic map, zoning overlays, drafting ruler and planning notes. Window view to an empty Ghana-inspired town, natural afternoon light."
+  },
+  {
+    "index": 53,
+    "id": "government-climate",
+    "title": "Climate adaptation policy evidence",
+    "category": "sustainability",
+    "description": "Map evidence on climate exposure, adaptation options and local implementation needs.",
+    "scene": "A coastal wetland monitoring site with mangroves, a flood-level gauge and a small rain-monitoring instrument, empty boardwalk. Real Ghana-inspired landscape, lush daylight, no people or art objects."
+  },
+  {
+    "index": 54,
+    "id": "government-data-governance",
+    "title": "Government data readiness review",
+    "category": "digital",
+    "description": "Assess how a department collects, organises and uses research data for decisions.",
+    "scene": "An institutional records digitisation workstation with paper registers, an overhead document scanner and a small secure data-storage cabinet. Practical real equipment, bright organised setting."
+  },
+  {
+    "index": 55,
+    "id": "public-service-quality",
+    "title": "Public institution service-quality assessment",
+    "category": "evaluation",
+    "description": "Find where users experience friction and where a public institution can improve delivery.",
+    "scene": "A clean empty public-service reception hall with clearly ordered desks, queue rails and colourful waiting chairs. Professional architectural photography, no portraits, staff or visitors."
+  },
+  {
+    "index": 56,
+    "id": "public-performance",
+    "title": "Institutional performance framework",
+    "category": "strategy",
+    "description": "Connect an institution\u2019s objectives with meaningful performance measures and review routines.",
+    "scene": "A real institutional performance review board with pinned KPI sheets, dashboard printouts and a meeting agenda on a nearby table. Close interior photo, tidy but naturally used, no fabricated endorsements."
+  },
+  {
+    "index": 57,
+    "id": "public-health-systems",
+    "title": "Health-service access & experience research",
+    "category": "evaluation",
+    "description": "Study access barriers and service-user experiences to inform health-service planning.",
+    "scene": "An empty welcoming outpatient clinic corridor with reception desk, wheelchair parking area and accessible wayfinding shapes, no identifiable hospital name. Natural daylight, reassuring blue and green accents."
+  },
+  {
+    "index": 58,
+    "id": "public-transport",
+    "title": "Transport & mobility needs assessment",
+    "category": "policy",
+    "description": "Examine travel needs and user barriers using existing evidence and a scoped research design.",
+    "scene": "A quiet bus terminal with parked buses, empty accessible platforms and route information board too distant to read. Real urban transport photography, no passengers, staff or faces on ads."
+  },
+  {
+    "index": 59,
+    "id": "public-records",
+    "title": "Records & knowledge management review",
+    "category": "digital",
+    "description": "Review how research evidence and institutional knowledge are stored, retrieved and shared.",
+    "scene": "A meticulously organised physical records room with compact shelving, labelled archival boxes and a trolley of folders. Oblique aisle view, warm practical ceiling lights, no people."
+  },
+  {
+    "index": 60,
+    "id": "public-workforce",
+    "title": "Public workforce learning-needs assessment",
+    "category": "training",
+    "description": "Identify priority research and analytical skills needed for institutional work.",
+    "scene": "A public-workforce learning resource corner with course handbooks, training-needs questionnaires and a skills-assessment binder on an inviting table. Natural side light, credible office environment."
+  },
+  {
+    "index": 61,
+    "id": "private-strategy",
+    "title": "Private institution strategy research",
+    "category": "strategy",
+    "description": "Ground institutional priorities in evidence about stakeholders, services and operating context.",
+    "scene": "A private-institution strategy workspace with market reports, an open planning binder and a large real roadmap board, empty chairs. Modern bright boardroom, framed to emphasise research materials."
+  },
+  {
+    "index": 62,
+    "id": "private-governance",
+    "title": "Governance & operating-model review",
+    "category": "strategy",
+    "description": "Examine decision roles, accountability and coordination within a private institution.",
+    "scene": "An empty governance meeting room with policy manuals, printed organisational chart and committee agenda folders on a polished table. Wide low-angle architectural photograph, no official seals or people."
+  },
+  {
+    "index": 63,
+    "id": "private-experience",
+    "title": "Member & client experience research",
+    "category": "data",
+    "description": "Understand the expectations, experiences and unmet needs of members or clients.",
+    "scene": "A private member-service reception counter with comment cards, a small suggestion box, membership information leaflets and an empty waiting area. Distinct modern warm interior, no portraits or human imagery."
+  },
+  {
+    "index": 64,
+    "id": "private-process",
+    "title": "Organisational process improvement research",
+    "category": "strategy",
+    "description": "Investigate bottlenecks and handover issues through a documented review of an organisational process.",
+    "scene": "A clean small manufacturing workflow area with an idle packing conveyor, labelled workstations and a pinned process map. Real organisational process setting, no employees, no artificial sculptures."
+  },
+  {
+    "index": 65,
+    "id": "private-employee",
+    "title": "Employee experience & engagement research",
+    "category": "data",
+    "description": "Develop a confidential research approach to staff experience, engagement and working conditions.",
+    "scene": "An empty staff break room with colourful comfortable seats, a confidential feedback box and an anonymous employee survey on a side table. Bright real workplace, natural greenery outside."
+  },
+  {
+    "index": 66,
+    "id": "private-sustainability",
+    "title": "Sustainability reporting evidence support",
+    "category": "sustainability",
+    "description": "Organise the evidence behind an institution\u2019s sustainability narrative and indicators.",
+    "scene": "A commercial rooftop solar installation with a utility meter and sustainability reporting clipboard on a service bench. Sunlit real panels and practical measuring equipment, no technicians."
+  },
+  {
+    "index": 67,
+    "id": "school-improvement",
+    "title": "School improvement research & planning",
+    "category": "education",
+    "description": "Use school evidence and stakeholder perspectives to identify practical improvement priorities.",
+    "scene": "An empty well-maintained school classroom with reading corner, learning stations and a school-improvement planning board. Lively but realistic yellow and teal accents, no child drawings depicting people."
+  },
+  {
+    "index": 68,
+    "id": "school-learning",
+    "title": "Learning assessment design & analysis",
+    "category": "education",
+    "description": "Design a useful assessment framework that connects learning objectives, tasks and interpretation.",
+    "scene": "Close view of genuine school assessment sheets, exercise books, a ruler and pencil on a pupil desk, empty classroom softly blurred behind. Bright realistic paper textures, no names or student faces."
+  },
+  {
+    "index": 69,
+    "id": "school-curriculum",
+    "title": "School curriculum review",
+    "category": "education",
+    "description": "Review curriculum coherence, learning progression and assessment alignment.",
+    "scene": "A teacher curriculum-planning station with subject folders, a lesson-sequence binder, textbooks and a real timetable board. Warm school resource room photography, no people or humanoid illustrations."
+  },
+  {
+    "index": 70,
+    "id": "school-teacher-learning",
+    "title": "Teacher professional development needs",
+    "category": "training",
+    "description": "Understand teachers\u2019 development priorities and translate them into an actionable learning plan.",
+    "scene": "An empty teacher-development seminar table with practical teaching guides, notebooks and a projector screen showing a generic lesson planning grid. Bright institutional training setting."
+  },
+  {
+    "index": 71,
+    "id": "school-parent-voice",
+    "title": "Parent & community engagement research",
+    "category": "education",
+    "description": "Create a respectful approach to understanding parent and community perspectives on the school.",
+    "scene": "A school entrance noticeboard with anonymous parent-feedback cards, community notices and a suggestion box, beside an empty sunny courtyard. Photographic real school details, no portraits or people."
+  },
+  {
+    "index": 72,
+    "id": "school-digital",
+    "title": "School digital learning readiness",
+    "category": "digital",
+    "description": "Assess the infrastructure, teaching practices and support needed for useful digital learning.",
+    "scene": "A bright empty digital-learning classroom with tablets in a charging cart, laptops on desks and a projector, realistic school equipment. No people or faces displayed on any screen."
+  },
+  {
+    "index": 73,
+    "id": "school-inclusion",
+    "title": "Inclusive education needs research",
+    "category": "education",
+    "description": "Identify barriers to participation and design a research approach that includes varied learning needs.",
+    "scene": "An accessible empty classroom with adjustable-height desk, tactile learning resources, Braille books and a reading magnifier. Natural light and colourful but plausible educational materials."
+  },
+  {
+    "index": 74,
+    "id": "school-wellbeing",
+    "title": "School wellbeing research design",
+    "category": "education",
+    "description": "Plan age-appropriate, ethically reviewed research on the learning environment and wellbeing supports.",
+    "scene": "An empty school counselling room with comfortable cushions, a small table of wellbeing resources and a window onto greenery. Warm, calm real interior, no dolls, portraits or human illustrations."
+  },
+  {
+    "index": 75,
+    "id": "school-enrolment",
+    "title": "School demand & enrolment research",
+    "category": "business",
+    "description": "Understand the needs, choices and demand signals in a school\u2019s catchment area.",
+    "scene": "An anonymous school admissions register and enrolment forms on a reception counter, folders and stationery, empty school entrance visible beyond. Real professional paperwork, no personal data."
+  },
+  {
+    "index": 76,
+    "id": "university-curriculum",
+    "title": "Higher education curriculum mapping",
+    "category": "education",
+    "description": "Map programme learning outcomes, teaching activities and assessment into a coherent picture.",
+    "scene": "An open university curriculum-mapping dossier with a course-sequence matrix, printed module descriptions and colour-coded tabs on a large library table. Real bound documents, natural scholarly setting."
+  },
+  {
+    "index": 77,
+    "id": "university-graduate-tracer",
+    "title": "Graduate tracer & employability study",
+    "category": "education",
+    "description": "Design a graduate follow-up study that helps programmes understand transition into work and further study.",
+    "scene": "A graduation cap and rolled certificate beside an anonymous graduate-tracer survey on a tablet and an employment-outcomes report. Real tabletop photograph, no graduate or portraits."
+  },
+  {
+    "index": 78,
+    "id": "university-capacity",
+    "title": "University research capacity assessment",
+    "category": "strategy",
+    "description": "Map the research capabilities, support systems and development needs of a university unit.",
+    "scene": "An empty university research laboratory with orderly equipment benches, microscopes and a capacity-assessment checklist clipped to a board in the foreground. Natural institutional photography, no operators."
+  },
+  {
+    "index": 79,
+    "id": "university-funding",
+    "title": "Research funding landscape mapping",
+    "category": "scholar",
+    "description": "Identify relevant funding opportunities and compare requirements against a defined research agenda.",
+    "scene": "A funding opportunity research desk with grant-call printouts, a wall calendar with deadline tabs and a laptop showing a generic searchable funding list. Professional university office, no branded sponsors."
+  },
+  {
+    "index": 80,
+    "id": "university-impact",
+    "title": "University research impact planning",
+    "category": "evaluation",
+    "description": "Connect research activities with plausible pathways to academic, social or economic contribution.",
+    "scene": "An empty university innovation greenhouse with practical research equipment, plant trials and a neatly arranged impact-report folder. Real campus research environment, no researchers or people."
+  },
+  {
+    "index": 81,
+    "id": "university-alumni",
+    "title": "Alumni & student experience research",
+    "category": "data",
+    "description": "Understand student or alumni experiences to inform support services and institutional planning.",
+    "scene": "An alumni-relations resource table with an anonymous experience questionnaire, campus newsletter without human photos and feedback cards, overlooking an empty university quadrangle. Bright documentary photograph."
+  },
+  {
+    "index": 82,
+    "id": "university-data-management",
+    "title": "Research data management planning",
+    "category": "digital",
+    "description": "Plan the research data lifecycle from collection and documentation to access and retention.",
+    "scene": "A secure university data-storage workstation with a real server cabinet, labelled external drives and a research-data management plan binder. Real cabling and equipment, no sci-fi effects."
+  },
+  {
+    "index": 83,
+    "id": "ngo-needs",
+    "title": "Community needs & assets assessment",
+    "category": "evaluation",
+    "description": "Build a participatory approach to understanding community priorities, strengths and unmet needs.",
+    "scene": "A functioning community water borehole and storage tank in an empty Ghana-inspired village square, with a needs-assessment map and clipboard on a nearby bench. Real community assets and warm daylight."
+  },
+  {
+    "index": 84,
+    "id": "ngo-theory-change",
+    "title": "Theory of change facilitation",
+    "category": "evaluation",
+    "description": "Clarify how a programme expects to contribute to change, including its assumptions and external conditions.",
+    "scene": "A real theory-of-change workshop wall with neatly connected paper activity, output and outcome cards, markers and a planning table below. Empty room, photographic physical planning materials."
+  },
+  {
+    "index": 85,
+    "id": "ngo-donor-proposal",
+    "title": "Donor proposal evidence support",
+    "category": "scholar",
+    "description": "Strengthen a development proposal with a traceable needs case, intervention logic and evidence base.",
+    "scene": "A donor-proposal research folder with needs evidence, budget worksheet and a rural project landscape photograph containing no people, arranged on a modest NGO office desk. Warm realistic morning light."
+  },
+  {
+    "index": 86,
+    "id": "ngo-participatory",
+    "title": "Participatory community research",
+    "category": "data",
+    "description": "Co-design research with communities through respectful methods and an explicit feedback process.",
+    "scene": "An empty participatory mapping workshop with a large hand-drawn community map, real markers, tokens and paper cards on a shared table. Open community hall setting, no people, hands or figurines."
+  },
+  {
+    "index": 87,
+    "id": "ngo-gender-equity",
+    "title": "Gender & social inclusion analysis",
+    "category": "evaluation",
+    "description": "Examine who participates, who benefits and which structural barriers require attention.",
+    "scene": "An accessible community consultation venue with ramp, adjustable table, tactile guides and anonymous inclusion-audit forms. Real inclusive infrastructure, no people or pictograms depicting human bodies."
+  },
+  {
+    "index": 88,
+    "id": "ngo-outcomes",
+    "title": "Programme outcomes & contribution review",
+    "category": "evaluation",
+    "description": "Assess available outcome evidence and examine plausible explanations for observed change.",
+    "scene": "A mature agricultural demonstration plot with a harvest basket, weighing scale and programme-outcome measurement sheet on a small outdoor bench. Real crop research context, no workers."
+  },
+  {
+    "index": 89,
+    "id": "ngo-knowledge",
+    "title": "Learning briefs & knowledge products",
+    "category": "publication",
+    "description": "Turn programme evidence into a clear learning product that stakeholders can use.",
+    "scene": "Professionally bound learning briefs and printed knowledge products displayed on a clean publication rack, with an open plain-language report on a table. Photographic typography shapes, no portraits or logos."
+  },
+  {
+    "index": 90,
+    "id": "business-brand",
+    "title": "Brand positioning & perception research",
+    "category": "business",
+    "description": "Understand how a brand is perceived and where its positioning could be strengthened.",
+    "scene": "A brand-research flat lay with real colour swatch cards, varied unbranded product packaging and anonymous consumer-perception notes. Colourful realistic marketing-research materials on a cream tabletop."
+  },
+  {
+    "index": 91,
+    "id": "business-pricing",
+    "title": "Pricing & willingness-to-pay research",
+    "category": "business",
+    "description": "Investigate price perceptions and trade-offs for a defined product or service.",
+    "scene": "A realistic retail price-research setup with shelf-label samples, calculator, receipt and a printed willingness-to-pay questionnaire. Close photographic view, generic unbranded products, no personal data."
+  },
+  {
+    "index": 92,
+    "id": "business-value-chain",
+    "title": "Supply chain & value-chain research",
+    "category": "business",
+    "description": "Map actors, dependencies and operational constraints to identify evidence-based improvement options.",
+    "scene": "An organised warehouse aisle with boxed goods, pallets, a handheld barcode scanner and supply-chain research clipboard on a trolley. Empty working environment, no forklift operators or workers."
+  },
+  {
+    "index": 93,
+    "id": "business-digital",
+    "title": "Digital customer journey research",
+    "category": "digital",
+    "description": "Understand how people discover, use and experience a digital service.",
+    "scene": "A digital customer-journey research table with printed sequential website wireframes, a smartphone showing a generic online checkout and task notes. Real screens and documents, no floating graphics."
+  },
+  {
+    "index": 94,
+    "id": "preregistration",
+    "title": "Preregistration & open-science planning",
+    "category": "design",
+    "description": "Prepare a transparent record of research questions, hypotheses and analysis decisions before data collection.",
+    "scene": "A dated study protocol and open laboratory notebook beside a document folder and research-registration checklist on a clean oak desk. Real open-science planning materials, no official seals or sci-fi props."
+  },
+  {
+    "index": 95,
+    "id": "psychometrics",
+    "title": "Scale development & measurement review",
+    "category": "data",
+    "description": "Examine how well a proposed instrument represents the constructs your study intends to measure.",
+    "scene": "A psychometric scale-development workbook with anonymous rating-scale items, validation notes and printed reliability plots, pencil and ruler. Close top-down photograph of practical measurement research."
+  },
+  {
+    "index": 96,
+    "id": "reproducibility",
+    "title": "Reproducible analysis & code review",
+    "category": "data",
+    "description": "Make an existing analysis easier to inspect, reproduce and maintain.",
+    "scene": "A real code-review workstation with a monitor showing a generic R/Python project file tree and test output, annotated reproducibility checklist and external backup drive. Crisp realistic equipment, no floating code."
+  },
+  {
+    "index": 97,
+    "id": "research-visualisation",
+    "title": "Research figures & data visualisation",
+    "category": "publication",
+    "description": "Communicate your results with clear, publication-ready figures grounded in the supplied data.",
+    "scene": "A high-resolution desktop monitor displaying several polished research charts beside printed figure proofs and colour-accessibility swatches. Photographic data-visualisation workbench, demo chart content only."
+  },
+  {
+    "index": 98,
+    "id": "scoping-review",
+    "title": "Scoping review design & evidence mapping",
+    "category": "evidence",
+    "description": "Plan a scoping review that maps a field with transparent eligibility, screening and charting decisions.",
+    "scene": "A scoping-review evidence mapping wall with organised article cards, a screening log and labelled folders on a library desk. Wide documentary photo of a real review workflow with nobody present."
+  },
+  {
+    "index": 99,
+    "id": "doctoral-milestones",
+    "title": "Doctoral milestone & research planning",
+    "category": "scholar",
+    "description": "Turn a complex doctoral project into a practical milestone, feedback and progress plan.",
+    "scene": "A doctoral planning workspace with a wall milestone calendar, tabbed thesis binder, notebooks and a clearly structured research schedule. Warm afternoon light, real academic materials and no graduate portraits."
+  }
+]

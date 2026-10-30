@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.0",
+  "color": {
+    "canvas": "#fafaf5",
+    "surface": "#eef1e6",
+    "text": "#123d36",
+    "muted_text": "#53675e",
+    "border": "#d9e1d8",
+    "accent": "#064e40",
+    "accent_text": "#ffffff",
+    "focus": "#a3670c",
+    "gold": "#edbf62",
+    "gold_text": "#113d34",
+    "success": "#197657",
+    "warning": "#8a4b00",
+    "error": "#b00020"
+  },
+  "contrast_pairs": [
+    {
+      "name": "body text",
+      "foreground": "text",
+      "background": "canvas",
+      "minimum_ratio": 4.5
+    },
+    {
+      "name": "accent control",
+      "foreground": "accent_text",
+      "background": "accent",
+      "minimum_ratio": 4.5
+    },
+    {
+      "name": "secondary copy",
+      "foreground": "muted_text",
+      "background": "canvas",
+      "minimum_ratio": 4.5
+    },
+    {
+      "name": "gold action",
+      "foreground": "gold_text",
+      "background": "gold",
+      "minimum_ratio": 4.5
+    }
+  ],
+  "typography": {
+    "display": {
+      "family": "DM Sans",
+      "fallback": "sans-serif",
+      "weight": 600,
+      "line_height": 1.05
+    },
+    "body": {
+      "family": "DM Sans",
+      "fallback": "sans-serif",
+      "weight": 400,
+      "line_height": 1.8
+    }
+  },
+  "spacing": {
+    "1": "0.25rem",
+    "2": "0.5rem",
+    "3": "0.75rem",
+    "4": "1rem",
+    "6": "1.5rem",
+    "8": "2rem",
+    "12": "3rem"
+  },
+  "motion": {
+    "fast_ms": 120,
+    "standard_ms": 220,
+    "slow_ms": 420,
+    "easing_standard": "cubic-bezier(0.2, 0, 0, 1)",
+    "reduced_motion": "remove non-essential movement and preserve immediate state feedback"
+  }
+}

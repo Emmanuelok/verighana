@@ -1,0 +1,69 @@
+{
+  "result": "PASS",
+  "service_photographs": 100,
+  "unique_paths": 100,
+  "unique_hashes": 100,
+  "dimensions": "1200x800",
+  "closest_visual_fingerprints_for_manual_review": [
+    [
+      16,
+      "customer-insights",
+      "scoping-review"
+    ],
+    [
+      16,
+      "methodology",
+      "government-procurement"
+    ],
+    [
+      18,
+      "bibliometrics",
+      "university-impact"
+    ],
+    [
+      18,
+      "business-value-chain",
+      "psychometrics"
+    ],
+    [
+      18,
+      "evidence-synthesis",
+      "private-employee"
+    ],
+    [
+      18,
+      "government-procurement",
+      "business-pricing"
+    ],
+    [
+      18,
+      "impact",
+      "public-service-quality"
+    ],
+    [
+      18,
+      "methodology",
+      "government-citizens"
+    ],
+    [
+      18,
+      "mixed-methods",
+      "private-process"
+    ],
+    [
+      18,
+      "search-strategy",
+      "university-data-management"
+    ],
+    [
+      18,
+      "team-training",
+      "school-curriculum"
+    ],
+    [
+      18,
+      "university-impact",
+      "preregistration"
+    ]
+  ]
+}

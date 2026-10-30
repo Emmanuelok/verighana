@@ -1,0 +1,1542 @@
+{
+  "schema_version": "1.0",
+  "project": {
+    "id": "veridanth-redesign",
+    "name": "Veridanth \u2014 Big questions. Brighter futures.",
+    "mode": "screen-production",
+    "objective": "Replace abstract artwork with100 distinct realistic people-free photographs showing the actual settings, equipment and materials of each research service.",
+    "audience": "Students, academics, businesses and institutions seeking research support in Ghana.",
+    "governing_idea": "Curiosity into clarity: Ghanaian context, human research and possibility.",
+    "status": "approved"
+  },
+  "creative_system": {
+    "visual_thesis": "Real research, clearly pictured: natural-light photographic scenes specific to each service.",
+    "anti_goals": [
+      "abstract sculptures and symbolic CGI",
+      "repeated photographs",
+      "people, hands, portraits or silhouettes",
+      "tiny or unreadable interface text"
+    ],
+    "palette": {
+      "dominant": [
+        "#064e40",
+        "#fafaf5"
+      ],
+      "accent": [
+        "#e5f2a4",
+        "#a44735",
+        "#214abe",
+        "#ec7959"
+      ],
+      "contrast": "Strong white and gold typography over consistently shaded cinematic imagery."
+    },
+    "composition": "One specific photographed scene per service, integrated into a readable responsive catalogue.",
+    "camera": "Service photographs use varied real-world close-up, overhead, eye-level and architectural compositions.",
+    "lighting": "Natural daylight and believable interior illumination.",
+    "typography": "Self-hosted DM Sans; Libre Caslon Display italic highlights.",
+    "motion": "An 8-second silent film, restrained hover and entry effects, explicit pause/play controls.",
+    "sound": "Silent.",
+    "interface": "Mobile reflow, readable body text, visible keyboard focus, existing functional research catalogue and desk.",
+    "invariants": [
+      "Exactly one separately generated photographic image per service.",
+      "No people, hands, portraits, silhouettes or human reflections in service images.",
+      "No abstract sculpture, fantasy or CGI aesthetic.",
+      "Readable body text and all existing catalogue interactions retained."
+    ],
+    "permitted_variations": [
+      "Mobile crops and stacked sections."
+    ]
+  },
+  "assets": [
+    {
+      "id": "ast-cinema",
+      "type": "video",
+      "source": "public/media/veridanth-film.mp4",
+      "role": "hero",
+      "rights_status": "owned",
+      "description": "Original text-to-video generation; illustrative Ghana-inspired scenes.",
+      "notes": "Higgsfield Kling v3.0 standard; job d4eb3114-052c-4eee-a4e1-b3be2893fe37; 12 credits; 1280x720, 24 fps, 8.041667s, silent; web H.264 derivative 1,987,920 bytes."
+    },
+    {
+      "id": "ast-campus",
+      "type": "image",
+      "source": "public/courtyard.jpg",
+      "role": "supporting",
+      "rights_status": "owned",
+      "description": "Retained original generated academic courtyard.",
+      "notes": "Source provenance in PROJECT_NOTES.md."
+    },
+    {
+      "id": "ast-social",
+      "type": "image",
+      "source": "public/media/og-veridanth.jpg",
+      "role": "social-preview",
+      "rights_status": "owned",
+      "description": "Code-composed 1200x630 social preview from the cinematic poster and exact brand typography.",
+      "notes": "Editable composition: design/social-card.svg."
+    },
+    {
+      "id": "ast-service-analytics",
+      "type": "image",
+      "source": "public/services/analytics.webp",
+      "role": "service-photography",
+      "rights_status": "owned",
+      "description": "Original AI-generated people-free illustrative research environment.",
+      "notes": "Source and generation prompts in service-photo-batch-a.json, service-photo-batch-b.json or service-photo-consultation.json. SHA256 21b2a6b549e9a8720e546d28e4d78b84c30e305bfbfae2933cd27db60da06e72"
+    },
+    {
+      "id": "ast-service-careers",
+      "type": "image",
+      "source": "public/services/careers.webp",
+      "role": "service-photography",
+      "rights_status": "owned",
+      "description": "Original AI-generated people-free illustrative research environment.",
+      "notes": "Source and generation prompts in service-photo-batch-a.json, service-photo-batch-b.json or service-photo-consultation.json. SHA256 01496a8b90bf99b8a67ca4db635e56685764adba5992870791efbb6f90511e84"
+    },
+    {
+      "id": "ast-service-construction",
+      "type": "image",
+      "source": "public/services/construction.webp",
+      "role": "service-photography",
+      "rights_status": "owned",
+      "description": "Original AI-generated people-free illustrative research environment.",
+      "notes": "Source and generation prompts in service-photo-batch-a.json, service-photo-batch-b.json or service-photo-consultation.json. SHA256 92ce394c6b304f4969d41d27c3c8aa7ec63358e27e0c059e488614d54f4bd45f"
+    },
+    {
+      "id": "ast-service-consultation",
+      "type": "image",
+      "source": "public/services/consultation.webp",
+      "role": "service-photography",
+      "rights_status": "owned",
+      "description": "Original AI-generated people-free illustrative research environment.",
+      "notes": "Source and generation prompts in service-photo-batch-a.json, service-photo-batch-b.json or service-photo-consultation.json. SHA256 11434090730a61835f13cf07c77bbf3784c3cd47169d5bbb892566ad33fdbbf8"
+    },
+    {
+      "id": "ast-service-digital",
+      "type": "image",
+      "source": "public/services/digital.webp",
+      "role": "service-photography",
+      "rights_status": "owned",
+      "description": "Original AI-generated people-free illustrative research environment.",
+      "notes": "Source and generation prompts in service-photo-batch-a.json, service-photo-batch-b.json or service-photo-consultation.json. SHA256 f2c1a6bd47902f8d64ce78d62f7873265cfb96caa761fc2bc4aab77b437580b6"
+    },
+    {
+      "id": "ast-service-evaluation",
+      "type": "image",
+      "source": "public/services/evaluation.webp",
+      "role": "service-photography",
+      "rights_status": "owned",
+      "description": "Original AI-generated people-free illustrative research environment.",
+      "notes": "Source and generation prompts in service-photo-batch-a.json, service-photo-batch-b.json or service-photo-consultation.json. SHA256 072b52b6e6215c5b7779079e84d146d737846d037f741861448db6443b6c8059"
+    },
+    {
+      "id": "ast-service-evidence",
+      "type": "image",
+      "source": "public/services/evidence.webp",
+      "role": "service-photography",
+      "rights_status": "owned",
+      "description": "Original AI-generated people-free illustrative research environment.",
+      "notes": "Source and generation prompts in service-photo-batch-a.json, service-photo-batch-b.json or service-photo-consultation.json. SHA256 cf39a9a123a45b818c38da97ac17e550747b345f4024c4fb1718fb661d4aebfa"
+    },
+    {
+      "id": "ast-service-government",
+      "type": "image",
+      "source": "public/services/government.webp",
+      "role": "service-photography",
+      "rights_status": "owned",
+      "description": "Original AI-generated people-free illustrative research environment.",
+      "notes": "Source and generation prompts in service-photo-batch-a.json, service-photo-batch-b.json or service-photo-consultation.json. SHA256 c19669ec9c56ed915baacc7a0374e60d93e48aa48ea746b0c3fa684d9176e8bc"
+    },
+    {
+      "id": "ast-service-grant",
+      "type": "image",
+      "source": "public/services/grant.webp",
+      "role": "service-photography",
+      "rights_status": "owned",
+      "description": "Original AI-generated people-free illustrative research environment.",
+      "notes": "Source and generation prompts in service-photo-batch-a.json, service-photo-batch-b.json or service-photo-consultation.json. SHA256 0e9354ac33df2b89e9394241abf4b177c5866634489eb1e52f510dece4df6dc8"
+    },
+    {
+      "id": "ast-service-healthcare",
+      "type": "image",
+      "source": "public/services/healthcare.webp",
+      "role": "service-photography",
+      "rights_status": "owned",
+      "description": "Original AI-generated people-free illustrative research environment.",
+      "notes": "Source and generation prompts in service-photo-batch-a.json, service-photo-batch-b.json or service-photo-consultation.json. SHA256 a0f57afcc71300ab03199acd89225a3c487aeb74d0e9674b3fd86e8b0c3172f2"
+    },
+    {
+      "id": "ast-service-literature",
+      "type": "image",
+      "source": "public/services/literature.webp",
+      "role": "service-photography",
+      "rights_status": "owned",
+      "description": "Original AI-generated people-free illustrative research environment.",
+      "notes": "Source and generation prompts in service-photo-batch-a.json, service-photo-batch-b.json or service-photo-consultation.json. SHA256 4ac11c25c5ccc1e01fb31263b806c3d490a075742fedd50b056a5654d29ae564"
+    },
+    {
+      "id": "ast-service-market",
+      "type": "image",
+      "source": "public/services/market.webp",
+      "role": "service-photography",
+      "rights_status": "owned",
+      "description": "Original AI-generated people-free illustrative research environment.",
+      "notes": "Source and generation prompts in service-photo-batch-a.json, service-photo-batch-b.json or service-photo-consultation.json. SHA256 efaa9905b929ebce5bb141335e64680f735333b69439bb993b4a819918c28167"
+    },
+    {
+      "id": "ast-service-methodology",
+      "type": "image",
+      "source": "public/services/methodology.webp",
+      "role": "service-photography",
+      "rights_status": "owned",
+      "description": "Original AI-generated people-free illustrative research environment.",
+      "notes": "Source and generation prompts in service-photo-batch-a.json, service-photo-batch-b.json or service-photo-consultation.json. SHA256 d89bdcaa38871e9bc026cce29331d4f00ed1c2529a8b1d2df8435e9ec571e0c8"
+    },
+    {
+      "id": "ast-service-nonprofit",
+      "type": "image",
+      "source": "public/services/nonprofit.webp",
+      "role": "service-photography",
+      "rights_status": "owned",
+      "description": "Original AI-generated people-free illustrative research environment.",
+      "notes": "Source and generation prompts in service-photo-batch-a.json, service-photo-batch-b.json or service-photo-consultation.json. SHA256 ac991a159b06e8f36e5956ba3c5520143d5b02ad31025edc2210d73d30ccdc28"
+    },
+    {
+      "id": "ast-service-private-institution",
+      "type": "image",
+      "source": "public/services/private-institution.webp",
+      "role": "service-photography",
+      "rights_status": "owned",
+      "description": "Original AI-generated people-free illustrative research environment.",
+      "notes": "Source and generation prompts in service-photo-batch-a.json, service-photo-batch-b.json or service-photo-consultation.json. SHA256 08639e4e2942c7b4aa894431e6218d34395509d5f5252efc36eb9602a4463bde"
+    },
+    {
+      "id": "ast-service-public-services",
+      "type": "image",
+      "source": "public/services/public-services.webp",
+      "role": "service-photography",
+      "rights_status": "owned",
+      "description": "Original AI-generated people-free illustrative research environment.",
+      "notes": "Source and generation prompts in service-photo-batch-a.json, service-photo-batch-b.json or service-photo-consultation.json. SHA256 75909f82e812ea9917f450046475da3bf21159fd32fee3c9fa3ee48fa400b3ec"
+    },
+    {
+      "id": "ast-service-qualitative",
+      "type": "image",
+      "source": "public/services/qualitative.webp",
+      "role": "service-photography",
+      "rights_status": "owned",
+      "description": "Original AI-generated people-free illustrative research environment.",
+      "notes": "Source and generation prompts in service-photo-batch-a.json, service-photo-batch-b.json or service-photo-consultation.json. SHA256 6c908b95dabbfbc0480b195ac7452ea6c858f52edca658c11a81ef6692b2cebc"
+    },
+    {
+      "id": "ast-service-schools",
+      "type": "image",
+      "source": "public/services/schools.webp",
+      "role": "service-photography",
+      "rights_status": "owned",
+      "description": "Original AI-generated people-free illustrative research environment.",
+      "notes": "Source and generation prompts in service-photo-batch-a.json, service-photo-batch-b.json or service-photo-consultation.json. SHA256 f6ab48fffb73f49afe886b127f5a6f6faeed44e461daaa967e1f5014369b04d6"
+    },
+    {
+      "id": "ast-service-spatial",
+      "type": "image",
+      "source": "public/services/spatial.webp",
+      "role": "service-photography",
+      "rights_status": "owned",
+      "description": "Original AI-generated people-free illustrative research environment.",
+      "notes": "Source and generation prompts in service-photo-batch-a.json, service-photo-batch-b.json or service-photo-consultation.json. SHA256 5a4da33e465c9b041116a1a2bce3309794525524b9abc466a5397dc61b7b26a6"
+    },
+    {
+      "id": "ast-service-survey",
+      "type": "image",
+      "source": "public/services/survey.webp",
+      "role": "service-photography",
+      "rights_status": "owned",
+      "description": "Original AI-generated people-free illustrative research environment.",
+      "notes": "Source and generation prompts in service-photo-batch-a.json, service-photo-batch-b.json or service-photo-consultation.json. SHA256 70466a4936ee2ae3cd73b0ee33a0586a9ddc2b3a746413b1ab2715289145b8d3"
+    },
+    {
+      "id": "ast-service-sustainability",
+      "type": "image",
+      "source": "public/services/sustainability.webp",
+      "role": "service-photography",
+      "rights_status": "owned",
+      "description": "Original AI-generated people-free illustrative research environment.",
+      "notes": "Source and generation prompts in service-photo-batch-a.json, service-photo-batch-b.json or service-photo-consultation.json. SHA256 0a34539faefad4525674ecfd7d44c7b4e8c8d1d9620e1beedcf1afd9c9dd1681"
+    },
+    {
+      "id": "ast-service-training",
+      "type": "image",
+      "source": "public/services/training.webp",
+      "role": "service-photography",
+      "rights_status": "owned",
+      "description": "Original AI-generated people-free illustrative research environment.",
+      "notes": "Source and generation prompts in service-photo-batch-a.json, service-photo-batch-b.json or service-photo-consultation.json. SHA256 f193e13a403826a75d91af4cf7189f27c05b7e2f763dce34d5e66065321abb5e"
+    },
+    {
+      "id": "ast-service-transcription",
+      "type": "image",
+      "source": "public/services/transcription.webp",
+      "role": "service-photography",
+      "rights_status": "owned",
+      "description": "Original AI-generated people-free illustrative research environment.",
+      "notes": "Source and generation prompts in service-photo-batch-a.json, service-photo-batch-b.json or service-photo-consultation.json. SHA256 318ed80b5f9636806215ddebfc34da0468fc7670d9e57d196f1ac81308d0662f"
+    },
+    {
+      "id": "ast-service-university",
+      "type": "image",
+      "source": "public/services/university.webp",
+      "role": "service-photography",
+      "rights_status": "owned",
+      "description": "Original AI-generated people-free illustrative research environment.",
+      "notes": "Source and generation prompts in service-photo-batch-a.json, service-photo-batch-b.json or service-photo-consultation.json. SHA256 dd90b0d03b5ca0a79cf60e27b5bc0fd63646d8f506af03c6486d6d57b562e9d6"
+    },
+    {
+      "id": "ast-service-writing",
+      "type": "image",
+      "source": "public/services/writing.webp",
+      "role": "service-photography",
+      "rights_status": "owned",
+      "description": "Original AI-generated people-free illustrative research environment.",
+      "notes": "Source and generation prompts in service-photo-batch-a.json, service-photo-batch-b.json or service-photo-consultation.json. SHA256 974ae917095b8d3272f511d1b3259e002c92a55c81b30716debbaa0175f31cc8"
+    },
+    {
+      "id": "ast-photo-research-consultation",
+      "type": "image",
+      "source": "public/services/photography/research-consultation.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Empty consultation room with mustard chairs, a research notebook and proposal on a walnut table",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 c106092902d41fcd6e879013badc675389ef7570db481b5cfa70a57e2bc15ee3"
+    },
+    {
+      "id": "ast-photo-topic-development",
+      "type": "image",
+      "source": "public/services/photography/topic-development.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Research-question cards and a mind-map notebook on a sunlit cork desk.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 76eaaba6a3cc5b6c88cc9a17dbfdebae91e71a5d3c5d5a44a9e6d1f7b127b051"
+    },
+    {
+      "id": "ast-photo-proposal-review",
+      "type": "image",
+      "source": "public/services/photography/proposal-review.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Annotated research proposal with review notes, yellow tabs and a navy document folder.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 b50d2ff2fdfd6bf7e9c41ceeb959bd0997b6ad9f485cf8785b7b362eeda2b04a"
+    },
+    {
+      "id": "ast-photo-methodology",
+      "type": "image",
+      "source": "public/services/photography/methodology.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Methodology planning board with study stages, paper worksheets and an empty research desk.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 7c6026e991455e29bcaa1eccd05af5348f752f3b2258763c5fc2b7393020addf"
+    },
+    {
+      "id": "ast-photo-ethics",
+      "type": "image",
+      "source": "public/services/photography/ethics.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Ethics application binder, consent forms and a locked filing cabinet in an empty office.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 17c3d837c1f3018019de0e0973aa62fc55cd233e5c7b7136326f533c5dd97e64"
+    },
+    {
+      "id": "ast-photo-instruments",
+      "type": "image",
+      "source": "public/services/photography/instruments.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Tablet questionnaire and printed interview guide beside a voice recorder on a teal desk mat.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 ded099e1e80679e5e7a1fa83786c500083887c88adc302ef01c670eb114c0d06"
+    },
+    {
+      "id": "ast-photo-sampling",
+      "type": "image",
+      "source": "public/services/photography/sampling.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Sampling worksheet, calculator and location pins on a printed neighbourhood map.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 11c40aeb601583748e74d3ac32104334a34e84fa1ca9a4beaa78f21a7e142ca3"
+    },
+    {
+      "id": "ast-photo-search-strategy",
+      "type": "image",
+      "source": "public/services/photography/search-strategy.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Library database search on a monitor beside shelves of academic journals.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 3dc8dfae7b0846f972f8ec0c6275d478529deec954fca6966f84e1babafe8485"
+    },
+    {
+      "id": "ast-photo-literature-coaching",
+      "type": "image",
+      "source": "public/services/photography/literature-coaching.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Highlighted literature review, open academic books and citation notes on a library table.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 6a8af5ddf6ae89d045d5d42195a36fbca2f626103823b0c59275eb911618ea3c"
+    },
+    {
+      "id": "ast-photo-systematic-protocol",
+      "type": "image",
+      "source": "public/services/photography/systematic-protocol.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Systematic-review protocol binder and screening forms arranged on a light oak desk.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 8d0beb765e822759132bd057ca22818447717be4a7003f27ae7becfe096b3eaa"
+    },
+    {
+      "id": "ast-photo-evidence-synthesis",
+      "type": "image",
+      "source": "public/services/photography/evidence-synthesis.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Evidence-extraction spreadsheet with research articles and highlighted review notes.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 4649d1e7fe3d24395f7ad006e715de5dd27322f1249bb77e87c44e8ef2c6b6fb"
+    },
+    {
+      "id": "ast-photo-bibliometrics",
+      "type": "image",
+      "source": "public/services/photography/bibliometrics.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Publication-network visualisation on a research monitor with citation printouts.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 5ee03c1130ccb47de776edd8440cda08003a59b4dbb957fafbe4dd3d310a54f4"
+    },
+    {
+      "id": "ast-photo-survey-digitisation",
+      "type": "image",
+      "source": "public/services/photography/survey-digitisation.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Rugged survey tablet and smartphone beside numbered field questionnaires outdoors.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 a33bafcc67328c48e6b5d96908cf21da33afa84e08f99ca88d53195aa1a0245d"
+    },
+    {
+      "id": "ast-photo-fieldwork",
+      "type": "image",
+      "source": "public/services/photography/fieldwork.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Open fieldwork case with GPS and recorder beside maps on a rural veranda.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 516f7e3d2a31ab49ba01438f9d0480b164c787a978b2e0b2ddd9c85ea9824cfe"
+    },
+    {
+      "id": "ast-photo-data-cleaning",
+      "type": "image",
+      "source": "public/services/photography/data-cleaning.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Data-quality spreadsheet and cleaning checklist at a computer workstation.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 a861388217cf43d9ece631f39b5d30418d659acea9384b2bd9ead3afd52d2589"
+    },
+    {
+      "id": "ast-photo-quantitative",
+      "type": "image",
+      "source": "public/services/photography/quantitative.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Dual-monitor statistical analysis workstation with regression plots, results and notes.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 718401fa545fb75df801c3e35c2483fc0cd7f8c4891bacf57cb9a2d7c7bf0cfe"
+    },
+    {
+      "id": "ast-photo-advanced-modelling",
+      "type": "image",
+      "source": "public/services/photography/advanced-modelling.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Statistical modelling screen with response-surface plot, diagnostics and technical notes.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 835cc80c780143f55cc0bfcf36d8bb0badbeb03d199c315f816a0e711b41c184"
+    },
+    {
+      "id": "ast-photo-qualitative",
+      "type": "image",
+      "source": "public/services/photography/qualitative.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Colour-coded interview transcripts in labelled folders with highlighted analytical themes.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 ba638c4c10fe6ad934378a96b74d06e400bbaa60abcab9fc2da40a640c0d4a67"
+    },
+    {
+      "id": "ast-photo-mixed-methods",
+      "type": "image",
+      "source": "public/services/photography/mixed-methods.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Research pinboard comparing numerical charts with coded qualitative findings.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 4ed028acc5380a15b135bf622bcb1d2e2e5f409b2efef3bcdebc02a24dab5b4d"
+    },
+    {
+      "id": "ast-photo-gis",
+      "type": "image",
+      "source": "public/services/photography/gis.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "GIS land-use map on a monitor with printed regional maps, compass and field notebook.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 33cd4bb2c6c0d08e802b8e1e153d6c1bafb38193772a9bb0733f7e35ba2a4067"
+    },
+    {
+      "id": "ast-photo-transcription",
+      "type": "image",
+      "source": "public/services/photography/transcription.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Headphones and digital recorder in front of a monitor displaying an audio waveform.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 6cec84f231331bc67aef24d7b3cf18b2f0db0d821807bf688196b1e37980c820"
+    },
+    {
+      "id": "ast-photo-developmental-edit",
+      "type": "image",
+      "source": "public/services/photography/developmental-edit.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "A chapter manuscript with coloured tabs, structural notes and highlighted passages on an oak table.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 c226b58e1117c6512a46ae8c52b18172bac9691018142b0149e1e7be788f9851"
+    },
+    {
+      "id": "ast-photo-academic-edit",
+      "type": "image",
+      "source": "public/services/photography/academic-edit.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "A marked academic paragraph with red language corrections, reading glasses and a fountain pen.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 ca026b1b96f5ae5863026c93f71e0cd5c5ec74cd7b461572bda8d75cdea50342"
+    },
+    {
+      "id": "ast-photo-proofreading",
+      "type": "image",
+      "source": "public/services/photography/proofreading.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "A pencil-marked draft beside a clean proof copy on a wooden desk.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 545110346027b606600bcbfb9ba233f68205a471be0620c0828339465853fe12"
+    },
+    {
+      "id": "ast-photo-references",
+      "type": "image",
+      "source": "public/services/photography/references.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Reference-management software, a printed bibliography and citation guides in a bright library.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 3461dcef654da5ad4ea00ad6c2f50c876f772b961751a91011fba3deef73b208"
+    },
+    {
+      "id": "ast-photo-manuscript-review",
+      "type": "image",
+      "source": "public/services/photography/manuscript-review.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "An anonymous manuscript folder with a peer-review checklist and review notes.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 8905d08c5e2b3ae629ef1365580b19b67d0acf51519b371c1b484008cbe882ef"
+    },
+    {
+      "id": "ast-photo-journal-strategy",
+      "type": "image",
+      "source": "public/services/photography/journal-strategy.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Unbranded academic journals, author guidelines and a submission folder in a sunlit library.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 e79d4d869d7407bee1ad2c22f0e77690a81d1f3d1d46226acc0cbf4cad7b94ef"
+    },
+    {
+      "id": "ast-photo-reviewer-response",
+      "type": "image",
+      "source": "public/services/photography/reviewer-response.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "A response-to-reviewers matrix beside a revised manuscript and tracked edits on a laptop.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 348e7332a2f76151c946331c5e565839c1ee839e07fc4a98bbfaf0f144e892a1"
+    },
+    {
+      "id": "ast-photo-viva",
+      "type": "image",
+      "source": "public/services/photography/viva.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "An empty university defence room with examiner seats, microphones, a lectern and presentation screen.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 0e8b0fefd28a5cd21324fc11eb177010caf3eebc4ba5eac6e076a50211579ee2"
+    },
+    {
+      "id": "ast-photo-grant-review",
+      "type": "image",
+      "source": "public/services/photography/grant-review.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "An open research grant application and budget worksheet with funding-call notes and calculator.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 267a8a78c6936f23c5af8af8d7a3b2000e3e6b229af8ab657e14e66ee78eab77"
+    },
+    {
+      "id": "ast-photo-fellowship",
+      "type": "image",
+      "source": "public/services/photography/fellowship.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "A fellowship application portfolio beside a travel bag overlooking an empty university courtyard.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 1de9cb547b1de11c23f3cac87e5506c3af6a2057ee84f826cdad59633ffb6045"
+    },
+    {
+      "id": "ast-photo-research-profile",
+      "type": "image",
+      "source": "public/services/photography/research-profile.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "An anonymous academic CV, publication list and certificate portfolio on a charcoal desk.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 b681054564e4479e348fe4b600977d8b72ff314faf15e62899874ecad1c236ed"
+    },
+    {
+      "id": "ast-photo-market-research",
+      "type": "image",
+      "source": "public/services/photography/market-research.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "A colourful unstaffed Ghana-inspired market stall with fresh mangoes, tomatoes and peppers.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 074c1a3a3b7264951a36f6a6f9be5abcb9eb7db5d52e6ebf2e38fa662726b16a"
+    },
+    {
+      "id": "ast-photo-customer-insights",
+      "type": "image",
+      "source": "public/services/photography/customer-insights.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "A shop feedback station with a tablet rating scale, comment cards and a wooden suggestion box.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 bf94a36c0b7097ce7a59beff9f2644540186146eb9cb2d415077d0302af84cc7"
+    },
+    {
+      "id": "ast-photo-feasibility",
+      "type": "image",
+      "source": "public/services/photography/feasibility.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Construction plans, a matte hard hat and site-assessment folder overlooking an empty building site.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 6ed17f74e9e9f90c795faa0cb1303a13eabfccaa554aca4c701edefebf5cec42"
+    },
+    {
+      "id": "ast-photo-competitive",
+      "type": "image",
+      "source": "public/services/photography/competitive.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Five unbranded product samples beside a printed competitor comparison matrix.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 461585fc9a538c6d35e4735ca7b1eb2bdc6c4853101e199587a1a7e4c1d12da3"
+    },
+    {
+      "id": "ast-photo-ux-research",
+      "type": "image",
+      "source": "public/services/photography/ux-research.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "A smartphone prototype, usability task guide and stopwatch on a research workbench.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 31722ca1c0193a025cd093b5eb674af2aff5cfb9626d11f71adac9e13a40f954"
+    },
+    {
+      "id": "ast-photo-business-dashboard",
+      "type": "image",
+      "source": "public/services/photography/business-dashboard.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "A desktop monitor displaying an illustrative research dashboard in a bright office.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 4994114efaf9da8a585cc7de3c10851b9837d2f9252e65feb923e23337a1c6cd"
+    },
+    {
+      "id": "ast-photo-policy-analysis",
+      "type": "image",
+      "source": "public/services/photography/policy-analysis.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Policy reports and an annotated brief on a wooden reading table in an empty institutional library.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 bbff0c325e242bff467de3f50b7c5d8b8009ee3da119a8cd71e644013a97803c"
+    },
+    {
+      "id": "ast-photo-impact",
+      "type": "image",
+      "source": "public/services/photography/impact.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Irrigated crop plots with field measurement equipment and a monitoring clipboard in the foreground.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 df3811971d3c8e138fffd78b92df38d42232cc9bf32547778d0384b3fee8d66d"
+    },
+    {
+      "id": "ast-photo-baseline",
+      "type": "image",
+      "source": "public/services/photography/baseline.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Baseline and endline survey binders, a clipboard and GPS at an empty rural school field station.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 43460083357bcf6b851b9041f5dd093a3263fdd82c1780399fc93259a77eb389"
+    },
+    {
+      "id": "ast-photo-mel",
+      "type": "image",
+      "source": "public/services/photography/mel.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "A real monitoring and evaluation board with timeline, indicators and learning notes in a sunny office.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 1bb284d52bc1a16a5db5450c7dfdeaa0b7318d1efd17d6c862fb3d5c8aa67cf0"
+    },
+    {
+      "id": "ast-photo-stakeholder",
+      "type": "image",
+      "source": "public/services/photography/stakeholder.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "An empty community workshop hall with a stakeholder map, coloured cards and markers on the table.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 9e9bd6ba2d67341e0a4df0fc6e3b1f37b32f5897e98876502075f34f154465af"
+    },
+    {
+      "id": "ast-photo-statistics-training",
+      "type": "image",
+      "source": "public/services/photography/statistics-training.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "An empty statistics training classroom with computers showing sample data tables and plots.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 c9d9eedd30951cbaa073f92af1b2e6f965930c58f262817423909ce8d9958a1f"
+    },
+    {
+      "id": "ast-photo-qualitative-training",
+      "type": "image",
+      "source": "public/services/photography/qualitative-training.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Qualitative research training materials, coded transcripts and a codebook beside a laptop.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 b7a54a4313d97b9278b941e02d32e62dbc9b7b1bdeb06e8d7aeac20c88bb2a62"
+    },
+    {
+      "id": "ast-photo-review-training",
+      "type": "image",
+      "source": "public/services/photography/review-training.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "An empty systematic review classroom with screening flow on a projector and practice articles on desks.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 2ab442a3c2a26e8fd1e237ab7a1af2e678d28a3d43e03c750fe69c68129a190c"
+    },
+    {
+      "id": "ast-photo-team-training",
+      "type": "image",
+      "source": "public/services/photography/team-training.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "An empty institutional training room with laptops, notebooks and modular tables in natural light.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 2692eeb3e559ebc8f082f2ca6dfcbde5faeb4539706be3a153bc9e55a4230f2b"
+    },
+    {
+      "id": "ast-photo-government-policy-options",
+      "type": "image",
+      "source": "public/services/photography/government-policy-options.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Three policy option briefs with an appraisal checklist and comparison charts on a research table.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 ef376802b6cc50671a557e7c2f7d17ef382923db655054dd4ed4834331d431d7"
+    },
+    {
+      "id": "ast-photo-government-implementation",
+      "type": "image",
+      "source": "public/services/photography/government-implementation.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Municipal road and drainage works with an inspection clipboard, plans and parked construction equipment.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 89800d8d6255ac9c3b72fec548e44e8d2fc2b28e7709a57564a561388d46c4ad"
+    },
+    {
+      "id": "ast-photo-government-procurement",
+      "type": "image",
+      "source": "public/services/photography/government-procurement.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Tender submission envelope, organised bid folders and evaluation checklist on a secure office desk.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 29a5b87917aeec9677f4c06abd43ab6123fe85d3dfe14f37f0e8bca8c1307655"
+    },
+    {
+      "id": "ast-photo-government-investment",
+      "type": "image",
+      "source": "public/services/photography/government-investment.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "A completed bridge over a green valley with an infrastructure appraisal plan in the foreground.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 4657afae4d86f2c4ffa2a56410061eeb2ef47456fd008dbb325489dd79e91514"
+    },
+    {
+      "id": "ast-photo-government-citizens",
+      "type": "image",
+      "source": "public/services/photography/government-citizens.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "A numbered feedback touchscreen and paper survey station in an empty public-service reception.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 77b3777f6ef6b5f813825d70603d6ff975790036b449b292f729f4037827e981"
+    },
+    {
+      "id": "ast-photo-government-local-planning",
+      "type": "image",
+      "source": "public/services/photography/government-local-planning.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "A large district planning map, zoning overlays and drafting ruler overlooking a town.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 0246fe7da860718c0e578b0dc2829002fa9c1efc12af7d4109ceba68eb2bfda4"
+    },
+    {
+      "id": "ast-photo-government-climate",
+      "type": "image",
+      "source": "public/services/photography/government-climate.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Flood gauge and rainfall monitoring equipment beside a mangrove wetland and empty boardwalk.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 eb4075c3706216c2187e5ae37464b5c7513c3e80a8340278383129a759e8d14e"
+    },
+    {
+      "id": "ast-photo-government-data-governance",
+      "type": "image",
+      "source": "public/services/photography/government-data-governance.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "A records digitisation workstation with an overhead scanner, registers and secure storage cabinet.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 f2d84788135ab893d536d4bc834f69f27c7d6ba6b64e286324ee7793d5ceb3f7"
+    },
+    {
+      "id": "ast-photo-public-service-quality",
+      "type": "image",
+      "source": "public/services/photography/public-service-quality.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "An empty public-service hall with queue rails, reception desks and colourful waiting chairs.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 aedfcb1ecaeb965a0120fbe526d0af0f9a0545dd4d7a5d63d2694bb769afb654"
+    },
+    {
+      "id": "ast-photo-public-performance",
+      "type": "image",
+      "source": "public/services/photography/public-performance.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "A physical institutional performance board with sample charts, KPI sheets and meeting agenda.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 d78844b1c99ed9741786d2158560bb4d3661fbaac68a01ac026d697e47a72c5c"
+    },
+    {
+      "id": "ast-photo-public-health-systems",
+      "type": "image",
+      "source": "public/services/photography/public-health-systems.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "An empty outpatient clinic corridor with reception desk, wheelchairs and natural daylight.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 645bd1039a98d7da3ca260f60cafc9a498b5ffd432610372d50d3eb501b7d9bc"
+    },
+    {
+      "id": "ast-photo-public-transport",
+      "type": "image",
+      "source": "public/services/photography/public-transport.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "A quiet bus terminal with parked buses, accessible platforms and no passengers.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 a5ee40a8ad7242907f83ec2e9894a9b590ce23afa2b9b736fc3e122a93fbbbea"
+    },
+    {
+      "id": "ast-photo-public-records",
+      "type": "image",
+      "source": "public/services/photography/public-records.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "An organised records room with compact shelving, archival boxes and a trolley of folders.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 58aa1dfd0a02579f670e09ea54d9e72481854c03b6fac080fbeddc73b023211b"
+    },
+    {
+      "id": "ast-photo-public-workforce",
+      "type": "image",
+      "source": "public/services/photography/public-workforce.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Illustrative photograph: Sunlit workforce learning desk with training handbooks, questionnaire and skills-assessment binder.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 f9176f0ea12237ee700e5a128e05a98e96708f86c46ce60350e335f073bc6547"
+    },
+    {
+      "id": "ast-photo-private-strategy",
+      "type": "image",
+      "source": "public/services/photography/private-strategy.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Illustrative photograph: Strategy meeting workspace with market reports, planning binder and roadmap board.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 7922b4072a4a7b7b73c9f3584583746f8202d46b4d2ea062022dfe1099e6c4c3"
+    },
+    {
+      "id": "ast-photo-private-governance",
+      "type": "image",
+      "source": "public/services/photography/private-governance.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Illustrative photograph: Empty governance meeting room with organisational chart, policy folders and committee notes.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 df13c3dd638bf6d3d65db698d123798a1ab2685c0b2cc608cb3bda42ac479dff"
+    },
+    {
+      "id": "ast-photo-private-experience",
+      "type": "image",
+      "source": "public/services/photography/private-experience.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Illustrative photograph: Member-service reception with comment cards, suggestion box and empty waiting area.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 62582947e6224fd652028b1ac9a21c4b174b8aca602e567b01811ff409eec034"
+    },
+    {
+      "id": "ast-photo-private-process",
+      "type": "image",
+      "source": "public/services/photography/private-process.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Illustrative photograph: Idle packing conveyor and process map in a clean manufacturing workspace.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 4629f7a67e85f7e99735b46fcff066556e19a3d83e6256ab48a9716c3caf8066"
+    },
+    {
+      "id": "ast-photo-private-employee",
+      "type": "image",
+      "source": "public/services/photography/private-employee.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Illustrative photograph: Empty staff break room with employee survey and confidential feedback box.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 c0b464ddc2a0510b77bbb9e4b9ea2e39e4889cde70c431e913b6bfbc5448d902"
+    },
+    {
+      "id": "ast-photo-private-sustainability",
+      "type": "image",
+      "source": "public/services/photography/private-sustainability.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Illustrative photograph: Rooftop solar panels, utility meter and sustainability reporting clipboard.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 8cc5cd8f374ee5808f58633e5f0c9448392f962c1cf788eb628fb5de1d4d06c5"
+    },
+    {
+      "id": "ast-photo-school-improvement",
+      "type": "image",
+      "source": "public/services/photography/school-improvement.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Illustrative photograph: Bright empty classroom with reading corner and school improvement planning board.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 96f8b71a713bbdbf34ad394f5bfb7f3465124d125265e05ae8a44715b4197f48"
+    },
+    {
+      "id": "ast-photo-school-learning",
+      "type": "image",
+      "source": "public/services/photography/school-learning.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Illustrative photograph: Assessment sheets, exercise books and stationery on an empty classroom desk.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 d8edf85920172656092c35410cc9de2f65309a95b7cda086b256d63b80acf379"
+    },
+    {
+      "id": "ast-photo-school-curriculum",
+      "type": "image",
+      "source": "public/services/photography/school-curriculum.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Illustrative photograph: Teacher curriculum-planning desk with subject folders and lesson sequence binder.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 3771fa90977dc675abb7babc6fbdc10d118a92fa6291158fd675ae700a5b7c5d"
+    },
+    {
+      "id": "ast-photo-school-teacher-learning",
+      "type": "image",
+      "source": "public/services/photography/school-teacher-learning.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Illustrative photograph: Teacher-development seminar table with training guides and lesson-planning projection.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 ef1f790168b96bbfc41af7afed7b8de0010b8a50f23298d63fe48ee816531468"
+    },
+    {
+      "id": "ast-photo-school-parent-voice",
+      "type": "image",
+      "source": "public/services/photography/school-parent-voice.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Illustrative photograph: School noticeboard with parent feedback cards beside an empty sunny courtyard.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 b43c39a51eb20ff6590f7a110b811e0c04b5f4bedacfe8d18904a010cdba4e5f"
+    },
+    {
+      "id": "ast-photo-school-digital",
+      "type": "image",
+      "source": "public/services/photography/school-digital.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Illustrative photograph: Empty digital classroom with tablets, laptop desks and projector.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 37d59b3ea1dd34b0f2f131e5b3f08b5344214ac10d4a0cb9098da66fb84e74ea"
+    },
+    {
+      "id": "ast-photo-school-inclusion",
+      "type": "image",
+      "source": "public/services/photography/school-inclusion.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Illustrative photograph: Accessible classroom desk with tactile resources, Braille books and reading magnifier.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 c39eb6ce47e9571102d52bd2625a8795ee53abf273a64b01e3968531e1cc1d42"
+    },
+    {
+      "id": "ast-photo-school-wellbeing",
+      "type": "image",
+      "source": "public/services/photography/school-wellbeing.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Illustrative photograph: Quiet empty school counselling room with cushions and wellbeing resources.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 227bceeae69433a35b0ce9ccdb360c5ca98db8b3ffda57a41ad5c0f1610da626"
+    },
+    {
+      "id": "ast-photo-school-enrolment",
+      "type": "image",
+      "source": "public/services/photography/school-enrolment.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Illustrative photograph: School enrolment register and anonymous admission forms at an empty reception counter.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 8a509cf9423959f37c405ab94cd3f4f12c5b1b21d1b39a411831c09eb3e624e1"
+    },
+    {
+      "id": "ast-photo-university-curriculum",
+      "type": "image",
+      "source": "public/services/photography/university-curriculum.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Illustrative photograph: University curriculum-mapping dossier and module descriptions on a library table.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 8dcf2e2d7606ca3ef26ca84a6e87a20405f1e6b36b1822e6ee5d433743f38134"
+    },
+    {
+      "id": "ast-photo-university-graduate-tracer",
+      "type": "image",
+      "source": "public/services/photography/university-graduate-tracer.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Illustrative photograph: Graduation cap, rolled certificate and graduate-tracer survey on a tablet.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 6dbeaa90d2c7529d5344e325575f2aad6b652eeb0a3fbee8d4e463f82bc9185c"
+    },
+    {
+      "id": "ast-photo-university-capacity",
+      "type": "image",
+      "source": "public/services/photography/university-capacity.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Illustrative photograph: Empty university research laboratory with instruments and capacity-assessment checklist.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 10eb495d03b079017f2249983f03131eb0d3d58f78d195b99b07eba7dfd9734f"
+    },
+    {
+      "id": "ast-photo-university-funding",
+      "type": "image",
+      "source": "public/services/photography/university-funding.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Illustrative photograph: Research funding desk with grant-call printouts, deadline calendar and funding search laptop.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 253cbf022656aeaa8166a6999dfaf4e1a018851665ba3b8aa6ddfa4c09792d8a"
+    },
+    {
+      "id": "ast-photo-university-impact",
+      "type": "image",
+      "source": "public/services/photography/university-impact.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Sunlit university greenhouse with plant trials, laboratory equipment and a research impact plan.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 a9eac778b8962eff24b66e6c0ab3252877689f21ad5e182f282074947d0bc4a7"
+    },
+    {
+      "id": "ast-photo-university-alumni",
+      "type": "image",
+      "source": "public/services/photography/university-alumni.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Anonymous alumni questionnaire and feedback cards at a table overlooking an empty university quadrangle.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 57eb584d915fc6caec5522cd550d0927b123b7bb4a31db42a02fb9940a0623d9"
+    },
+    {
+      "id": "ast-photo-university-data-management",
+      "type": "image",
+      "source": "public/services/photography/university-data-management.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Research data management binder, external backup drives and a server rack at a university workstation.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 ac4caeac36212db824884f130fee4db6ffed020ac3f6d948aa161161cd24b075"
+    },
+    {
+      "id": "ast-photo-ngo-needs",
+      "type": "image",
+      "source": "public/services/photography/ngo-needs.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Community water borehole, storage tank and an assessment map in an empty village square.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 596fa47f2343a2b4b31a02dd842049305a740ca2dc27fb855403450b0ed035e7"
+    },
+    {
+      "id": "ast-photo-ngo-theory-change",
+      "type": "image",
+      "source": "public/services/photography/ngo-theory-change.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Paper theory-of-change cards connected on a workshop wall above an empty planning table.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 a7c98ccb66eb70ef8731e2e6ecd748d589e4ce71f61e2150bce62724c5f2d8e2"
+    },
+    {
+      "id": "ast-photo-ngo-donor-proposal",
+      "type": "image",
+      "source": "public/services/photography/ngo-donor-proposal.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Donor proposal evidence and budget worksheets in an open folder on a sunlit NGO research desk.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 fadf07b3f114321ba71273e89e15e0f522cd194c587150ae44efb0dc25f8f3f2"
+    },
+    {
+      "id": "ast-photo-ngo-participatory",
+      "type": "image",
+      "source": "public/services/photography/ngo-participatory.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Community map, coloured tokens and nature-symbol cards on a shared table in an empty workshop hall.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 04ae036b07462f27dd15cf259a70e16cdc5e0f369253e6420768628f4a82eacb"
+    },
+    {
+      "id": "ast-photo-ngo-gender-equity",
+      "type": "image",
+      "source": "public/services/photography/ngo-gender-equity.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Accessible consultation room with a ramp, tactile guidance and an adjustable table holding audit forms.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 db878e98fe7f0ef34ec836ec072d96095fe3879159dbe20e946bfb5a95cb4512"
+    },
+    {
+      "id": "ast-photo-ngo-outcomes",
+      "type": "image",
+      "source": "public/services/photography/ngo-outcomes.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Harvested groundnuts, a weighing scale and programme measurement sheets beside agricultural trial plots.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 33621559c1cb4bb7d310a820fd3db07babb8335e72411ac0540140876bd92e81"
+    },
+    {
+      "id": "ast-photo-ngo-knowledge",
+      "type": "image",
+      "source": "public/services/photography/ngo-knowledge.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Printed learning briefs displayed on a publication rack with an open illustrated report on a library table.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 87191bd597d76f758a056cc4afa6796998927fb81a64f6a217d141106e370658"
+    },
+    {
+      "id": "ast-photo-business-brand",
+      "type": "image",
+      "source": "public/services/photography/business-brand.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Unbranded packaging, colour swatches and consumer-perception notes arranged on a marketing research table.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 df3e2bd335d25dcfea217c460e43311150a9ed3c29deaef77040ad16659628cf"
+    },
+    {
+      "id": "ast-photo-business-pricing",
+      "type": "image",
+      "source": "public/services/photography/business-pricing.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Retail price labels, a calculator and a willingness-to-pay questionnaire beside unbranded groceries.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 a00d17669bce64ee54c22874cccb20380c5f85be321d016010ff95ed936b9ebf"
+    },
+    {
+      "id": "ast-photo-business-value-chain",
+      "type": "image",
+      "source": "public/services/photography/business-value-chain.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Empty warehouse aisle with packaged goods, a barcode scanner and supply-chain research notes.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 4b7b2faf64708ba1eaa0d683dbbadf07632d99b73c153fad20193111d4504b47"
+    },
+    {
+      "id": "ast-photo-business-digital",
+      "type": "image",
+      "source": "public/services/photography/business-digital.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Printed digital customer-journey wireframes and a smartphone checkout screen on a research desk.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 31beb6e103deaa9823f7b660e3ca8f100a9fc49d61a7cbe6f1c5ee61b528ea35"
+    },
+    {
+      "id": "ast-photo-preregistration",
+      "type": "image",
+      "source": "public/services/photography/preregistration.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Study protocol, laboratory notebook and registration checklist beside a laptop on a research desk.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 31c3e96c27b307105a9b2424e379d137b02c576196c91206958b58f94f5c4e4d"
+    },
+    {
+      "id": "ast-photo-psychometrics",
+      "type": "image",
+      "source": "public/services/photography/psychometrics.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Scale-development workbook with rating items, validation tables and psychometric plots beside a pencil.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 272eae53f58aa5bf2e67613b002f07da04ac1f7cac65ca73af999e8ab81c8afd"
+    },
+    {
+      "id": "ast-photo-reproducibility",
+      "type": "image",
+      "source": "public/services/photography/reproducibility.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Code-review monitor with an analysis project, test results and a reproducibility checklist on a research desk.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 53dd4ed0eefd8e066a1057ad812d357452ad6ac58b9883e79e70f0701b892c9d"
+    },
+    {
+      "id": "ast-photo-research-visualisation",
+      "type": "image",
+      "source": "public/services/photography/research-visualisation.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Research charts on a desktop monitor beside printed figure proofs and colour-accessibility swatches.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 b270c928597869f459768cccc4c4b351f7bc5d7641a935d6d8c7a67bc5dc5575"
+    },
+    {
+      "id": "ast-photo-scoping-review",
+      "type": "image",
+      "source": "public/services/photography/scoping-review.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Evidence-mapping wall, screening log and article folders in an unoccupied review workspace.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 858d4c4dbcecc9040bc091f767e66da9aef1bc1bad8dba18dd8559a9578abca2"
+    },
+    {
+      "id": "ast-photo-doctoral-milestones",
+      "type": "image",
+      "source": "public/services/photography/doctoral-milestones.webp",
+      "role": "service-photograph",
+      "rights_status": "owned",
+      "description": "Doctoral research milestone calendar above a tabbed thesis binder and planning notebooks.",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 aec0c314deb9c06cae7b02883dc2ffe18cc4381903d19faf4e4419b93ccfa8f0"
+    },
+    {
+      "id": "ast-photo-gallery-hero",
+      "type": "image",
+      "source": "public/services/photography/gallery-hero.webp",
+      "role": "service-gallery-hero",
+      "rights_status": "owned",
+      "description": "Sunlit empty research library with journals, a map and notebook on a reading table",
+      "notes": "Original AI-generated photographic illustration. Full prompt and selected source in design/photography-register.json. SHA256 69c96692ef238e5de3f1cadbdcc2de84ea161e41034181ab2502931f4bada22b"
+    }
+  ],
+  "elements": [],
+  "scenes": [],
+  "shots": [],
+  "screens": [
+    {
+      "id": "screen-home",
+      "title": "home",
+      "status": "review",
+      "purpose": "Present home content and its preserved research workflow.",
+      "route": "/",
+      "viewport": "320px through desktop",
+      "state": "Default, interactive, loading and empty states where applicable"
+    },
+    {
+      "id": "screen-services",
+      "title": "services",
+      "status": "review",
+      "purpose": "Present services content and its preserved research workflow.",
+      "route": "/services",
+      "viewport": "320px through desktop",
+      "state": "Default, interactive, loading and empty states where applicable"
+    },
+    {
+      "id": "screen-pricing",
+      "title": "pricing",
+      "status": "review",
+      "purpose": "Present pricing content and its preserved research workflow.",
+      "route": "/pricing",
+      "viewport": "320px through desktop",
+      "state": "Default, interactive, loading and empty states where applicable"
+    },
+    {
+      "id": "screen-institutions",
+      "title": "institutions",
+      "status": "review",
+      "purpose": "Present institutions content and its preserved research workflow.",
+      "route": "/institutions",
+      "viewport": "320px through desktop",
+      "state": "Default, interactive, loading and empty states where applicable"
+    },
+    {
+      "id": "screen-approach",
+      "title": "approach",
+      "status": "review",
+      "purpose": "Present approach content and its preserved research workflow.",
+      "route": "/approach",
+      "viewport": "320px through desktop",
+      "state": "Default, interactive, loading and empty states where applicable"
+    },
+    {
+      "id": "screen-insights",
+      "title": "insights",
+      "status": "review",
+      "purpose": "Present insights content and its preserved research workflow.",
+      "route": "/insights",
+      "viewport": "320px through desktop",
+      "state": "Default, interactive, loading and empty states where applicable"
+    },
+    {
+      "id": "screen-workspace",
+      "title": "workspace",
+      "status": "review",
+      "purpose": "Present workspace content and its preserved research workflow.",
+      "route": "/workspace",
+      "viewport": "320px through desktop",
+      "state": "Default, interactive, loading and empty states where applicable"
+    }
+  ],
+  "deliverables": [
+    {
+      "id": "del-hero-film",
+      "type": "video",
+      "title": "Cinematic homepage film",
+      "channel": "web",
+      "source_ids": [
+        "ast-cinema"
+      ],
+      "aspect_ratio": "16:9",
+      "dimensions": "1280x720",
+      "duration_s": 8.041667,
+      "frame_rate": 24,
+      "format": "mp4",
+      "language": "en",
+      "captions": false,
+      "alt_text": "Illustrative Ghana-inspired coast, research workspace and landscape.",
+      "variant_of": "",
+      "version": 1,
+      "status": "approved"
+    },
+    {
+      "id": "del-service-photographs",
+      "type": "image",
+      "title": "100 realistic service photographs and one exclusive gallery hero",
+      "channel": "web",
+      "source_ids": [
+        "ast-photo-research-consultation",
+        "ast-photo-topic-development",
+        "ast-photo-proposal-review",
+        "ast-photo-methodology",
+        "ast-photo-ethics",
+        "ast-photo-instruments",
+        "ast-photo-sampling",
+        "ast-photo-search-strategy",
+        "ast-photo-literature-coaching",
+        "ast-photo-systematic-protocol",
+        "ast-photo-evidence-synthesis",
+        "ast-photo-bibliometrics",
+        "ast-photo-survey-digitisation",
+        "ast-photo-fieldwork",
+        "ast-photo-data-cleaning",
+        "ast-photo-quantitative",
+        "ast-photo-advanced-modelling",
+        "ast-photo-qualitative",
+        "ast-photo-mixed-methods",
+        "ast-photo-gis",
+        "ast-photo-transcription",
+        "ast-photo-developmental-edit",
+        "ast-photo-academic-edit",
+        "ast-photo-proofreading",
+        "ast-photo-references",
+        "ast-photo-manuscript-review",
+        "ast-photo-journal-strategy",
+        "ast-photo-reviewer-response",
+        "ast-photo-viva",
+        "ast-photo-grant-review",
+        "ast-photo-fellowship",
+        "ast-photo-research-profile",
+        "ast-photo-market-research",
+        "ast-photo-customer-insights",
+        "ast-photo-feasibility",
+        "ast-photo-competitive",
+        "ast-photo-ux-research",
+        "ast-photo-business-dashboard",
+        "ast-photo-policy-analysis",
+        "ast-photo-impact",
+        "ast-photo-baseline",
+        "ast-photo-mel",
+        "ast-photo-stakeholder",
+        "ast-photo-statistics-training",
+        "ast-photo-qualitative-training",
+        "ast-photo-review-training",
+        "ast-photo-team-training",
+        "ast-photo-government-policy-options",
+        "ast-photo-government-implementation",
+        "ast-photo-government-procurement",
+        "ast-photo-government-investment",
+        "ast-photo-government-citizens",
+        "ast-photo-government-local-planning",
+        "ast-photo-government-climate",
+        "ast-photo-government-data-governance",
+        "ast-photo-public-service-quality",
+        "ast-photo-public-performance",
+        "ast-photo-public-health-systems",
+        "ast-photo-public-transport",
+        "ast-photo-public-records",
+        "ast-photo-public-workforce",
+        "ast-photo-private-strategy",
+        "ast-photo-private-governance",
+        "ast-photo-private-experience",
+        "ast-photo-private-process",
+        "ast-photo-private-employee",
+        "ast-photo-private-sustainability",
+        "ast-photo-school-improvement",
+        "ast-photo-school-learning",
+        "ast-photo-school-curriculum",
+        "ast-photo-school-teacher-learning",
+        "ast-photo-school-parent-voice",
+        "ast-photo-school-digital",
+        "ast-photo-school-inclusion",
+        "ast-photo-school-wellbeing",
+        "ast-photo-school-enrolment",
+        "ast-photo-university-curriculum",
+        "ast-photo-university-graduate-tracer",
+        "ast-photo-university-capacity",
+        "ast-photo-university-funding",
+        "ast-photo-university-impact",
+        "ast-photo-university-alumni",
+        "ast-photo-university-data-management",
+        "ast-photo-ngo-needs",
+        "ast-photo-ngo-theory-change",
+        "ast-photo-ngo-donor-proposal",
+        "ast-photo-ngo-participatory",
+        "ast-photo-ngo-gender-equity",
+        "ast-photo-ngo-outcomes",
+        "ast-photo-ngo-knowledge",
+        "ast-photo-business-brand",
+        "ast-photo-business-pricing",
+        "ast-photo-business-value-chain",
+        "ast-photo-business-digital",
+        "ast-photo-preregistration",
+        "ast-photo-psychometrics",
+        "ast-photo-reproducibility",
+        "ast-photo-research-visualisation",
+        "ast-photo-scoping-review",
+        "ast-photo-doctoral-milestones",
+        "ast-photo-gallery-hero"
+      ],
+      "aspect_ratio": "3:2",
+      "dimensions": "1200x800",
+      "format": "webp",
+      "language": "en",
+      "captions": false,
+      "alt_text": "Each photographic illustration has descriptive alternative text.",
+      "variant_of": "",
+      "version": 5,
+      "status": "approved"
+    }
+  ],
+  "rights_and_claims": [
+    {
+      "id": "right-01",
+      "category": "source-media",
+      "description": "Original generated visuals with no third-party footage, real likeness reference or music.",
+      "evidence": "Higgsfield generation ID; previous generated courtyard provenance in PROJECT_NOTES.md; illustrative disclosure on site footer and film dialog.",
+      "status": "owned"
+    },
+    {
+      "id": "claim-01",
+      "category": "claims",
+      "description": "100 services, 13 research pathways, 13 expertise areas and nine client groups reflect the current catalogue. No customer counts, testimonials or affiliations invented.",
+      "evidence": "lib/catalog.ts and scripts/verify-catalogue.mjs",
+      "status": "confirmed"
+    },
+    {
+      "id": "claim-catalogue-v3",
+      "category": "catalogue",
+      "description": "100 proposed scoped services, 13 expertise areas, 9 client groups; photographs are illustrative and contain no humans.",
+      "evidence": "scripts/verify-catalogue.mjs and full 25-photo visual review.",
+      "status": "confirmed"
+    },
+    {
+      "id": "claim-photography-v5",
+      "category": "imagery",
+      "description": "100 individual realistic photographic illustrations represent each service, with no people or shared service images. A separate library scene introduces the page.",
+      "evidence": "Per-image reviews in photo-batch manifests, five contact sheets, and scripts/verify-service-photos.py.",
+      "status": "confirmed"
+    }
+  ],
+  "qa": {
+    "required_gates": [
+      "gate-brief",
+      "gate-direction",
+      "gate-look",
+      "gate-system",
+      "gate-rough",
+      "gate-finish",
+      "gate-delivery"
+    ],
+    "acceptance_threshold": 85,
+    "critical_failures": [],
+    "review_notes": [
+      "All 100 service images and the exclusive hero visually reviewed for realistic setting, service relevance and absence of people.",
+      "Human-like poster images and small screen avatars found during production were replaced before release.",
+      "100 unique service URLs, source files, prompts and final image hashes verified; all photos decode at 1200x800.",
+      "Superseded abstract artwork removed from the current public assets.",
+      "Featured opening services show varied business, school, healthcare, fieldwork and research contexts.",
+      "320px mobile reflow checked: 305px document width matches 305px viewport content width; body text 17px.",
+      "Matching service-detail photograph, desktop layout and preserved catalogue functions checked.",
+      "TypeScript, catalogue checks and production build passed. Archive prepared for the existing private Site.",
+      "Final browser verification: curated 12-image opening collection, page 2 with zero repeated image URLs, school curriculum filter and correct photo, service-detail image load."
+    ]
+  },
+  "gates": [
+    {
+      "id": "gate-brief",
+      "name": "Brief",
+      "status": "passed",
+      "evidence": [
+        "100-photo review, uniqueness checks, type check, mobile and desktop preview."
+      ]
+    },
+    {
+      "id": "gate-direction",
+      "name": "Direction",
+      "status": "passed",
+      "evidence": [
+        "100-photo review, uniqueness checks, type check, mobile and desktop preview."
+      ]
+    },
+    {
+      "id": "gate-look",
+      "name": "Representative look",
+      "status": "passed",
+      "evidence": [
+        "100-photo review, uniqueness checks, type check, mobile and desktop preview."
+      ]
+    },
+    {
+      "id": "gate-system",
+      "name": "Production system",
+      "status": "passed",
+      "evidence": [
+        "100-photo review, uniqueness checks, type check, mobile and desktop preview."
+      ]
+    },
+    {
+      "id": "gate-rough",
+      "name": "Functional implementation",
+      "status": "passed",
+      "evidence": [
+        "100-photo review, uniqueness checks, type check, mobile and desktop preview."
+      ]
+    },
+    {
+      "id": "gate-finish",
+      "name": "Finish",
+      "status": "passed",
+      "evidence": [
+        "100-photo review, uniqueness checks, type check, mobile and desktop preview."
+      ]
+    },
+    {
+      "id": "gate-delivery",
+      "name": "Delivery",
+      "status": "passed",
+      "evidence": [
+        "All 100 realistic service photos and one exclusive hero available, reviewed and hash-verified; final browser screenshot saved; production build passed."
+      ]
+    }
+  ],
+  "assumptions": [
+    "Existing rates, scope descriptions and functional behaviour retained.",
+    "Visual scenes are illustrative rather than footage of actual Veridanth premises.",
+    "Muted looping background film is appropriate for a website hero.",
+    "Nine client groups are separate from 13 research expertise areas.",
+    "New service rates are proposed scoped launch rates, with final availability and pricing agreed in writing."
+  ],
+  "open_questions": [],
+  "risks": []
+}

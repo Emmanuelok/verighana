@@ -1,0 +1,12 @@
+{
+  "id": "consultation",
+  "source": "generated_images/exec-f91d19e0-ef3a-4359-8f80-db116657dbd4.png",
+  "output": "public/services/consultation.webp",
+  "people": false,
+  "tool": "Built-in image_gen",
+  "prompt": "Use case: photorealistic-natural. Asset: landscape editorial photograph for a premium Ghanaian research consulting website. A beautifully composed COMPLETELY UNOCCUPIED research consultation workspace beside a large sunlit window, warm walnut table with two empty contemporary chairs, open unbranded research notebook, carefully arranged printed study proposal, pen, closed laptop and a simple ceramic cup. In the background, soft-focus bookshelves and lush tropical foliage outside a contemporary Accra-inspired academic office. Sophisticated natural timber, ivory and forest green palette. Premium architectural and still-life photography, 50mm lens, natural morning side light, subtle realistic surface textures, no artificial glow. Landscape 3:2 composition, central focal objects safe for a 16:10 crop. No people whatsoever, no human beings, no hands, no limbs, no bodies, no silhouettes, no portraits or photographs of people, no reflections of people. No logos, no watermarks, no readable text, no graphic overlays. Original illustrative office, not an actual company location.",
+  "dimensions": {
+    "width": 1000,
+    "height": 667
+  }
+}

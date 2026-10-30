@@ -1,0 +1,69 @@
+{
+  "result": "PASS",
+  "service_artworks": 100,
+  "unique_paths": 100,
+  "unique_hashes": 100,
+  "dimensions": "1200x800",
+  "closest_visual_fingerprints_for_manual_review": [
+    [
+      10,
+      "public-records",
+      "school-wellbeing"
+    ],
+    [
+      13,
+      "business-dashboard",
+      "review-training"
+    ],
+    [
+      13,
+      "public-workforce",
+      "university-capacity"
+    ],
+    [
+      14,
+      "mel",
+      "university-capacity"
+    ],
+    [
+      14,
+      "university-curriculum",
+      "university-graduate-tracer"
+    ],
+    [
+      15,
+      "business-dashboard",
+      "statistics-training"
+    ],
+    [
+      15,
+      "impact",
+      "scoping-review"
+    ],
+    [
+      16,
+      "business-brand",
+      "psychometrics"
+    ],
+    [
+      16,
+      "impact",
+      "preregistration"
+    ],
+    [
+      16,
+      "impact",
+      "university-curriculum"
+    ],
+    [
+      16,
+      "market-research",
+      "ngo-gender-equity"
+    ],
+    [
+      16,
+      "ngo-knowledge",
+      "doctoral-milestones"
+    ]
+  ]
+}
