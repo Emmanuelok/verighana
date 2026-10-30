@@ -1,0 +1,11 @@
+.desk-access-note{display:flex;align-items:flex-start;gap:18px;border:1px solid #cbd9c4;background:#edf2e7;padding:22px 26px;margin-bottom:28px;color:#173e32}
+.desk-access-note>svg{flex-shrink:0;margin-top:4px}
+.desk-access-note strong{font-size:18px;font-weight:600;line-height:1.5}
+.site-shell .desk-access-note p{font-size:15px;line-height:1.7;margin:6px 0 0;max-width:850px;color:#43594e}
+.desk-draft-download{margin-top:25px}
+.desk-draft-download:disabled{opacity:.5;cursor:not-allowed}
+.workspace-tabs button:focus-visible{outline:2px solid #073d35;outline-offset:4px}
+.site-shell .brief-form form>h2{line-height:1.1}
+.site-shell .scope-summary li strong{font-size:14px}
+.site-shell .receipt-panel .muted-info{line-height:1.7}
+@media(max-width:760px){.desk-access-note{padding:20px;gap:13px}.desk-access-note strong{font-size:17px}.site-shell .desk-access-note p{font-size:15px}.desk-user{width:100%}.form-navigation{flex-wrap:wrap}.form-navigation .button{margin-left:auto}.site-shell .form-steps{gap:12px;align-items:flex-start}.site-shell .form-steps>div{flex:1;flex-direction:column;text-align:center}.brief-actions{flex-wrap:wrap}}

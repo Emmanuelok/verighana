@@ -5,7 +5,7 @@ const { outputFiles } = await build({ entryPoints: ['lib/estimate-transfer.ts'],
 const { parseEstimateTransfer, researchDeskUrl } = await import('data:text/javascript;base64,' + Buffer.from(outputFiles[0].text).toString('base64'));
 const estimate = { audience: 'phd', items: [{ id: 'quantitative', quantity: 2 }] };
 const url = new URL(researchDeskUrl(estimate.audience, estimate.items));
-assert.equal(url.origin, 'https://veridanth-research-ghana.elkings.chatgpt.site');
+assert.equal(url.origin, 'https://fvsignature.com');
 assert.equal(url.pathname, '/workspace');
 assert.equal(url.search, '', 'Selections must not appear in server request logs');
 assert.deepEqual(parseEstimateTransfer(url.hash), estimate);

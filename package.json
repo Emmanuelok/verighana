@@ -16,7 +16,8 @@
     "verify:catalogue": "node scripts/verify-catalogue.mjs",
     "verify:handoff": "node scripts/verify-handoff.mjs",
     "prebuild": "node scripts/build-offline.mjs",
-    "verify:brand": "node scripts/verify-brand-pwa.mjs"
+    "verify:brand": "node scripts/verify-brand-pwa.mjs",
+    "verify:desk": "node scripts/verify-public-desk.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",
@@ -42,7 +43,9 @@
     "sonner": "^2.0.8",
     "tailwind-merge": "3.6.0",
     "vaul": "^1.1.2",
-    "zod": "^3.25.76"
+    "zod": "^3.25.76",
+    "pdf-lib": "1.17.1",
+    "@pdf-lib/fontkit": "1.1.1"
   },
   "devDependencies": {
     "@cloudflare/vite-plugin": "1.37.1",

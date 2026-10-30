@@ -1,10 +1,10 @@
-// Private records and authentication remain in the original Sites service.
-// Never accept caller-supplied identity headers on the public Vercel origin.
+// Public visitors save briefs in their own browser. Never expose private records
+// or accept caller-supplied identity headers on the public Vercel origin.
 export const dynamic = 'force-dynamic';
 function hostedDesk() {
   return Response.json({
-    error: 'Open the secure research desk to manage your briefs.',
-    workspaceUrl: 'https://veridanth-research-ghana.elkings.chatgpt.site/workspace',
+    error: 'Use the public research desk to save and download briefs on your device.',
+    workspaceUrl: '/workspace',
   }, { status: 409, headers: { 'Cache-Control': 'private, no-store' } });
 }
 export const GET = hostedDesk;

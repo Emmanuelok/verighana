@@ -1,4 +1,4 @@
-'use strict';
+import { downloadEstimatePdf } from './estimate-pdf.js';
 const byId = id => document.getElementById(id);
 const money = value => new Intl.NumberFormat('en-GH', { maximumFractionDigits: 0 }).format(value);
 const el = (tag, text, className) => { const node = document.createElement(tag); if (text !== undefined) node.textContent = text; if (className) node.className = className; return node; };
@@ -27,14 +27,19 @@ fetch('/offline-catalogue.json').then(response => { if (!response.ok) throw Erro
   byId('search').addEventListener('input', render); audience.addEventListener('change', render); render();
   const savedItems = saved && data.audiences.some(item => item.id === saved.audience) && Array.isArray(saved.items) ? saved.items.slice(0, 12).filter(item => item && Number.isInteger(item.quantity) && item.quantity > 0 && item.quantity <= 500 && data.services.some(service => service.id === item.id && service.audiences.includes(saved.audience))) : [];
   if (!savedItems.length) { byId('estimate').parentElement.classList.add('empty'); byId('estimate').append(el('p', 'No services have been saved on this device yet. Build an estimate when you are back online.')); return; }
-  let total = 0; const lines = ['FULLVIEW SIGNATURE | BY AVALON GROUP', 'SAVED RESEARCH ESTIMATE', ''];
+  let total = 0;
   for (const item of savedItems) {
     const service = data.services.find(service => service.id === item.id); const amount = service.prices[saved.audience] * item.quantity; total += amount;
-    const row = el('div', undefined, 'estimate-item');row.append(el('strong', service.title), el('span', `${item.quantity} × GHS ${money(service.prices[saved.audience])} · GHS ${money(amount)}`));byId('estimate').append(row);lines.push(`${item.quantity} × ${service.title}: GHS ${money(amount)}`);
+    const row = el('div', undefined, 'estimate-item');row.append(el('strong', service.title), el('span', `${item.quantity} × GHS ${money(service.prices[saved.audience])} · GHS ${money(amount)}`));byId('estimate').append(row);
   }
   const subtotal = el('p', 'Indicative subtotal', 'subtotal'); subtotal.append(el('strong', `GHS ${money(total)}`)); byId('estimate').append(subtotal);
-  const download = el('button', 'Download saved estimate', 'download'); download.type = 'button'; download.addEventListener('click', () => {
-    const content = [...lines, '', `Indicative subtotal: GHS ${money(total)}`, 'Offline copy. Final scope, availability, taxes and fees require agreement.'].join('\n');
-    const url = URL.createObjectURL(new Blob([content], { type: 'text/plain;charset=utf-8' })); const link = el('a'); link.href = url; link.download = 'Fullview-Signature-saved-estimate.txt';document.body.append(link);link.click();link.remove();setTimeout(() => URL.revokeObjectURL(url), 1000);
+  const download = el('button', 'Download saved estimate PDF', 'download'); download.type = 'button';
+  download.addEventListener('click', async () => {
+    download.disabled = true; download.textContent = 'Preparing PDF…';
+    try {
+      await downloadEstimatePdf({offline:true,pathway:data.audiences.find(item=>item.id===saved.audience).label,items:savedItems.map(item=>{const service=data.services.find(service=>service.id===item.id);return {title:service.title,quantity:item.quantity,unit:service.unit,unitPrice:service.prices[saved.audience],days:service.days,deliverables:service.deliverables||[]};})});
+      download.textContent = 'Download saved estimate PDF';
+    } catch { download.textContent = 'PDF unavailable. Try again'; }
+    finally { download.disabled = false; }
   }); byId('estimate').append(download);
 }).catch(() => { byId('load-error').hidden = false; byId('estimate').append(el('p', 'Please reconnect to complete offline setup.')); });

@@ -19,7 +19,7 @@ const nextConfig: NextConfig = {
   async redirects() {
     return ['/signin-with-chatgpt', '/signout-with-chatgpt', '/callback'].map(source => ({
       source,
-      destination: `https://veridanth-research-ghana.elkings.chatgpt.site${source}`,
+      destination: '/workspace',
       permanent: false,
     }));
   },

@@ -1,0 +1,20 @@
+.mobile-bottom-nav{display:none}
+.button[aria-busy=true]{cursor:progress;opacity:.75}
+@media(max-width:760px){
+  :root{--mobile-nav-height:76px}
+  html{scroll-padding-bottom:calc(var(--mobile-nav-height) + env(safe-area-inset-bottom) + 20px)}
+  .site-shell{padding-bottom:calc(var(--mobile-nav-height) + env(safe-area-inset-bottom))}
+  .mobile-bottom-nav{position:fixed;z-index:80;bottom:0;left:0;right:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));min-height:var(--mobile-nav-height);padding:7px max(8px,env(safe-area-inset-right)) calc(7px + env(safe-area-inset-bottom)) max(8px,env(safe-area-inset-left));background:#073d35;border-top:1px solid #42695b;box-shadow:0 -4px 20px #00251e14;gap:3px}
+  .mobile-bottom-nav a,.mobile-bottom-nav button{position:relative;min-width:0;min-height:61px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:7px 2px;border:0;border-radius:9px;background:transparent;color:#fff;font:600 12px/1.2 var(--sans);text-decoration:none;cursor:pointer;-webkit-tap-highlight-color:transparent}
+  .mobile-bottom-nav svg{width:22px;height:22px;stroke-width:1.8}
+  .mobile-bottom-nav [aria-current=page],.mobile-bottom-nav [data-active=true]{background:#e7efdc;color:#073d35}
+  .mobile-bottom-nav a:focus-visible,.mobile-bottom-nav button:focus-visible{outline:3px solid #edc86d;outline-offset:1px}
+  .mobile-nav-icon{position:relative;display:flex}
+  .mobile-nav-count{position:absolute;top:-8px;right:-12px;display:grid;place-items:center;min-width:18px;height:18px;padding:0 4px;background:#edc86d;color:#173c2d;border:2px solid #073d35;border-radius:20px;font-size:10px;line-height:1;font-weight:700}
+  .site-shell .header .estimate-icon,.site-shell .header .menu-button{display:none}
+  .site-shell .header .brand{max-width:100%}
+  .site-shell .header .main-nav.open{top:100%;max-height:calc(100dvh - 160px - env(safe-area-inset-bottom));overflow-y:auto;overscroll-behavior:contain}
+  .toast,.pwa-status,.pwa-status-update{bottom:calc(var(--mobile-nav-height) + env(safe-area-inset-bottom) + 14px)}
+  body:has(dialog[open]) .mobile-bottom-nav{visibility:hidden}
+}
+@media print{.mobile-bottom-nav{display:none!important}.site-shell{padding-bottom:0}}

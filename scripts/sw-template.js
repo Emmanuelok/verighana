@@ -2,7 +2,7 @@
 const VERSION = '__FULLVIEW_CACHE_VERSION__';
 const SHELL = `fullview-shell-${VERSION}`;
 const STATIC = `fullview-static-${VERSION}`;
-const PRECACHE = ['/offline.html','/offline.css','/offline.js','/offline-catalogue.json','/favicon.svg','/brand/icon-192.png','/brand/icon-512.png','/brand/logo-light.svg','/fonts/dm-sans-regular.ttf','/fonts/dm-sans-semibold.ttf','/fonts/libre-caslon-display.ttf'];
+const PRECACHE = ['/offline.html','/offline.css','/offline.js','/estimate-pdf.js','/brand/logo-dark.png','/fonts/instrument-serif-regular.ttf','/offline-catalogue.json','/favicon.svg','/brand/icon-192.png','/brand/icon-512.png','/brand/logo-light.svg','/fonts/dm-sans-regular.ttf','/fonts/dm-sans-semibold.ttf','/fonts/libre-caslon-display.ttf'];
 
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(SHELL).then(cache => cache.addAll(PRECACHE.map(url => new Request(url, { cache: 'reload' })))));

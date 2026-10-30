@@ -22,7 +22,7 @@ export function parseEstimateTransfer(hash: string): { audience: Audience; items
 }
 
 export function researchDeskUrl(audience: Audience, items: Selection[]): string {
-  const url = new URL('https://veridanth-research-ghana.elkings.chatgpt.site/workspace');
+  const url = new URL('https://fvsignature.com/workspace');
   // Only catalogue selections are transferred. No identity, credentials or brief text.
   if (items.length > 0) url.hash = new URLSearchParams({ [TRANSFER_KEY]: JSON.stringify({ audience, items }) }).toString();
   return url.toString();

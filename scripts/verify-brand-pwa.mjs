@@ -4,7 +4,7 @@ import vm from 'node:vm';
 import sharp from 'sharp';
 
 const manifest = JSON.parse(readFileSync('public/manifest.webmanifest', 'utf8'));
-assert.equal(manifest.name, 'Fullview Signature — by Avalon Group');
+assert.equal(manifest.name, 'Fullview Signature by Veridanth Group');
 assert.equal(manifest.display, 'standalone');
 assert.equal(manifest.scope, '/');
 assert.equal(manifest.id, '/');
