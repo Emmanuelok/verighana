@@ -32,7 +32,8 @@ for (const bundle of bundles.serviceBundles) {
     assert.ok(summary.includes(bundle.revisionPolicy));
     assert.ok(summary.includes(bundle.exclusions[0]));
     assert.ok(summary.includes('No booking, accepted quote or payment commitment'));
-    assert.ok(brief.description.includes('DRAFT PACKAGE'));
+    assert.ok(brief.description.includes('PACKAGE SCOPE'));
+    assert.ok(!brief.description.includes('owner approval'));
   }
 }
 assert.equal(handoff.parseBundleRequest(''), null);
@@ -52,8 +53,8 @@ try {
     packageProposal: {title: bundle.title, notes: [bundle.timeline, bundle.revisionPolicy, ...bundle.exclusions, bundles.bundlePricingNotice, bundles.bundleAuthorshipNotice]}});
   const document = await PDFDocument.load(bytes);
   assert.ok(document.getPageCount() >= 3, 'Long bundle proposal should paginate');
-  assert.match(document.getTitle(), /Draft package proposal/);
+  assert.match(document.getTitle(), /Package estimate/);
   mkdirSync('work/verification', {recursive: true});
   writeFileSync('work/verification/dissertation-bundle-proposal.pdf', bytes);
 } finally {globalThis.fetch = originalFetch;}
-console.log('PASS: all bundle pathways carry exact totals, scope and draft terms through handoff, saved brief, inquiry and multipage PDF; invalid links rejected.');
+console.log('PASS: all bundle pathways carry exact totals, approved scope and engagement terms through handoff, saved brief, inquiry and multipage PDF; invalid links rejected.');

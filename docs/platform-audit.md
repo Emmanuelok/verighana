@@ -29,10 +29,14 @@ Run `node scripts/verify-brief-snapshot.mjs` for regression coverage of catalogu
 
 ## Release boundary
 
-This branch is for local review and testing. Exact bundle prices, service delivery capacity and the release itself require owner review before publication. Telephone contact is now verified; direct electronic brief delivery still needs an authoritative destination and scope approval. Payments, direct inquiry delivery and other external integrations are outside this implementation.
+The owner approved the exact package pricing/scope review and publication on 30 October 2026, conditional on remaining download and inquiry checks. Earlier local-only restrictions are superseded for these Fullview changes. Telephone contact is now verified; direct electronic brief delivery still needs an authoritative destination and scope approval. Payments, direct inquiry delivery and other external integrations are outside this implementation.
 
 ## Superseding contact verification and reconciliation
 
 Read-only production/source follow-up confirmed main `dcdad9722c385f478745a758063a33db01ea7de7`, following header commit `a640bca51e90c2ab0a3c72d72c9e6c42f6078430`. The isolated branch is rebased on this main, preserving both changes. Current footer publishes +233 20 940 9668 as a telephone link and 24 Nii Kodia Road, Adenta, GhanaPost GPS GM-052-8745. This supersedes the initial absence of a phone contact. It does not establish email, WhatsApp, booking or message submission.
 
 The contact block was hidden on mobile/tablet by inherited `footer-principle` media rules. The isolated fix uses a dedicated responsive contact block. The desk handoff now links only to the verified telephone number and retains local notes/PDF preparation without sending anything.
+
+## Approved release follow-up
+
+Package publication wording is updated after the owner's exact-scope approval; commercial data is unchanged. PDF actions now prepare a persistent Save PDF link, move keyboard focus to it and invalidate stale links when selections change. All generation/validation tests and the Webpack production build pass. The browser control layer cannot return Blob downloads and its completion waiter times out, so final browser save verification remains a release gate. No push or deployment occurred. See `docs/bundle-review.md` for exact evidence and the unchanged internal-browser denial.

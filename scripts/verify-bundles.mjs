@@ -37,7 +37,7 @@ for (const bundle of serviceBundles) {
       assert.ok(service.audiences.includes(audience), `${bundle.id}: ${item.id} audience`);
       return sum + rate(service, audience) * item.quantity;
     }, 0);
-    assert.equal(quote.status, 'draft');
+    assert.equal(quote.status, 'published');
     assert.equal(quote.currency, 'GHS');
     assert.equal(quote.total, expectedBase);
     assert.equal(quote.addOnTotal, 0);
@@ -71,4 +71,4 @@ assert.throws(() => quoteBundle('journal-readiness', 'undergraduate'));
 assert.throws(() => quoteBundle('dissertation-proposal', 'government'));
 assert.throws(() => quoteBundle('dissertation-proposal', 'masters', null));
 assert.equal(quoteBundle('dissertation-qualitative', 'masters', [{id:'transcription', quantity:60}]).addOnTotal, 900, 'Fixed per-minute price must not receive an academic multiplier');
-console.log(JSON.stringify({result: 'PASS', bundles: serviceBundles.length, validConfigurations, proposedDefaultPricesGHS: expected}, null, 2));
+console.log(JSON.stringify({result: 'PASS', bundles: serviceBundles.length, validConfigurations, approvedDefaultPricesGHS: expected}, null, 2));

@@ -40,7 +40,7 @@ export async function createEstimatePdf(input: EstimateDocument, assets?: Assets
   const generatedAt = input.generatedAt ?? new Date();
   const date = generatedAt.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
   const total = input.items.reduce((sum, item) => sum + item.quantity * item.unitPrice, 0);
-  pdf.setTitle((input.packageProposal ? 'Draft package proposal' : 'Project estimate') + ' | Fullview Signature by Veridanth Group');
+  pdf.setTitle((input.packageProposal ? 'Package estimate' : 'Project estimate') + ' | Fullview Signature by Veridanth Group');
   pdf.setAuthor('Fullview Signature by Veridanth Group');
   pdf.setSubject(`${input.pathway} - indicative project planning estimate`);
   pdf.setCreationDate(generatedAt);
@@ -82,7 +82,7 @@ export async function createEstimatePdf(input: EstimateDocument, assets?: Assets
     page = pdf.addPage([width, height]);
     const dimensions = logo.scale(268 / logo.width);
     page.drawImage(logo, { x: margin, y: height - 40 - dimensions.height, ...dimensions });
-    alignRight(input.packageProposal ? 'DRAFT PACKAGE PROPOSAL' : 'PROJECT ESTIMATE', right, 46, 8.5, bold, muted);
+    alignRight(input.packageProposal ? 'PACKAGE ESTIMATE' : 'PROJECT ESTIMATE', right, 46, 8.5, bold, muted);
     alignRight(date, right, 63, 8.5, regular, muted);
     y = 112;
     if (first) {
@@ -122,7 +122,7 @@ export async function createEstimatePdf(input: EstimateDocument, assets?: Assets
   }
   if (input.packageProposal) {
     if (y > height - 145) addPage();
-    text('PACKAGE SCOPE · DRAFT FOR REVIEW', margin, y, 10, bold, green); y += 24;
+    text('PACKAGE SCOPE', margin, y, 10, bold, green); y += 24;
     for (const note of input.packageProposal.notes) {
       for (const value of wrap(note, usable, regular, 9)) {
         if (y > height - 85) addPage();

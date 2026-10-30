@@ -1,12 +1,12 @@
 # Fullview Signature bundle review
 
-Status: LOCAL DRAFT ONLY. No remote push, PR, merge, preview deployment, production deployment, commercial pricing change or external communication.
+Status: PRICING AND PUBLICATION APPROVED on 30 October 2026. The owner approved the exact attached pricing/scope review and publication on fvsignature.com, conditional on download and inquiry checks. See the release follow-up below; earlier staging restrictions and observations are historical.
 
 Repository: https://github.com/Emmanuelok/verighana
 
 Current reconciliation base: `dcdad9722c385f478745a758063a33db01ea7de7` (observed ready production deployment `dpl_BNCUvqFBkQw32LRfsUFqjDgYK2AG`, Vercel project `verighana`, public domain `fvsignature.com`). The initial review used `b12f31975654dea4236f82a436c580acb5935a88`; the isolated branch was rebased locally to preserve the newer contact details and non-sticky header. No remote merge or push occurred. Branch: `codex/fullview-bundle-review`. The base already includes monochrome branding, by Veridanth Group, PDFs, public desk and mobile navigation. Open-PR search returned none when work began.
 
-## Exact proposed base prices
+## Exact approved base prices
 
 | Package | Client level | GHS |
 |---|---|---:|
@@ -20,7 +20,7 @@ Current reconciliation base: `dcdad9722c385f478745a758063a33db01ea7de7` (observe
 | NGO Funding & Learning Evidence | NGO / development organisation | 21,000 |
 | School Improvement & Teacher Development | School / school network | 11,500 |
 
-Prices exactly sum the existing proposed unit rates at the stated audience level and explicit quantities. “Existing proposed rates” means rates publicly displayed on the live site as proposed launch/indicative starting prices, not internal or inferred rates. The original rates and all nine package prices are unchanged in this follow-up. Existing catalogue rates are not evidence of approved tariffs or delivery capacity. No savings, former price or discount is claimed. Applicable taxes and external costs are excluded and must be confirmed in a written engagement. The package scopes, revisions and delivery windows are new proposals requiring owner approval.
+Prices exactly sum the existing proposed unit rates at the stated audience level and explicit quantities. “Existing proposed rates” means rates publicly displayed on the live site as proposed launch/indicative starting prices, not internal or inferred rates. The original rates and all nine package prices are unchanged in this follow-up. Existing catalogue rates are not evidence of approved tariffs or delivery capacity. No savings, former price or discount is claimed. Applicable taxes and external costs are excluded and must be confirmed in a written engagement. The owner has now approved the package scopes, prices, revisions and proposed delivery windows presented in Library review PDF libfile_db971bf50f7c8191a9e8519beb76aa40. Availability and a written engagement remain required for each client project.
 
 ## Dissertation Proposal Pathway
 
@@ -338,13 +338,11 @@ Optional extras:
 - Three-page package PDF rendered and visually inspected; fonts, tables, totals and exclusions readable. Evidence in work/verification. The sample uses all maximum add-ons and therefore totals GHS 18,530, not the GHS 10,850 base.
 - Browser-triggered PDF download was interrupted by the user/tool and not retried; completion is uncertain. Direct generation, parsing and rendering passed independently. No forms were submitted to the live site or external systems.
 
-## Remaining release decisions
+## Release authorization
 
-1. Approve exact GHS prices, service limits, revisions, timeline and delivery capacity; revise draft owner-review wording for an authorized release.
-2. Telephone is now verified from production and source; an authoritative electronic recipient/integration is still needed before direct brief delivery. This version offers calling plus local project notes/PDF only.
-3. Approve publishing separately. Recheck main and concurrent work, repeat browser download acceptance, then release using the normal repository/deployment workflow.
+The owner replied “approved - go ahead!” to the exact pricing/scope PDF and publication request on 30 October 2026. This authorizes the nine package scopes and tiered prices for fvsignature.com after verification. It supersedes the earlier local-only restriction. It does not authorize unrelated websites, paid integrations, invented inquiry channels or security changes.
 
-The previous parent task creation was rejected by automatic approval review because it allowed possible live publishing and commercial prices without explicit approval. That restriction was respected; no denied publishing action was retried. This local implementation is reviewable without creating preview-access credentials or share links.
+The parent-provided approval references the pricing review PDF `libfile_db971bf50f7c8191a9e8519beb76aa40`. Base amounts above, all eligible audience adjustments, optional extras, quantities, exclusions and revisions are unchanged. Production remains conditional on remaining checks and the normal PR/deployment workflow.
 
 ## Follow-up: contacts and download diagnosis
 
@@ -362,3 +360,20 @@ No PDF application defect was reproduced. The actual estimate/brief download fun
 - Mobile 390 x 844: both inquiry and footer contacts are visible; document width and scroll width are both 390px. Screenshots: work/verification/mobile-call-handoff.jpg and mobile-contact-footer.jpg. Tablet 1024px: footer contact text remains visible. The inherited non-sticky header CSS is unchanged from current main.
 - Browser-triggered saved-brief PDF still returned no completed download event. The attempted read of chrome://downloads/?q=Fullview was denied by browser URL security policy (only HTTP/HTTPS allowed). No alternate route to that blocked browser record was attempted. Browser save completion remains unknown; no application PDF defect was reproduced.
 - Temporary viewport overrides were reset. No live forms, call links or messages were activated; no remote branch, production pricing or deployment was changed.
+
+## Approved-release verification follow-up — 30 October 2026
+
+Remote main was rechecked at `dcdad9722c385f478745a758063a33db01ea7de7`; there were no newer commits or open PRs. The existing GitHub PR → main → Vercel deployment path is confirmed. No push, PR, merge or deployment was performed in this follow-up because the conditional browser-save check remains unresolved.
+
+Publication copy now reflects owner approval. The exact commercial data is unchanged from `e6fe0e7093db7031bc1810153a800b7fece3ba37`; independent source comparison and 82 configuration tests confirmed this. Earlier individual-service proposed launch-rate disclosures remain intact.
+
+The PDF flow now separates preparation from saving: package, estimate, current draft and saved-brief actions create a persistent **Save PDF** link with an explicit filename. Keyboard focus moves to that link. Changing source inputs removes stale prepared files; unmounting revokes their Blob URLs. This improves the customer-facing flow without uploading brief data or depending on an automatic click after asynchronous generation.
+
+- All eight verification scripts passed, covering 9 bundles, 82 configurations, all 100 catalogue services, scope/price snapshots, validation, handoff, PWA assets and multipage PDF output.
+- Targeted lint passed. `npm run build -- --webpack` and TypeScript passed using local Node 24.19.0. The default local Turbopack build stalled during compilation without an error and was stopped; production remains configured for Node 22.x and the normal build command.
+- Normal browser actions successfully prepared package, custom-estimate, current-draft and saved-brief PDFs and displayed their expected filenames. Save PDF receives keyboard focus. Changing an add-on removed the old file link. Master’s quantitative package with one training add-on handed off GHS 11,730 consistently.
+- Mobile 390 × 844: viewport and document scroll width both 390; footer contacts remain visible and header computed position is relative. Only `tel:+233209409668` is offered. No call, message or external form was submitted. No application errors appeared in the inspected browser logs. Viewport override was reset.
+- **Browser save remains unverified:** a supported normal Save PDF link action completed, but `waitForEvent('download')` timed out after 20 seconds and returned no saved path. The supported `downloadMedia` action reported “Blob downloads are not supported by this browser.” These are browser-control limitations; no PDF generation failure was reproduced. No browser-internal page, native download inventory, raw browser protocol or filesystem Downloads search was used.
+- Previous denial of `chrome://downloads` remains binding and was not retried or bypassed. A manual normal Save PDF check, or a supported browser capability that can return the completed Blob download, is still needed to satisfy the publication condition. Publication itself was **not attempted**, not denied. The conditional release must not be represented as live.
+
+Evidence: `work/verification/release-pdf-save-link.jpg`, `release-mobile-footer.jpg`, and the generated multipage package PDF. The screenshots demonstrate UI readiness, not proof of a saved browser file.

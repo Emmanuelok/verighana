@@ -27,7 +27,7 @@ export function parseBundleRequest(search: string): BundleRequest | null {
 export function bundleBriefDraft(request: BundleRequest) {
   const quote = quoteBundle(request.bundleId, request.audience, request.addOns);
   const bundle = getBundle(request.bundleId)!;
-  const description = [bundle.title + ' — DRAFT PACKAGE',
+  const description = [bundle.title + ' — PACKAGE SCOPE',
     `Client level: ${audiences.find(item => item.id === request.audience)?.label}. See the itemised estimate for GHS prices.`,
     ...quote.lines.map(line => `${line.kind === 'add-on' ? 'Add-on' : 'Included'}: ${line.title} × ${line.quantity}. ${line.scope}`),
     `Delivery: ${bundle.timeline}`, `Revision limit: ${bundle.revisionPolicy}`,

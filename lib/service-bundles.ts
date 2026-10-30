@@ -1,8 +1,8 @@
 import {audiences, rate, services, type Audience, type Selection} from './catalog';
 
-/** Local review proposals only. Existing catalogue rates are not approved tariffs. */
-export const bundlePricingStatus = 'draft' as const;
-export const bundlePricingNotice = 'Draft package proposal — subject to owner approval and a written scope. Not a booking, invoice or payment request. Taxes and external costs are not included; any applicable amounts must be confirmed in the written quote.';
+/** Owner-approved package scopes and prices for publication. */
+export const bundlePricingStatus = 'published' as const;
+export const bundlePricingNotice = 'Package pricing covers the stated scope and selected client level, subject to availability and a written engagement. Not a booking, invoice or payment request. Taxes and external costs are not included; any applicable amounts must be confirmed in the written quote.';
 export const bundleAuthorshipNotice = 'You retain authorship and responsibility for your work. Academic packages provide coaching, analysis and editing of your own material. They exclude ghostwriting, fabricated data or references, impersonation and guaranteed grades, funding or publication.';
 
 export type BundleItem = Selection & {scope: string};
@@ -27,7 +27,7 @@ export type ServiceBundle = {
 const students: Audience[] = ['undergraduate', 'masters', 'phd'];
 const organisations: Audience[] = ['business', 'institution', 'government', 'public', 'private', 'schools', 'university', 'nonprofit'];
 const revisionPolicy = 'One consolidated clarification or correction round on the supplied material, requested within 14 calendar days of delivery. New questions, datasets, chapters or a changed scope require a separate quote.';
-const pricingRationale = 'The package price is the sum of the existing catalogue rates for the stated units and selected client level. No discount or prior selling price is claimed. The fixed scope and delivery window are proposals for owner approval.';
+const pricingRationale = 'The package price is the sum of the existing catalogue rates for the stated units and selected client level. No discount or prior selling price is claimed. Scope, timing and availability are confirmed in the written engagement.';
 const item = (id: string, quantity: number, scope: string): BundleItem => ({id, quantity, scope});
 const addOn = (serviceId: string, maxQuantity: number, note: string): BundleAddOn => ({serviceId, maxQuantity, note});
 
@@ -237,7 +237,7 @@ export function bundleScopeSummary(bundleId: string, audience: Audience, addOns:
   const quote = quoteBundle(bundleId, audience, addOns);
   const clientLabel = audiences.find(client => client.id === audience)?.label ?? audience;
   return [
-    `${bundle.title} — DRAFT PACKAGE`,
+    `${bundle.title} — PACKAGE SCOPE`,
     `Client level: ${clientLabel}. Currency: GHS.`,
     ...quote.lines.map(line => `${line.kind === 'add-on' ? 'Add-on' : 'Included'}: ${line.title} × ${line.quantity} — GHS ${line.total}. ${line.scope}`),
     `Base: GHS ${quote.baseTotal}; add-ons: GHS ${quote.addOnTotal}; total: GHS ${quote.total}.`,
