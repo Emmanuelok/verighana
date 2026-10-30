@@ -26,7 +26,7 @@ fetch('/offline-catalogue.json').then(response => { if (!response.ok) throw Erro
   }
   byId('search').addEventListener('input', render); audience.addEventListener('change', render); render();
   const savedItems = saved && data.audiences.some(item => item.id === saved.audience) && Array.isArray(saved.items) ? saved.items.slice(0, 12).filter(item => item && Number.isInteger(item.quantity) && item.quantity > 0 && item.quantity <= 500 && data.services.some(service => service.id === item.id && service.audiences.includes(saved.audience))) : [];
-  if (!savedItems.length) { byId('estimate').append(el('p', 'No services have been saved on this device yet. Build an estimate when you are back online.')); return; }
+  if (!savedItems.length) { byId('estimate').parentElement.classList.add('empty'); byId('estimate').append(el('p', 'No services have been saved on this device yet. Build an estimate when you are back online.')); return; }
   let total = 0; const lines = ['FULLVIEW SIGNATURE | BY VERIDANTH', 'SAVED RESEARCH ESTIMATE', ''];
   for (const item of savedItems) {
     const service = data.services.find(service => service.id === item.id); const amount = service.prices[saved.audience] * item.quantity; total += amount;

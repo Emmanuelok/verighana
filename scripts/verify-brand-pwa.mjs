@@ -25,11 +25,12 @@ assert.equal(catalogue.services.find(item => item.id === 'quantitative').prices.
 assert.ok(catalogue.services.every(item => item.audiences.every(audience => Number.isFinite(item.prices[audience]))));
 
 const handlers = new Map(); const databases = new Map(); const origin = 'https://fullview.example';
+let refuseWrites = false;
 const key = value => typeof value === 'string' ? new URL(value, origin).href : value.url;
 const store = name => {
   if (!databases.has(name)) databases.set(name, new Map());
   const rows = databases.get(name);
-  return { addAll: async requests => { for (const request of requests) rows.set(key(request), new Response('offline catalogue')); }, match: async request => rows.get(key(request)), put: async (request, response) => rows.set(key(request), response), keys: async () => Array.from(rows.keys()), delete: async request => rows.delete(key(request)) };
+  return { addAll: async requests => { for (const request of requests) rows.set(key(request), new Response('offline catalogue')); }, match: async request => rows.get(key(request)), put: async (request, response) => { if(refuseWrites) throw Error('Cache full'); rows.set(key(request), response); }, keys: async () => Array.from(rows.keys()), delete: async request => rows.delete(key(request)) };
 };
 databases.set('another-app-cache', new Map()); databases.set('fullview-shell-outdated', new Map());
 let offline = false;
@@ -37,7 +38,7 @@ const context = {
   self: { location: { origin }, addEventListener: (name, handler) => handlers.set(name, handler), clients: { claim: async () => {} }, skipWaiting: async () => {} },
   caches: { open: async name => store(name), keys: async () => Array.from(databases.keys()), delete: async name => databases.delete(name) },
   URL, Response, Request: class { constructor(url, options) { this.url = new URL(url, origin).href; Object.assign(this, options); } },
-  fetch: async () => { if (offline) throw Error('offline'); return new Response('online'); }, Promise,
+  fetch: async () => { if (offline) throw Error('offline'); const response = new Response('online'); Object.defineProperty(response, 'type', {value:'basic'}); return response; }, Promise,
 };
 vm.runInNewContext(readFileSync('public/sw.js', 'utf8'), context);
 let work; handlers.get('install')({ waitUntil: promise => { work = promise; } }); await work;
@@ -53,4 +54,8 @@ offline = true;
 let fallback;
 handlers.get('fetch')({ request: { method: 'GET', url: origin + '/services', mode: 'navigate', headers: new Headers() }, respondWith: promise => { fallback = promise; } });
 assert.equal(await (await fallback).text(), 'offline catalogue', 'Offline navigation must return the saved catalogue');
+offline = false; refuseWrites = true;
+let asset;
+handlers.get('fetch')({request:{method:'GET',url:origin+'/brand/uncached.svg',mode:'cors',headers:new Headers()},respondWith:promise=>{asset=promise;}});
+assert.equal(await (await asset).text(), 'online', 'Storage quota failure must preserve the network response');
 console.log('PASS: brand assets, icon dimensions, 100 offline services, pricing parity, offline fallback and private-route cache exclusions.');

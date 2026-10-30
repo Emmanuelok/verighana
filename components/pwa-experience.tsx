@@ -79,7 +79,7 @@ export function PwaExperience() {
     {!standalone && <section className="pwa-install-band" aria-label="Install Fullview Signature">
       <div className="wrap pwa-install-inner">
         <img className="pwa-install-icon" src="/brand/icon-192.png" width="56" height="56" alt="" />
-        <div className="pwa-install-copy"><h2>A fuller view. Always close.</h2><p>Add Fullview Signature to your home screen. Keep the service catalogue and your saved estimate close, even between connections.</p></div>
+        <div className="pwa-install-copy"><h2>A fuller view. Always close.</h2><p>Add Fullview Signature to your home screen. Keep the service catalogue and your saved estimate close, even between connections.</p>{offlineReady && <span className="pwa-readiness" role="status"><Check size={14} aria-hidden="true" /> Offline catalogue ready</span>}</div>
         <button className="button" onClick={install}><ArrowDownToLine size={18} aria-hidden="true" /> Install Fullview</button>
       </div>
     </section>}

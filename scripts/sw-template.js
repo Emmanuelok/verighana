@@ -35,9 +35,11 @@ self.addEventListener('fetch', event => {
     const response = await fetch(request);
     const policy = response.headers.get('Cache-Control') || '';
     if (response.ok && response.type === 'basic' && !/no-store|private/i.test(policy)) {
-      await cache.put(request, response.clone());
-      const keys = await cache.keys();
-      if (keys.length > 140) await Promise.all(keys.slice(0, keys.length - 140).map(key => cache.delete(key)));
+      try {
+        await cache.put(request, response.clone());
+        const keys = await cache.keys();
+        if (keys.length > 140) await Promise.all(keys.slice(0, keys.length - 140).map(key => cache.delete(key)));
+      } catch { /* A full device cache must not interrupt a successful network response. */ }
     }
     return response;
   })());
