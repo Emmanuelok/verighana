@@ -4,6 +4,9 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   async headers() {
     return [{
+      source: '/api/:path*',
+      headers: [{key: 'Cache-Control', value: 'private, no-store'}, {key: 'X-Content-Type-Options', value: 'nosniff'}],
+    }, ...['/account', '/projects', '/staff'].map(source => ({source, headers: [{key: 'Cache-Control', value: 'private, no-store'}, {key: 'Referrer-Policy', value: 'same-origin'}]})), {
       source: '/sw.js',
       headers: [
         { key: 'Content-Type', value: 'application/javascript; charset=utf-8' },

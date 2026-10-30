@@ -45,7 +45,7 @@ let work; handlers.get('install')({ waitUntil: promise => { work = promise; } })
 handlers.get('activate')({ waitUntil: promise => { work = promise; } }); await work;
 assert.ok(databases.has('another-app-cache'), 'Other app caches must be preserved');
 assert.ok(!databases.has('fullview-shell-outdated'), 'Old Fullview shell should be cleaned up');
-for (const path of ['/api/briefs','/api/briefs?id=VRG-TEST','/workspace','/signin-with-chatgpt','/signout-with-chatgpt','/callback','/services?_rsc=1']) {
+for (const path of ['/api/briefs','/api/briefs?id=VRG-TEST','/workspace','/account','/projects','/projects/private-id','/staff','/contact','/signin-with-chatgpt','/signout-with-chatgpt','/callback','/services?_rsc=1']) {
   let intercepted = false;
   handlers.get('fetch')({ request: { method: 'GET', url: origin + path, mode: 'navigate', headers: new Headers() }, respondWith: () => { intercepted = true; } });
   assert.equal(intercepted, false, `Never cache or intercept private route ${path}`);

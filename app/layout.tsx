@@ -7,6 +7,8 @@ import "./service-gallery.css";
 import "./brand.css";
 import "./mobile-navigation.css";
 import "./workspace.css";
+import "./bundles.css";
+import "./operations.css";
 
 export const viewport: Viewport = {width:'device-width',initialScale:1,viewportFit:'cover',themeColor:brand.theme};
 export const metadata: Metadata = {

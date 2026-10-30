@@ -86,7 +86,7 @@ export function PwaExperience() {
     {instructions && <Dialog title="FULLVIEW SIGNATURE APP" onClose={() => setInstructions(false)}>
       <div className="pwa-instructions"><img src="/brand/icon-192.png" width="64" height="64" alt="" style={{ borderRadius: 16 }} /><h2>Your research.<br /><em>One tap away.</em></h2>
         {isIos ? <><p>Open this website in Safari, then:</p><ol><li>Tap the <strong>Share</strong> button.</li><li>Choose <strong>Add to Home Screen</strong>.</li><li>Tap <strong>Add</strong> to keep Fullview on your device.</li></ol></> : <><p>Open your browser menu and choose <strong>Install app</strong> or <strong>Add to Home Screen</strong>. On a desktop, an install icon may appear beside the address bar.</p><p>If your browser does not offer installation, you can still use every online feature here.</p></>}
-        <div className="muted-info"><Check size={16} aria-hidden="true" /> No app store download. The offline catalogue becomes available after your first connected visit. Signing in and saving research briefs need an internet connection.</div>
+        <div className="muted-info"><Check size={16} aria-hidden="true" /> No app store download. The offline catalogue becomes available after your first connected visit. Open the public research desk while online. Briefs are saved on your device; saving does not send an inquiry.</div>
         <button className="button full" onClick={() => setInstructions(false)}>Continue exploring <ArrowRight size={17} aria-hidden="true" /></button>
       </div>
     </Dialog>}

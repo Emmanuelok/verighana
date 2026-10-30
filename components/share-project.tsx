@@ -1,0 +1,25 @@
+'use client';
+import {useState,useRef} from 'react';
+import Link from 'next/link';
+import type {Brief} from '../lib/local-briefs';
+import {fullviewContact} from '../lib/contact';
+import {ContactEmail} from './contact-email';
+import {Dialog} from './research-context';
+type Access={email:string;retentionDays:number;consentVersion:string};
+export function ShareProject({brief}:{brief:Brief}){
+ const [open,setOpen]=useState(false),[access,setAccess]=useState<Access|null>(null),[consent,setConsent]=useState(false),[busy,setBusy]=useState(false),[error,setError]=useState(''),[reference,setReference]=useState('');
+ const key=useRef(''),pending=useRef(false);
+ async function review(){setOpen(true);setBusy(true);setError('');try{const response=await fetch('/api/projects',{cache:'no-store',signal:AbortSignal.timeout(20000)});const data=await response.json() as {error?:string;actor?:{email?:string};retentionDays?:number;consentVersion?:string};if(!response.ok)throw new Error(data.error||'Sign in to share a project.');if(!data.actor?.email||!Number.isInteger(data.retentionDays)||!data.retentionDays||data.consentVersion!=='fullview-inquiry-v1')throw new Error('Project submission is being connected.');setAccess({email:data.actor.email,retentionDays:data.retentionDays,consentVersion:data.consentVersion});}catch(e){setError(e instanceof Error?e.message:'Online submission is unavailable.');}finally{setBusy(false);}}
+ async function submit(){if(!access||!consent||pending.current)return;pending.current=true;setBusy(true);setError('');key.current ||= crypto.randomUUID();
+ const {name,email,organisation,audience,title,description,deadline,budget,selections,packageRequest}=brief;
+ try{const response=await fetch('/api/projects',{method:'POST',signal:AbortSignal.timeout(25000),headers:{'Content-Type':'application/json'},body:JSON.stringify({idempotencyKey:key.current,consent:true,consentVersion:access.consentVersion,brief:{name,email,organisation,audience,title,description,deadline,budget,selections,packageRequest}})});const data=await response.json() as {reference?:string;error?:string};if(!response.ok)throw new Error(data.error||'Submission could not be confirmed.');if(typeof data.reference!=='string')throw new Error('No receipt was returned. Retry uses the same request reference.');setReference(data.reference);}catch(e){setError((e instanceof Error?e.message:'Submission could not be confirmed.')+' Your local brief is still saved. If the connection failed, retrying uses the same request to avoid duplicates.');}finally{pending.current=false;setBusy(false);}}
+ return <><button className="button outline" onClick={()=>void review()}>Review online submission</button>{open&&<Dialog title="Share this project with Fullview" onClose={()=>{if(!busy)setOpen(false);}}>
+ <h2>{brief.title}</h2>{reference?<div role="status"><h3>Project recorded: {reference}</h3><p>Your project is available to Fullview staff. Office email delivery has not been confirmed. No booking or payment has been made.</p><Link className="button" href="/projects">Open my shared projects</Link></div>:<>
+ <p>Your local brief stays on this device until you explicitly submit. Online submission stores your name, email, organisation, project title and description, timeline, budget and service selections with Fullview. Staff can review the shared project and an office notification is addressed to {fullviewContact.email}.</p>
+ <details><summary>Review the information to share</summary><p><strong>{brief.name}</strong> · {brief.email}</p><p>{brief.organisation}</p><p className="operations-prewrap">{brief.description}</p><p>Requested date: {brief.deadline}. Budget: {brief.budget}.</p><p>{brief.selections.length} selected services. The server calculates a new planning estimate from current catalogue rates; this is not an accepted quote.</p></details>
+ <p>Do not include participant identifiers, confidential datasets or private file attachments. Sensitive document transfer is not enabled.</p>
+ {access&&<><p>Signed in as {access.email}. Retention review: {access.retentionDays} days after submission. You can request deletion through your project.</p>{access.email.toLowerCase()!==brief.email.toLowerCase()?<p role="alert">The brief email must match your verified account. Update the brief before sharing.</p>:<label className="operations-check"><input type="checkbox" checked={consent} onChange={e=>setConsent(e.target.checked)}/>I have reviewed these details and agree to send them to Fullview for this project.</label>}</>}
+ {error&&<div className="muted-info" role="alert"><p>{error}</p><Link href="/account">Sign in or check my account</Link> · <ContactEmail withPhone/></div>}
+ <button className="button" disabled={busy||!access||!consent||access.email.toLowerCase()!==brief.email.toLowerCase()} onClick={()=>void submit()}>{busy?'Checking…':'Submit project to Fullview'}</button></>}
+ </Dialog>}</>;
+}
