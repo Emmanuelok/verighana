@@ -8,7 +8,7 @@ for(const file of readdirSync('migrations/operations').filter(f=>f.endsWith('.sq
 const adapt=client=>({query:async(sql,params=[])=>{const result=await client.query(sql,params);return {rows:result.rows,rowCount:result.affectedRows??result.rows.length};},transaction:work=>client.transaction(tx=>work(adapt(tx)))});
 const db=adapt(pg),[core,inquiries,projects,email,quotes,invoices]=await Promise.all(['core','inquiries','projects','email','quotes','invoices'].map(x=>load('lib/operations/'+x+'.ts')));
 const now=new Date();
-const request={idempotencyKey:crypto.randomUUID(),name:'Synthetic Test',email:'fvsignature@veridanth.com',subject:'Synthetic inquiry test',message:'Synthetic local-only service inquiry; no real email should be sent.',consent:true,consentVersion:'fullview-inquiry-v1',website:'',startedAt:now.valueOf()-5000};
+const request={idempotencyKey:crypto.randomUUID(),name:'Synthetic Test',email:'hello@fvsignature.com',subject:'Synthetic inquiry test',message:'Synthetic local-only service inquiry; no real email should be sent.',consent:true,consentVersion:'fullview-inquiry-v1',website:'',startedAt:now.valueOf()-5000};
 const a=await inquiries.submitInquiry(db,request,{retentionDays:30,ip:'127.0.0.1',now});
 const b=await inquiries.submitInquiry(db,request,{retentionDays:30,ip:'127.0.0.1',now});assert.equal(a.id,b.id);assert.equal((await db.query('SELECT * FROM fv_inquiries')).rows.length,1);
 await assert.rejects(inquiries.submitInquiry(db,{...request,message:'A changed payload must not replace the existing inquiry.'},{retentionDays:30,ip:'127.0.0.1',now}));
@@ -16,10 +16,10 @@ for(const bad of [{consent:false},{website:'spam'},{email:'invalid'},{startedAt:
 assert.equal(await email.dispatchNotification(db,a.id,async()=>({id:'synthetic-provider-id'})),'accepted');
 let resend=false;assert.equal(await email.dispatchNotification(db,a.id,async()=>{resend=true;return {id:'duplicate'};}),'accepted');assert.equal(resend,false);
 const c=await inquiries.submitInquiry(db,{...request,idempotencyKey:crypto.randomUUID()},{retentionDays:30,ip:'127.0.0.2',now});assert.equal(await email.dispatchNotification(db,c.id,async()=>{throw new Error('timeout');}),'unknown');assert.equal(await email.dispatchNotification(db,c.id,async()=>({id:'recovered-id'})),'accepted');
-process.env.FULLVIEW_RESEND_API_KEY='synthetic-not-a-real-key';process.env.FULLVIEW_EMAIL_FROM='fvsignature@veridanth.com';let mail;
+process.env.FULLVIEW_RESEND_API_KEY='synthetic-not-a-real-key';process.env.FULLVIEW_EMAIL_FROM='hello@fvsignature.com';let mail;
 await email.sendOfficeNotification({reference:'TEST',name:'Synthetic',email:'reply@example.org',subject:'Test\nsubject',message:'Synthetic'},'test-key',async(url,options)=>{assert.equal(url,'https://api.resend.com/emails');mail=JSON.parse(options.body);assert.equal(options.headers['Idempotency-Key'],'test-key');return Response.json({id:'synthetic'});});
-assert.deepEqual(mail.to,['fvsignature@veridanth.com']);assert.equal(mail.reply_to,'reply@example.org');assert.ok(!mail.subject.includes('\n'));delete process.env.FULLVIEW_RESEND_API_KEY;delete process.env.FULLVIEW_EMAIL_FROM;
-const client={id:'client-one',email:'fvsignature@veridanth.com',emailVerified:true,role:'client'},other={...client,id:'client-two'},staff={id:'staff-one',email:'staff@example.org',emailVerified:true,role:'staff'};
+assert.deepEqual(mail.to,['hello@fvsignature.com']);assert.equal(mail.from,'Fullview Signature <hello@fvsignature.com>');assert.equal(mail.reply_to,'reply@example.org');assert.ok(!mail.subject.includes('\n'));delete process.env.FULLVIEW_RESEND_API_KEY;delete process.env.FULLVIEW_EMAIL_FROM;
+const client={id:'client-one',email:'hello@fvsignature.com',emailVerified:true,role:'client'},other={...client,id:'client-two'},staff={id:'staff-one',email:'staff@example.org',emailVerified:true,role:'staff'};
 await db.query('INSERT INTO fv_staff(user_id,role) VALUES($1,$2)',[staff.id,'staff']);
 assert.equal((await core.actorFor(db,{...staff,emailVerified:true})).role,'staff');assert.equal((await core.actorFor(db,other)).role,'client');await assert.rejects(core.actorFor(db,{...client,emailVerified:false}));
 const brief={name:'Synthetic Test',email:client.email,organisation:'',audience:'masters',title:'Synthetic authenticated project',description:'A synthetic research project used only for local access-control regression tests.',deadline:'2099-01-01',budget:'Please advise',selections:[{id:'quantitative',quantity:1}],packageRequest:null};

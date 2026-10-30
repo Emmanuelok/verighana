@@ -68,7 +68,7 @@ try {
   assert.equal(mock.body,'{}');
   process.env.FULLVIEW_AUTH_ENABLED='false';
   const priorCalls=mock.proxyCalls;
-  assert.equal((await invoke('GET','get-session',{headers:{'oai-authenticated-user-id':'forged','oai-authenticated-user-email':'fvsignature@veridanth.com'}})).status,503);
+  assert.equal((await invoke('GET','get-session',{headers:{'oai-authenticated-user-id':'forged','oai-authenticated-user-email':'hello@fvsignature.com'}})).status,503);
   assert.equal(mock.proxyCalls,priorCalls);
   assert.equal(auth.authenticationConfigured(),false);
   await assert.rejects(auth.getPrincipal(),error=>error.status===503);
