@@ -14,7 +14,8 @@ type DeletionReview = {id:string;project_id:string;reference:string;requested_by
 type RetentionReview = {kind:'project'|'inquiry';id:string;reference:string;expiresAt:string;reason:'expired'|'deletion_requested';documentCleanupRequired:boolean};
 type Overview = {actor:Actor;projects:Project[];inquiries?:Inquiry[];staff?:Staff[];notifications?:Notification[];deletionRequests?:DeletionReview[];retentionReviews?:RetentionReview[];retentionDays?:number;uploadsAvailable?:boolean;checkoutEnabled?:boolean};
 type Message = {id:string;author_id:string;body:string;created_at:string};
-type Detail = Project & {description:string;expires_at:string;brief:Record<string,unknown>;messages:Message[]};
+type MessagePage = {messages:Message[];hasMore:boolean;nextCursor:string|null};
+type Detail = Project & {description:string;expires_at:string;brief:Record<string,unknown>;messages:Message[];messageHistory:Omit<MessagePage,'messages'>};
 type Invoice = {id:string;reference:string;quoteId:string;totalMinor:number;currency:'GHS';dueDate:string;status:'draft'|'issued'|'void';checkoutEnabled:false};
 type ApiFailure = {message:string;status?:number;code?:string;requestId?:string};
 type Perform = (work:()=>Promise<void>,message:string)=>Promise<void>;
@@ -36,6 +37,14 @@ const blankTerms:QuoteTerms={scope:'',revisions:'',timeline:'',taxTreatment:'',d
 const amount=(minor:number)=>new Intl.NumberFormat('en-GH',{style:'currency',currency:'GHS'}).format(minor/100);
 function date(value:string){const parsed=new Date(value);return Number.isNaN(parsed.valueOf())?'Date unavailable':parsed.toLocaleString('en-GB',{dateStyle:'medium',timeStyle:'short'});}
 function notificationLabel(state:string|null){return ({pending:'Waiting for a sending attempt',sending:'Sending attempt in progress',accepted:'Accepted by the email provider; inbox delivery is not confirmed',failed:'Sending failed; staff attention required',unknown:'Sending result is uncertain; review before retrying'} as Record<string,string>)[state??'pending']??'Delivery state unavailable';}
+function mergeMessages(earlier:Message[],latest:Message[]){return [...new Map([...earlier,...latest].map(message=>[message.id,message])).values()].sort((a,b)=>a.created_at.localeCompare(b.created_at)||a.id.localeCompare(b.id));}
+function refreshedConversation(previous:Detail|null,current:Detail):Detail {
+  if(previous?.id!==current.id)return current;
+  const known=new Set(previous.messages.map(message=>message.id));
+  // If the newest page no longer overlaps, restart its cursor rather than silently skipping a gap.
+  if(!current.messages.some(message=>known.has(message.id)))return current;
+  return {...current,messages:mergeMessages(previous.messages,current.messages),messageHistory:previous.messageHistory};
+}
 
 export function OperationsDashboard({mode}:{mode:'client'|'staff'}) {
   const [overview,setOverview]=useState<Overview|null>(null);
@@ -66,8 +75,9 @@ export function OperationsDashboard({mode}:{mode:'client'|'staff'}) {
   async function refreshDetail(id:string){
     detailController.current?.abort();const controller=new AbortController();detailController.current=controller;
     const [project,quoteResult,invoiceResult]=await Promise.all([request<Detail>(`/api/projects/${id}`,{signal:controller.signal}),request<{quotes:Quote[]}>(`/api/projects/${id}/quotes`,{signal:controller.signal}),request<{invoices:Invoice[]}>(`/api/projects/${id}/invoices`,{signal:controller.signal})]);
-    if(!controller.signal.aborted){setDetail(project);setQuotes(quoteResult.quotes);setInvoices(invoiceResult.invoices);}
+    if(!controller.signal.aborted){setDetail(previous=>refreshedConversation(previous,project));setQuotes(quoteResult.quotes);setInvoices(invoiceResult.invoices);}
   }
+  function prependMessages(projectId:string,page:MessagePage){setDetail(current=>current?.id===projectId?{...current,messages:mergeMessages(page.messages,current.messages),messageHistory:{hasMore:page.hasMore,nextCursor:page.nextCursor}}:current);}
   async function perform(work:()=>Promise<void>,success:string){
     if(busy)return;setBusy(true);setError(null);setMessage('');
     try{await work();setMessage(success);}
@@ -117,7 +127,7 @@ export function OperationsDashboard({mode}:{mode:'client'|'staff'}) {
         </section>
         <ProjectInvoices key={detail.id} projectId={detail.id} invoices={invoices} quotes={quotes} isStaff={isStaff} busy={busy} perform={perform} refresh={afterProjectAction}/>
         <section className="operations-card" aria-labelledby="documents-heading"><h3 id="documents-heading">Documents and payments</h3><p>Private uploads are not available yet. Please agree a suitable transfer process with Fullview before sharing manuscripts or datasets. Keep sensitive participant data out of this workspace.</p><p>Online checkout is disabled. Any payment instructions must be agreed separately with Fullview.</p></section>
-        <ProjectMessages key={detail.id} project={detail} actor={overview.actor} busy={busy} perform={perform} refresh={afterProjectAction}/>
+        <ProjectMessages key={detail.id} project={detail} actor={overview.actor} busy={busy} perform={perform} refresh={afterProjectAction} prepend={prependMessages}/>
         {(!isStaff||overview.actor.role==='admin')&&<DeletionRequest key={detail.id} projectId={detail.id} busy={busy} perform={perform}/>}
       </section>}
     </>}
@@ -167,10 +177,11 @@ function QuoteComposer({projectId,busy,perform,refresh}:{projectId:string;busy:b
   }
   return <details className="operations-card"><summary>Create a new quote draft</summary><form className="operations-form" onSubmit={submit}><p>Enter the agreed business terms explicitly. Saving creates an immutable version; to revise it, create another version. No deposit, tax or cancellation terms are supplied automatically.</p>{formError&&<p role="alert" className="muted-info">{formError}</p>}{lines.map((line,index)=><fieldset key={index}><legend>Line {index+1}</legend><label className="field">Description<input required maxLength={1000} value={line.description} onChange={event=>update(index,'description',event.target.value)}/></label><div className="operations-grid"><label className="field">Quantity<input required type="number" min={1} max={10000} step={1} value={line.quantity} onChange={event=>update(index,'quantity',event.target.value)}/></label><label className="field">Unit price (GHS)<input required inputMode="decimal" placeholder="Enter price" value={line.price} onChange={event=>update(index,'price',event.target.value)}/></label></div>{lines.length>1&&<button type="button" className="text-link" disabled={busy} aria-label={`Remove quote line ${index+1}`} onClick={()=>setLines(current=>current.filter((_,i)=>i!==index))}>Remove line</button>}</fieldset>)}<button type="button" className="text-link" disabled={busy||lines.length>=25} onClick={()=>setLines(current=>[...current,{description:'',quantity:'1',price:''}])}>Add scope item</button>{Object.entries(termLabels).map(([key,label])=><label key={key} className="field">{label}<textarea rows={3} maxLength={key==='scope'?12000:4000} value={terms[key as keyof QuoteTerms]} onChange={event=>setTerms(current=>({...current,[key]:event.target.value}))}/></label>)}<label className="field">Quote expires at (your local time)<input required type="datetime-local" value={expiry} onChange={event=>setExpiry(event.target.value)}/></label><p className="fine-print">Incomplete terms can be saved as a private draft, but the quote cannot be issued until every term is specified.</p><button className="button outline" disabled={busy}>Save new draft version</button></form></details>;
 }
-function ProjectMessages({project,actor,busy,perform,refresh}:{project:Detail;actor:Actor;busy:boolean;perform:Perform;refresh:()=>Promise<void>}) {
+function ProjectMessages({project,actor,busy,perform,refresh,prepend}:{project:Detail;actor:Actor;busy:boolean;perform:Perform;refresh:()=>Promise<void>;prepend:(projectId:string,page:MessagePage)=>void}) {
   const [body,setBody]=useState('');
+  async function loadEarlier(){const cursor=project.messageHistory.nextCursor;if(!cursor)return;await perform(async()=>{const page=await request<MessagePage>(`/api/projects/${project.id}/messages?before=${encodeURIComponent(cursor)}`,{signal:AbortSignal.timeout(20000)});prepend(project.id,page);},'Earlier project messages loaded.');}
   async function submit(event:FormEvent){event.preventDefault();await perform(async()=>{await request(`/api/projects/${project.id}/messages`,{method:'POST',body:JSON.stringify({body:body.trim()})});setBody('');await refresh();},'Your message was added to this project workspace. No email was sent.');}
-  return <section className="operations-card" aria-labelledby="messages-heading"><h3 id="messages-heading">Project conversation</h3>{!project.messages.length?<p>No messages yet.</p>:<ol className="operations-stack">{project.messages.map(message=><li key={message.id} className="operations-message"><p className="fine-print">{message.author_id===actor.id?'You':'Project participant'} · {date(message.created_at)}</p><p className="operations-copy">{message.body}</p></li>)}</ol>}<form className="operations-form" onSubmit={submit}><label className="field">Message<textarea required minLength={1} maxLength={4000} rows={4} value={body} onChange={event=>setBody(event.target.value)}/></label><p className="fine-print">This posts to the shared project workspace. It does not send an email. Do not include participant identifiers or confidential datasets.</p><button className="button outline" disabled={busy||!body.trim()}>Post project message</button></form></section>;
+  return <section className="operations-card" aria-labelledby="messages-heading"><h3 id="messages-heading">Project conversation</h3>{project.messageHistory.hasMore&&<button type="button" className="button outline" aria-controls="project-message-history" disabled={busy} onClick={()=>void loadEarlier()}>Load earlier messages</button>}{!project.messages.length?<p>No messages yet.</p>:<><p className="fine-print">{project.messages.length} messages shown{project.messageHistory.hasMore?' · Earlier messages are available.':' · Beginning of this project conversation reached.'}</p><ol id="project-message-history" className="operations-stack" aria-busy={busy}>{project.messages.map(message=><li key={message.id} className="operations-message"><p className="fine-print">{message.author_id===actor.id?'You':'Project participant'} · {date(message.created_at)}</p><p className="operations-copy">{message.body}</p></li>)}</ol></>}<form className="operations-form" onSubmit={submit}><label className="field">Message<textarea required minLength={1} maxLength={4000} rows={4} value={body} onChange={event=>setBody(event.target.value)}/></label><p className="fine-print">This posts to the shared project workspace. It does not send an email. Do not include participant identifiers or confidential datasets.</p><button className="button outline" disabled={busy||!body.trim()}>Post project message</button></form></section>;
 }
 function DeletionRequest({projectId,busy,perform}:{projectId:string;busy:boolean;perform:Perform}) {
   const [confirmed,setConfirmed]=useState(false),[result,setResult]=useState('');

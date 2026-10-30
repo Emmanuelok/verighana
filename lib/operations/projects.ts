@@ -14,7 +14,35 @@ export async function submitProject(db:Database,actor:Actor,input:unknown,retent
  await enqueueNotification(tx,id,'project',{reference,name:brief.name,email:actor.email,subject:brief.title,message:`A verified client explicitly submitted a project. Review the complete brief in the staff workspace.\nRequested completion: ${brief.deadline}\nPlanning estimate: GHS ${stored.estimate}\nNo booking or payment has been confirmed.`});await audit(tx,actor.id,'project.submitted',id,{consentVersion:data.consentVersion});return {id,reference};});
 }
 export async function listProjects(db:Database,actor:Actor){requireVerified(actor);return (await db.query("SELECT id,reference,CASE WHEN expires_at>now() THEN title ELSE 'Expired project' END AS title,status,assigned_to,version,created_at,expires_at<=now() AS expired FROM fv_projects WHERE deleted_at IS NULL AND (owner_id=$1 OR $2=true) ORDER BY created_at DESC LIMIT 100",[actor.id,actor.role!=='client'])).rows;}
-export async function projectDetail(db:Database,actor:Actor,id:string){uuid.parse(id);await requireProjectAccess(db,actor,id);const result=(await db.query('SELECT id,reference,title,description,brief,status,assigned_to,version,created_at,expires_at FROM fv_projects WHERE id=$1 AND expires_at>now()',[id])).rows[0];if(!result)throw new OperationError(404,'project_not_found','Project not found.');const messages=(await db.query('SELECT id,author_id,body,created_at FROM (SELECT id,author_id,body,created_at FROM fv_messages WHERE project_id=$1 ORDER BY created_at DESC,id DESC LIMIT 200) recent ORDER BY created_at ASC,id ASC',[id])).rows;return {...result,messages};}
+export type ProjectMessage={id:string;author_id:string;body:string;created_at:string};
+export type ProjectMessagePage={messages:ProjectMessage[];hasMore:boolean;nextCursor:string|null};
+const messagePageSchema=z.object({before:z.string().min(1).max(512).optional(),limit:z.number().int().min(1).max(200).default(200)}).strict();
+const messageCursorSchema=z.object({v:z.literal(1),p:uuid,t:z.string().datetime({precision:6}),i:uuid}).strict();
+function messageCursor(value:string,projectId:string){
+ try{
+  if(!/^[A-Za-z0-9_-]+$/.test(value))throw new Error('Invalid encoding');
+  const decoded=Buffer.from(value,'base64url');
+  if(decoded.toString('base64url')!==value)throw new Error('Noncanonical encoding');
+  const cursor=messageCursorSchema.parse(JSON.parse(decoded.toString('utf8')));
+  if(cursor.p!==projectId)throw new Error('Wrong project');
+  return cursor;
+ }catch{throw new OperationError(400,'invalid_message_cursor','The message history position is invalid. Refresh the project and try again.');}
+}
+/** Cursors locate messages only; every page requires current verified project access. */
+export async function listProjectMessages(db:Database,actor:Actor,id:string,input:unknown={}):Promise<ProjectMessagePage>{
+ uuid.parse(id);const options=messagePageSchema.parse(input);await requireProjectAccess(db,actor,id);
+ const before=options.before?messageCursor(options.before,id):null;
+ // Preserve PostgreSQL microseconds in the cursor and response to prevent timestamp-tie gaps.
+ const rows=(await db.query<ProjectMessage>(`SELECT m.id,m.author_id,m.body,
+   to_char(m.created_at AT TIME ZONE 'UTC','YYYY-MM-DD"T"HH24:MI:SS.US"Z"') AS created_at
+   FROM fv_messages m WHERE m.project_id=$1
+   ${before?'AND (m.created_at,m.id)<($3::timestamptz,$4::uuid)':''}
+   ORDER BY m.created_at DESC,m.id DESC LIMIT $2`,before?[id,options.limit+1,before.t,before.i]:[id,options.limit+1])).rows;
+ const hasMore=rows.length>options.limit,messages=rows.slice(0,options.limit).reverse(),oldest=messages[0];
+ const nextCursor=hasMore&&oldest?Buffer.from(JSON.stringify({v:1,p:id,t:oldest.created_at,i:oldest.id})).toString('base64url'):null;
+ return {messages,hasMore,nextCursor};
+}
+export async function projectDetail(db:Database,actor:Actor,id:string){uuid.parse(id);await requireProjectAccess(db,actor,id);const result=(await db.query('SELECT id,reference,title,description,brief,status,assigned_to,version,created_at,expires_at FROM fv_projects WHERE id=$1 AND expires_at>now()',[id])).rows[0];if(!result)throw new OperationError(404,'project_not_found','Project not found.');const {messages,hasMore,nextCursor}=await listProjectMessages(db,actor,id);return {...result,messages,messageHistory:{hasMore,nextCursor}};}
 const transitions:Record<string,string[]>={new:['scoped','closed'],scoped:['new','closed'],quoted:['closed'],accepted:['in_progress','closed'],in_progress:['delivered','closed'],delivered:['closed'],closed:[]};
 export async function updateProject(db:Database,actor:Actor,id:string,input:unknown){requireStaff(actor);uuid.parse(id);const data=z.object({version:z.number().int().positive(),status:z.string(),assignedTo:z.string().min(1).nullable()}).strict().parse(input);return db.transaction(async tx=>{
  await requireProjectAccess(tx,actor,id);const current=(await tx.query<{status:string}>('SELECT status FROM fv_projects WHERE id=$1 FOR UPDATE',[id])).rows[0];if(data.status!==current.status&&!transitions[current.status]?.includes(data.status))throw new OperationError(409,'invalid_transition','This status requires the quote or client acceptance workflow.');
