@@ -1,15 +1,16 @@
-/* Fullview Signature: Panorama identity, by Avalon Group. */
-.brand{--brand-accent:#b48942;gap:13px;align-items:center;max-width:none}
-.brand .brand-mark{width:65px;height:65px;border-radius:0;flex-shrink:0;background:none;color:#073d35;display:flex;justify-content:center;align-items:center;overflow:visible;box-shadow:none}
-.brand .brand-mark svg{width:65px;height:65px;display:block}
+/* Perspective: one-line editorial wordmark; compact endorsement. */
+@font-face{font-family:"Fullview Instrument";src:url("/fonts/instrument-serif-regular.ttf") format("truetype");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Fullview Instrument";src:url("/fonts/instrument-serif-italic.ttf") format("truetype");font-weight:400;font-style:italic;font-display:swap}
+.brand{display:inline-flex;align-items:center;max-width:none;gap:0;text-decoration:none}
 .brand .brand-type{display:flex;flex-direction:column;white-space:nowrap;color:#073d35}
-.brand .fullview-word{font-family:var(--serif);font-size:35px;font-weight:400;letter-spacing:-.5px;line-height:1}
-.brand .signature-word{font-family:var(--sans);font-size:10px;font-weight:500;letter-spacing:3.8px;line-height:1.4;text-transform:uppercase;margin:6px 0 3px;padding-left:2px}
-.brand .brand-endorsement{font-family:var(--sans);font-size:10.5px;font-weight:400;line-height:1.35;letter-spacing:.4px;margin-top:0;padding-left:2px;color:#526b60}
-.brand.light{--brand-accent:#e2bc73}.brand.light .brand-type,.brand.light .brand-mark{color:#fff9ec}.brand.light .brand-endorsement{color:#e2bc73}
-.header-inner{gap:24px}.header .brand{flex-shrink:0}.main-nav{gap:25px}
-.footer .brand .brand-mark,.footer .brand .brand-mark svg{width:79px;height:79px}.footer .brand .fullview-word{font-size:41px}.footer .brand .signature-word{font-size:12px;letter-spacing:4.4px}.footer .brand .brand-endorsement{font-size:12px}
-.standard-watermark{font-family:var(--sans);font-size:clamp(105px,14vw,195px);font-weight:500;letter-spacing:-.11em;right:35px;bottom:-15px}
+.brand .brand-name{display:flex;align-items:baseline;gap:.18em;font-family:"Fullview Instrument",Georgia,serif;font-size:42px;font-weight:400;letter-spacing:-.55px;line-height:1.02}
+.brand .fullview-word{font:inherit}
+.brand .signature-word{font:inherit;font-style:italic;font-size:.96em;letter-spacing:-.5px;text-transform:none;margin:0;padding:0}
+.site-shell .brand .brand-endorsement{font-family:var(--sans);font-size:11px;font-weight:400;line-height:1.3;letter-spacing:.35px;margin:5px 0 0 1px;padding:0;color:#526a5e}
+.brand.light .brand-type{color:#fff9ec}.site-shell .brand.light .brand-endorsement{color:#c3d0c5}
+.site-shell .header-inner{height:82px;gap:24px}.header .brand{flex-shrink:0}.main-nav{gap:25px}
+.footer .brand .brand-name{font-size:44px}.footer .brand .brand-endorsement{margin-top:7px}
+.standard-watermark{font-family:"Fullview Instrument",Georgia,serif;font-size:clamp(105px,14vw,195px);font-weight:400;letter-spacing:-.08em;right:35px;bottom:-15px}
 .pwa-install-band{background:#e9eddb;color:#123f32;border-top:1px solid #ced7be;border-bottom:1px solid #ced7be}
 .pwa-install-inner{padding-top:34px;padding-bottom:34px;display:flex;align-items:center;gap:21px}
 .pwa-install-icon{width:56px;height:56px;flex-shrink:0;border-radius:14px}.pwa-install-copy{flex:1}.pwa-install-copy h2{font-family:var(--serif);font-size:30px;line-height:1.2;letter-spacing:-.5px;margin:0 0 7px}.pwa-install-copy p{font-size:15px;line-height:1.65;margin:0;max-width:570px;color:#4d6553}.pwa-install-inner .button{font-size:14px;white-space:nowrap;min-height:48px;gap:12px}
@@ -20,3 +21,12 @@
 @media(max-width:359px){.brand{gap:8px}.brand .brand-mark,.brand .brand-mark svg{width:43px;height:43px}.brand .fullview-word{font-size:28px}.brand .brand-endorsement{font-size:10px}.header-actions{gap:5px}}
 
 .pwa-readiness{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:#285744;margin-top:10px}
+
+/* Keep the complete name on one line at the smallest supported viewport. */
+@media(max-width:1150px) and (min-width:769px){.brand .brand-name{font-size:36px}.site-shell .header-inner{gap:18px}.main-nav{gap:16px}.header-actions{gap:12px}.header .button.small{font-size:12px;padding:13px 14px}}
+@media(max-width:768px){.brand .brand-name{font-size:36px;letter-spacing:-.45px}.site-shell .header-inner{height:74px;gap:9px}.site-shell .brand .brand-endorsement{font-size:11px;letter-spacing:.2px;margin-top:4px}.header-actions{gap:9px}.header .estimate-icon{width:32px}.header .menu-button{width:34px}.header .brand{max-width:none}.footer .brand .brand-name{font-size:42px}}
+@media(max-width:359px){.header .brand .brand-name{font-size:31px;letter-spacing:-.45px}.header-actions{gap:4px}.site-shell .header-inner{gap:8px}.site-shell .brand .brand-endorsement{font-size:10.5px}}
+
+/* Override legacy wordmark reductions without shrinking either name. */
+.site-shell .brand .fullview-word{font:inherit;letter-spacing:inherit}
+.site-shell .brand .signature-word{font:inherit;font-size:.96em;font-style:italic;color:inherit;letter-spacing:-.5px;text-transform:none;margin:0;padding:0}

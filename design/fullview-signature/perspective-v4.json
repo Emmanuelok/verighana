@@ -1,0 +1,58 @@
+{
+  "version": "4.0",
+  "name": "Fullview Signature \u2014 Perspective",
+  "created_at": "2026-10-30",
+  "thesis": "A clear one-line identity and an opening into a fuller perspective.",
+  "architecture": {
+    "master_brand": "Fullview Signature",
+    "endorsement": "by Avalon Group",
+    "header": "One line, upright Fullview plus italic Signature; quiet left-aligned endorsement.",
+    "symbol": "Original FV ligature with a gold tapered opening."
+  },
+  "selected_direction": "Editorial wordmark and FV perspective ligature",
+  "colors": {
+    "ink": "#073d35",
+    "ivory": "#fff9ec",
+    "gold": "#d6b270"
+  },
+  "typography": {
+    "display": "Instrument Serif Regular",
+    "signature": "Instrument Serif Italic",
+    "endorsement": "DM Sans Regular",
+    "licenses": [
+      "instrument-serif-OFL.txt",
+      "dm-sans-OFL.txt"
+    ]
+  },
+  "generation": {
+    "provider": "OpenAI ImageGen",
+    "logo_concept": {
+      "prompt": "Create one exceptionally refined corporate identity master on a clean warm ivory background, widescreen 3:2. Brand is an ambitious independent research and intelligence firm in Ghana, globally relevant: Fullview Signature, endorsed by Avalon Group. Main logo must be a HORIZONTAL, SINGLE-LINE wordmark reading exactly 'Fullview Signature' with a beautiful crisp contemporary editorial serif, Fullview in regular upright, Signature subtly italic and slightly smaller but on the SAME BASELINE. Keep the wordmark highly readable and elegantly compact. Under it put one small, restrained clean sans-serif line reading exactly 'by Avalon Group'. At the left of the wordmark design a distinctive simple FV ligature emblem: bold deep evergreen geometric F with a sweeping tapered V integrated as its lower stroke; an intelligent open frame, focus, wider perspective. Elegant exact geometry, no enclosing badge. The design must be minimal, memorable, strong in silhouette, luxury strategy consultancy meets editorial research journal. Primary deep evergreen #073d35, very restrained warm gold #b48942 detail, ivory #fff9ec. Lots of carefully controlled negative space. Show the single finished mark only, centered at generous scale. Flat vector-like graphic design, absolutely NO realistic mockup, no 3D, no shadows, no lens leaves, no swoosh orbit, no lips, no eyes, no globe, no random decorative stars, no additional wording. This is a logo design image, not a photograph. Meticulous letter spacing, readable balanced one-line naming. The old logo was rejected because emblem resembled lips and three separate text lines were too bulky; fix that.",
+      "implementation": "Original controlled SVG geometry and outlined typography; generated lettering is not shipped."
+    },
+    "og_background": {
+      "prompt": "Create an extraordinarily elegant, photorealistic editorial brand background for a research company's Open Graph card. Wide 1.90476:1 composition (1200x630 aspect). No text anywhere. The LEFT 56 percent is uninterrupted deep rich forest-green #073d35 negative space, subtle matte paper / dark painted wall texture, quiet and nearly uniform for white typography. On the RIGHT 44 percent: extreme high-end still-life photograph of ONE tall precision-polished clear optical-glass rectangular frame standing upright on an ivory limestone pedestal, with a second thin warm-brass edge visible through it; looking through its opening reveals a narrow brilliant warm horizon of sunlight and a soft abstract distant landscape. The frame gently refracts and brings the light into focus. A small stack of ivory research folios at the lower right, very subtle unmarked cover; glass and brass have genuine believable material thickness, fine imperfections, physically correct shadows and reflections. Pensive scholarly intelligence, a wider perspective becoming clear, an architectural magazine cover quality. Deep green darkness on the left blending gradually into warmer green and cream glass highlights on the right. Restrained natural gold highlights, rich chiaroscuro, sharp detail only on the glass edges. Objects remain within rightmost 44 percent with generous margin to edges. Matte, tactile, photographic, sophisticated, no people, no hands, no words, no charts, no screens, no logo, no watermark, no holograms, no neon, no sci-fi, no floating objects, no glowing planets. It must read as one intentional luxury editorial photograph, not an AI collage or a generic corporate banner.",
+      "asset": "public/brand/perspective-v4-photograph.png",
+      "disclosure": "AI-generated editorial brand illustration; not company premises."
+    }
+  },
+  "deliverables": [
+    "public/brand/logo-dark.svg",
+    "public/brand/logo-light.svg",
+    "public/brand/wordmark-dark.svg",
+    "public/brand/wordmark-light.svg",
+    "public/brand/monogram.svg",
+    "public/brand/og-master.svg",
+    "public/brand/og-fullview-signature.png",
+    "public/favicon.svg",
+    "public/favicon.ico",
+    "public/manifest.webmanifest"
+  ],
+  "qa": {
+    "visual_artwork": "Reviewed primary/reverse lockups, complete OG and icons at 20, 40, 80 and 145px.",
+    "typecheck": "passed",
+    "build": "GitHub Next.js production build passed; Sites build pending",
+    "responsive": "Desktop header reviewed; mobile verification pending",
+    "publication": "pending"
+  }
+}

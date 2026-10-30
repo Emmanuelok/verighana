@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "brand": {
-    "name": "Veridanth Research Ghana",
+    "name": "Fullview Signature",
     "purpose": "Turn research questions into clarity and progress.",
     "positioning": "Independent Ghana-rooted research support.",
     "audiences": [
@@ -19,17 +19,29 @@
       "muted",
       "generic",
       "unreadable"
-    ]
+    ],
+    "endorsement": "by Avalon Group"
   },
   "identity": {
     "logo_assets": [
-      "public/favicon.svg"
+      "public/brand/wordmark-dark.svg",
+      "public/brand/wordmark-light.svg",
+      "public/brand/logo-dark.svg",
+      "public/brand/logo-light.svg",
+      "public/brand/monogram.svg"
     ],
     "logo_rules": {
-      "clear_space": "",
-      "minimum_size": "",
-      "backgrounds": [],
-      "prohibited_uses": []
+      "clear_space": "At least one capital-F stem on all sides",
+      "minimum_size": "Header wordmark retains a readable endorsement at 320px viewport",
+      "backgrounds": [
+        "ivory",
+        "deep evergreen"
+      ],
+      "prohibited_uses": [
+        "Three-level name stack",
+        "Distortion",
+        "Old panorama emblem"
+      ]
     },
     "colors": {
       "primary": [
@@ -162,7 +174,7 @@
   },
   "governance": {
     "owners": [
-      "Veridanth"
+      "Avalon Group"
     ],
     "approval_rules": [
       "Preserve source catalogue and author integrity",
@@ -171,7 +183,7 @@
     "asset_sources_and_licenses": [
       "Original AI-generated hero film and previous generated courtyard"
     ],
-    "version": "2.0",
+    "version": "4.0",
     "updated_at": "2026-10-30"
   }
 }
