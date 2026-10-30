@@ -1,15 +1,15 @@
 import sharp from 'sharp';
-import { readFile, writeFile } from 'node:fs/promises';
+import { readFile } from 'node:fs/promises';
 
 const icon = await readFile('public/brand/app-icon.svg');
 const maskable = await readFile('public/brand/app-icon-maskable.svg');
 for (const size of [192, 512]) await sharp(icon).resize(size, size).png().toFile(`public/brand/icon-${size}.png`);
 await sharp(maskable).resize(512, 512).png().toFile('public/brand/icon-maskable-512.png');
 await sharp(icon).resize(180, 180).png().toFile('public/brand/apple-touch-icon.png');
-for (const variant of ['dark', 'light']) await sharp(`public/brand/logo-${variant}.svg`, { density: 240 }).png().toFile(`public/brand/logo-${variant}.png`);
+for (const kind of ['logo', 'wordmark']) for (const variant of ['dark', 'light']) await sharp(`public/brand/${kind}-${variant}.svg`, { density: 192 }).png().toFile(`public/brand/${kind}-${variant}.png`);
 await sharp('public/favicon.svg').resize(32, 32).png().toFile('public/brand/favicon-32.png');
 await sharp('public/brand/og-master.svg').png().toFile('public/brand/og-fullview-signature.png');
-await sharp('public/brand/perspective-master.png').webp({ quality: 88 }).toFile('public/brand/perspective.webp');
+
 // A compact review board combines only the newly authored vector identity masters.
 const dark = await sharp('public/brand/logo-dark.svg').resize({ width: 610 }).png().toBuffer();
 const light = await sharp('public/brand/logo-light.svg').resize({ width: 610 }).png().toBuffer();

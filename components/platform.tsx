@@ -12,13 +12,7 @@ function Site({view,viewer}:{view:View;viewer:Viewer|null}){
   useEffect(()=>{const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('is-visible');observer.unobserve(entry.target)}}),{threshold:.08});document.querySelectorAll('[data-reveal]').forEach(el=>observer.observe(el));return()=>observer.disconnect()},[view]);
   return <div className={'site-shell view-'+view}><a className="skip-link" href="#main">Skip to content</a><Header view={view}/><main id="main">{view==='home'?<Home/>:view==='services'?<ServiceCatalogue/>:view==='pricing'?<PricingPage/>:view==='institutions'?<InstitutionsPage/>:view==='insights'?<InsightsPage/>:view==='approach'?<ApproachPage/>:<Workspace viewer={viewer}/>}</main><PwaExperience/><Footer/></div>
 }
-export function Brand({light=false}:{light?:boolean}){return <a href="/" className={'brand'+(light?' light':'')} aria-label="Fullview Signature — by Avalon Group home"><span className="brand-mark" aria-hidden="true"><svg viewBox="0 0 128 128" fill="none"><g transform="translate(0 12)">
-      <path d="M3 45C22 9 57 -4 87 6C64 2 50 38 3 45Z" fill="currentColor"/>
-      <path d="M49 30C64 15 73 6 85 10C104 15 117 31 125 44C96 40 80 20 49 30Z" fill="currentColor"/>
-      <path d="M3 49C14 76 37 88 58 77C43 77 26 54 3 49Z" fill="var(--brand-accent)"/>
-      <path d="M14 50C44 55 76 59 112 48C90 55 73 70 61 78C43 70 29 57 14 50Z" fill="currentColor"/>
-      <path d="M36 91C74 102 108 75 125 49C104 44 84 54 69 71C55 88 48 93 36 91Z" fill="var(--brand-accent)"/>
-    </g></svg></span><span className="brand-type"><span className="fullview-word">Fullview</span><span className="signature-word">Signature</span><small className="brand-endorsement">by Avalon Group</small></span></a>}
+export function Brand({light=false}:{light?:boolean}){return <a href="/" className={'brand'+(light?' light':'')} aria-label="Fullview Signature — by Avalon Group home"><span className="brand-type"><span className="brand-name"><span className="fullview-word">Fullview</span><em className="signature-word">Signature</em></span><span className="brand-endorsement">by Avalon Group</span></span></a>}
 function Header({view}:{view:View}){
   const [mobile,setMobile]=useState(false);const {items,estimate}=useResearch();
   const links=[['Services','/services','services'],['Organisations','/institutions','institutions'],['Our approach','/approach','approach'],['Insights','/insights','insights'],['Pricing','/pricing','pricing']];

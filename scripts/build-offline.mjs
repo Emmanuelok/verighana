@@ -10,7 +10,7 @@ const catalogue = {
   services: services.map(service => ({ id: service.id, title: service.title, description: service.description, category: categories.find(category => category.id === service.category)?.title || service.category, audiences: service.audiences, unit: service.unit, days: service.days, prices: Object.fromEntries(service.audiences.map(audience => [audience, rate(service, audience)])) })),
 };
 writeFileSync('public/offline-catalogue.json', JSON.stringify(catalogue));
-const shell = ['offline.html','offline.css','offline.js','offline-catalogue.json','favicon.svg','brand/icon-192.png','brand/icon-512.png','brand/logo-light.svg'];
+const shell = ['offline.html','offline.css','offline.js','offline-catalogue.json','favicon.svg','brand/icon-192.png','brand/icon-512.png','brand/wordmark-light.svg'];
 const hash = createHash('sha256');
 for (const file of shell) hash.update(readFileSync('public/' + file));
 const template = readFileSync('scripts/sw-template.js', 'utf8'); hash.update(template);
