@@ -3,6 +3,7 @@ import {useState,useRef} from 'react';
 import Link from 'next/link';
 import type {Brief} from '../lib/local-briefs';
 import {fullviewContact} from '../lib/contact';
+import {ContactEmail} from './contact-email';
 import {Dialog} from './research-context';
 type Access={email:string;retentionDays:number;consentVersion:string};
 export function ShareProject({brief}:{brief:Brief}){
@@ -18,7 +19,7 @@ export function ShareProject({brief}:{brief:Brief}){
  <details><summary>Review the information to share</summary><p><strong>{brief.name}</strong> · {brief.email}</p><p>{brief.organisation}</p><p className="operations-prewrap">{brief.description}</p><p>Requested date: {brief.deadline}. Budget: {brief.budget}.</p><p>{brief.selections.length} selected services. The server calculates a new planning estimate from current catalogue rates; this is not an accepted quote.</p></details>
  <p>Do not include participant identifiers, confidential datasets or private file attachments. Sensitive document transfer is not enabled.</p>
  {access&&<><p>Signed in as {access.email}. Retention review: {access.retentionDays} days after submission. You can request deletion through your project.</p>{access.email.toLowerCase()!==brief.email.toLowerCase()?<p role="alert">The brief email must match your verified account. Update the brief before sharing.</p>:<label className="operations-check"><input type="checkbox" checked={consent} onChange={e=>setConsent(e.target.checked)}/>I have reviewed these details and agree to send them to Fullview for this project.</label>}</>}
- {error&&<div className="muted-info" role="alert"><p>{error}</p><Link href="/account">Sign in or check my account</Link> · <a href={fullviewContact.emailHref}>Email Fullview</a></div>}
+ {error&&<div className="muted-info" role="alert"><p>{error}</p><Link href="/account">Sign in or check my account</Link> · <ContactEmail withPhone/></div>}
  <button className="button" disabled={busy||!access||!consent||access.email.toLowerCase()!==brief.email.toLowerCase()} onClick={()=>void submit()}>{busy?'Checking…':'Submit project to Fullview'}</button></>}
  </Dialog>}</>;
 }

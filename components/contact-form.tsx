@@ -1,8 +1,9 @@
 'use client';
 
 import {useCallback, useEffect, useRef, useState, type FormEvent} from 'react';
-import {ArrowRight, CheckCircle2, Mail, Phone} from 'lucide-react';
+import {ArrowRight, CheckCircle2, Phone} from 'lucide-react';
 import {fullviewContact} from '../lib/contact';
+import {ContactEmail} from './contact-email';
 
 const consentVersion = 'fullview-inquiry-v1';
 const emptyFields = {name: '', email: '', subject: '', message: '', website: ''};
@@ -23,6 +24,7 @@ async function responseObject(response: Response): Promise<Record<string, unknow
 }
 
 async function readAvailability(signal: AbortSignal): Promise<Availability> {
+  if (!fullviewContact.emailReady) return {state: 'unavailable'};
   try {
     const response = await fetch('/api/inquiries', {cache: 'no-store', credentials: 'same-origin', signal});
     const result = await responseObject(response);
@@ -81,7 +83,7 @@ export function ContactForm() {
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (submitting.current || availability.state !== 'available' || !consent) return;
+    if (submitting.current || !fullviewContact.emailReady || availability.state !== 'available' || !consent) return;
     submitting.current = true;
     setBusy(true); setError(''); setRequestId('');
     const controller = new AbortController();
@@ -142,7 +144,7 @@ export function ContactForm() {
   return <div className="contact-form-panel">
     <h2>A clear first step.</h2>
     {availability.state === 'loading' ? <p role="status" className="muted-info">Checking online inquiry availability…</p> :
-      availability.state === 'unavailable' ? <div className="contact-availability" role="status"><p>Online inquiries are not available right now. You can email or call Fullview. Sending is disabled until availability is confirmed.</p><ContactFallback/><button className="text-link" type="button" onClick={() => {setAvailability({state: 'loading'}); setConsent(false); void checkAvailability();}}>Check availability again</button></div> : null}
+      availability.state === 'unavailable' ? <div className="contact-availability" role="status"><p>Online inquiries are not available right now. Please call Fullview. Sending is disabled until availability is confirmed.</p><ContactFallback/><button className="text-link" type="button" onClick={() => {setAvailability({state: 'loading'}); setConsent(false); void checkAvailability();}}>Check availability again</button></div> : null}
     <form onSubmit={event => void submit(event)} aria-describedby="contact-disclosure">
       {error && <div className="contact-error" role="alert" tabIndex={-1} ref={errorRef}><p>{error}</p>{requestId && <p>Support reference: {requestId}</p>}</div>}
       <fieldset disabled={busy} className="contact-fields">
@@ -167,5 +169,5 @@ export function ContactForm() {
 }
 
 function ContactFallback() {
-  return <div className="contact-fallback"><a href={fullviewContact.emailHref}><Mail size={18} aria-hidden="true"/><span>{fullviewContact.email}</span></a><a href={fullviewContact.phoneHref}><Phone size={18} aria-hidden="true"/><span>{fullviewContact.phoneDisplay}</span></a></div>;
+  return <div className="contact-fallback"><ContactEmail/><a href={fullviewContact.phoneHref}><Phone size={18} aria-hidden="true"/><span>{fullviewContact.phoneDisplay}</span></a></div>;
 }

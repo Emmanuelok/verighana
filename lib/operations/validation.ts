@@ -1,4 +1,5 @@
 import {z} from 'zod';
+import {fullviewContact} from '../contact';
 import {createHash} from 'node:crypto';
 import {OperationError} from './core';
 export const consentVersion='fullview-inquiry-v1';
@@ -10,5 +11,5 @@ export const inquirySchema=z.object({
 export const projectSubmitSchema=z.object({idempotencyKey:z.string().uuid(),consent:z.literal(true),consentVersion:z.literal(consentVersion),brief:z.unknown()}).strict();
 export const uuid=z.string().uuid();
 export function payloadHash(value: unknown){return createHash('sha256').update(JSON.stringify(value)).digest('hex');}
-export function retentionDays(){const value=Number(process.env.FULLVIEW_RETENTION_DAYS);if(!Number.isInteger(value)||value<1||value>3650)throw new OperationError(503,'retention_unconfigured','Online project services are being connected. Please email Fullview.');return value;}
+export function retentionDays(){const value=Number(process.env.FULLVIEW_RETENTION_DAYS);if(!Number.isInteger(value)||value<1||value>3650)throw new OperationError(503,'retention_unconfigured',`Online project services are being connected. Please call Fullview on ${fullviewContact.phoneDisplay}.`);return value;}
 export function expiry(days:number,now=new Date()){if(!Number.isInteger(days)||days<1||days>3650)throw new OperationError(503,'retention_unconfigured','A retention policy is required.');return new Date(now.valueOf()+days*86400000).toISOString();}

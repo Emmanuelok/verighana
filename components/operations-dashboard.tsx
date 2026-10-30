@@ -3,6 +3,7 @@
 import {useEffect, useRef, useState, type FormEvent} from 'react';
 import Link from 'next/link';
 import {fullviewContact} from '../lib/contact';
+import {ContactEmail} from './contact-email';
 import type {Quote, QuoteInput, QuoteTerms} from '../lib/operations/quotes';
 
 type Actor = {id:string;email:string;role:'client'|'staff'|'admin'};
@@ -99,7 +100,7 @@ export function OperationsDashboard({mode}:{mode:'client'|'staff'}) {
     <nav className="operations-toolbar" aria-label="Workspace navigation"><Link className="text-link" href="/">Fullview Signature</Link><Link className="text-link" href="/workspace">Local research desk</Link><Link className="text-link" href="/account">Your account</Link>{isStaff&&<Link className="text-link" href={mode==='staff'?'/projects':'/staff'}>{mode==='staff'?'Projects view':'Staff workspace'}</Link>}</nav>
     <header className="page-intro"><span className="eyebrow">{mode==='staff'?'FULLVIEW STAFF WORKSPACE':'YOUR SHARED PROJECTS'}</span><h1>{mode==='staff'?'A clear view of the work.':'Your project, together.'}</h1><p>{mode==='staff'?'Review inquiries, coordinate project stages and prepare clear terms for client acceptance.':'Review submitted projects, discuss the scope and keep track of agreed work. Signing in does not upload your device-local drafts.'}</p></header>
     <div ref={feedback} tabIndex={-1} className="operations-feedback">
-      {error&&<div className="muted-info" role="alert"><h2>{signedOut?'Sign in to continue.':error.status===403?'Access needs attention.':error.status===503?'Online services are not available yet.':'This action needs attention.'}</h2><p>{error.message}</p>{error.requestId&&<p className="fine-print">Support reference: {error.requestId}</p>}<div className="hero-buttons"><Link className="button outline" href="/account">{signedOut?'Sign in':'Manage your account'}</Link><a className="text-link" href={fullviewContact.emailHref}>{fullviewContact.email}</a><button className="text-link" type="button" disabled={busy} onClick={()=>void retry()}>Try again</button></div></div>}
+      {error&&<div className="muted-info" role="alert"><h2>{signedOut?'Sign in to continue.':error.status===403?'Access needs attention.':error.status===503?'Online services are not available yet.':'This action needs attention.'}</h2><p>{error.message}</p>{error.requestId&&<p className="fine-print">Support reference: {error.requestId}</p>}<div className="hero-buttons"><Link className="button outline" href="/account">{signedOut?'Sign in':'Manage your account'}</Link><ContactEmail withPhone/><button className="text-link" type="button" disabled={busy} onClick={()=>void retry()}>Try again</button></div></div>}
       {message&&<p role="status" className="muted-info">{message}</p>}
     </div>
     {loading&&<p role="status">Loading your workspace…</p>}
@@ -131,7 +132,7 @@ export function OperationsDashboard({mode}:{mode:'client'|'staff'}) {
         {(!isStaff||overview.actor.role==='admin')&&<DeletionRequest key={detail.id} projectId={detail.id} busy={busy} perform={perform}/>}
       </section>}
     </>}
-    <footer className="operations-toolbar"><a href={fullviewContact.emailHref}>{fullviewContact.email}</a><a href={fullviewContact.phoneHref}>{fullviewContact.phoneDisplay}</a></footer>
+    <footer className="operations-toolbar"><ContactEmail/><a href={fullviewContact.phoneHref}>{fullviewContact.phoneDisplay}</a></footer>
   </main>;
 }
 

@@ -25,11 +25,11 @@ The DKIM TXT record is a public verification key, not a private key or runtime c
 v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDAhAYTovl091ub8s0T6jhWDOtqaqv0770n4DMWnBfz5uoXuvBeQprTZ7rtk9NeKwz8hD7SsqJWIwTBnYax/WGfxiOc14scSRswtmytZ4po9aI9hVots8Hvng/rMPPpgviSNfh7EijjmOHx6lpdp0ZjgxD4+oCYobVIOw6VmNjGsQIDAQAB
 ```
 
-## Mailbox provisioning remains pending
+## Approved alias created and verified
 
-The Zoho user list contains one existing Veridanth mailbox with the old Fullview alias. `hello@fvsignature.com` is not yet present. The owner has been asked to choose an alias on the existing mailbox or a separate mailbox; the response is pending. No mailbox or alias was created under an assumed choice.
+The owner answered **"Add hello@fvsignature.com as an alias of the existing mailbox"** in input panel `call_8299c233bd5e44758e484218733b8fce`, item 0. The alias **Fullview Signature <hello@fvsignature.com>** was added to the existing `hello@veridanth.com` mailbox in Zoho. The alias row was visually verified, and the primary mailbox is unchanged. Evidence: `work/verification/fullview-zoho-alias-created.png`.
 
-DNS/domain verification does not establish that this address can receive or send messages. No test message was created or sent, and no credential was created. Mailbox provisioning and delivery testing remain separate steps after the owner's choice and applicable authorization.
+No separate mailbox, licence or credential was created. No test message was created or sent. Alias provisioning and DNS verification are complete, but actual receiving/sending delivery has not been tested. Any delivery test remains a separate authorized step.
 
 ## Application and sender boundaries
 
@@ -37,4 +37,4 @@ The user instruction **Keep Resend unchanged** remains in force. No Resend domai
 
 The old `veridanth.com` sender/DNS conflict is historical and superseded by the new Fullview address. No ownership claim, migration or DNS change on that domain is needed for this setup.
 
-The existing Neon Auth canonical origin and required verification have already been applied and verified, as recorded in [operations-activation.md](operations-activation.md). The consolidated application-only database credential/schema/auth-cookie/Vercel approval, first administrator and retention decisions remain pending. The application features remain unpublished; the separate private-brief PDF-save release gate is still unverified. Completed DNS setup does not close those application release requirements.
+The existing Neon Auth canonical origin and required verification have already been applied and verified, as recorded in [operations-activation.md](operations-activation.md). The consolidated application-only database credential/schema/auth-cookie/Vercel approval, first administrator and retention decisions remain pending. A safe public release may proceed with inactive features gated; all integrations do not need to activate together. The private-brief browser PDF-save check remains unverified and has not been waived or marked passed. Completed DNS/alias setup does not change that result or activate the unfinished application features.
