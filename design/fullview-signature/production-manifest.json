@@ -1,0 +1,225 @@
+{
+  "schema_version": "1.0",
+  "project": {
+    "id": "fullview-signature-brand",
+    "name": "Fullview Signature \u2014 by Veridanth",
+    "mode": "screen-production",
+    "objective": "Rebrand the research platform and deliver a cohesive logo, social preview, favicon and installable PWA.",
+    "audience": "Students, researchers, organisations and institutions in Ghana and beyond.",
+    "governing_idea": "A fuller perspective, expressed through an FV monogram and aligned architectural frames.",
+    "status": "review"
+  },
+  "creative_system": {
+    "visual_thesis": "Warm gold perspective geometry on deep emerald, with an exact vector monogram and generous typographic hierarchy.",
+    "anti_goals": [
+      "Generic academic clip art",
+      "Uncontrolled generated typography",
+      "Decorative PWA controls without offline behaviour"
+    ],
+    "palette": {
+      "dominant": [
+        "#073d35",
+        "#f7f4ec"
+      ],
+      "accent": [
+        "#e2bc73"
+      ],
+      "contrast": "Ivory and gold on deep emerald; emerald on warm ivory."
+    },
+    "composition": "Strong typographic left field; perspective frames in the right field.",
+    "typography": "DM Sans and Libre Caslon Display; outlined vector masters.",
+    "interface": "Keep existing research pathways and readable mobile navigation.",
+    "invariants": [
+      "Exact spelling: Fullview Signature",
+      "Endorsement: by Veridanth",
+      "Existing research services and records preserved"
+    ],
+    "permitted_variations": [
+      "Responsive wordmark sizing",
+      "Square icon reductions",
+      "Light and dark logo variants"
+    ],
+    "camera": "Static, typography-led framing with a photographic perspective field on the right.",
+    "lighting": "Warm edge light across brass frames and emerald glass against a deep green field."
+  },
+  "assets": [
+    {
+      "id": "ast-monogram",
+      "type": "image",
+      "source": "public/brand/monogram.svg",
+      "role": "identity",
+      "rights_status": "owned",
+      "description": "Original FV vector geometry authored in this task.",
+      "status": "approved"
+    },
+    {
+      "id": "ast-logo",
+      "type": "image",
+      "source": "public/brand/logo-dark.svg",
+      "role": "identity",
+      "rights_status": "licensed",
+      "description": "Original vector lockup with outlined DM Sans and Libre Caslon Display; included OFL licences.",
+      "status": "approved"
+    },
+    {
+      "id": "ast-og",
+      "type": "image",
+      "source": "public/brand/og-fullview-signature.png",
+      "role": "brand",
+      "rights_status": "owned",
+      "description": "Original composition using a commissioned ImageGen architectural background and controlled vector lettering.",
+      "status": "approved"
+    },
+    {
+      "id": "ast-icon",
+      "type": "image",
+      "source": "public/brand/icon-512.png",
+      "role": "identity",
+      "rights_status": "owned",
+      "description": "App icon from the FV vector master.",
+      "status": "approved"
+    }
+  ],
+  "elements": [],
+  "scenes": [],
+  "shots": [],
+  "screens": [],
+  "deliverables": [
+    {
+      "id": "del-logo",
+      "type": "image",
+      "title": "Primary vector logo",
+      "channel": "web",
+      "source_ids": [
+        "ast-logo"
+      ],
+      "aspect_ratio": "5:1",
+      "dimensions": "vector",
+      "format": "svg",
+      "language": "en",
+      "captions": false,
+      "alt_text": "Fullview Signature \u2014 by Veridanth",
+      "variant_of": "",
+      "version": 1,
+      "status": "approved"
+    },
+    {
+      "id": "del-og",
+      "type": "image",
+      "title": "Social sharing card",
+      "channel": "social",
+      "source_ids": [
+        "ast-og"
+      ],
+      "aspect_ratio": "40:21",
+      "dimensions": "1200x630",
+      "format": "png",
+      "language": "en",
+      "captions": false,
+      "alt_text": "Fullview Signature \u2014 by Veridanth. Research. In full view.",
+      "variant_of": "",
+      "version": 1,
+      "status": "approved"
+    },
+    {
+      "id": "del-app-icon",
+      "type": "image",
+      "title": "PWA and browser icon family",
+      "channel": "web",
+      "source_ids": [
+        "ast-icon"
+      ],
+      "aspect_ratio": "1:1",
+      "dimensions": "512x512",
+      "format": "png",
+      "language": "en",
+      "captions": false,
+      "alt_text": "Fullview FV monogram",
+      "variant_of": "",
+      "version": 1,
+      "status": "approved"
+    }
+  ],
+  "rights_and_claims": [
+    {
+      "id": "right-brand",
+      "category": "source-media",
+      "description": "New vector identity created for the user; commissioned image generated in this task. No legal trademark clearance claimed.",
+      "evidence": "User instructed rebrand to Fullview Signature (by Veridanth); original vector geometry and generated background.",
+      "status": "confirmed"
+    }
+  ],
+  "qa": {
+    "required_gates": [
+      "gate-brief",
+      "gate-direction",
+      "gate-look",
+      "gate-system",
+      "gate-rough",
+      "gate-finish",
+      "gate-delivery"
+    ],
+    "acceptance_threshold": 85,
+    "critical_failures": [],
+    "review_notes": []
+  },
+  "gates": [
+    {
+      "id": "gate-brief",
+      "name": "Brief",
+      "status": "passed",
+      "evidence": [
+        "User request and autonomous creative direction recorded."
+      ]
+    },
+    {
+      "id": "gate-direction",
+      "name": "Direction",
+      "status": "passed",
+      "evidence": [
+        "User request and autonomous creative direction recorded."
+      ]
+    },
+    {
+      "id": "gate-look",
+      "name": "Representative look",
+      "status": "passed",
+      "evidence": [
+        "Identity preview inspected; vector and raster dimensions verified; Next.js build, catalogue and PWA cache-policy tests passed."
+      ]
+    },
+    {
+      "id": "gate-system",
+      "name": "Production system",
+      "status": "passed",
+      "evidence": [
+        "Identity preview inspected; vector and raster dimensions verified; Next.js build, catalogue and PWA cache-policy tests passed."
+      ]
+    },
+    {
+      "id": "gate-rough",
+      "name": "Coherent rough",
+      "status": "passed",
+      "evidence": [
+        "Identity preview inspected; vector and raster dimensions verified; Next.js build, catalogue and PWA cache-policy tests passed."
+      ]
+    },
+    {
+      "id": "gate-finish",
+      "name": "Finish",
+      "status": "review",
+      "evidence": []
+    },
+    {
+      "id": "gate-delivery",
+      "name": "Delivery",
+      "status": "review",
+      "evidence": []
+    }
+  ],
+  "assumptions": [
+    "Public PWA runs on Vercel; existing authenticated research desk remains on ChatGPT Sites."
+  ],
+  "open_questions": [],
+  "risks": []
+}

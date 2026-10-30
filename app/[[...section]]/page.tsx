@@ -5,7 +5,7 @@ const views:View[]=['services','pricing','institutions','insights','approach','w
 export async function generateMetadata({params}:{params:Promise<{section?:string[]}>}){
   const {section}=await params;
   const titles:Record<string,string>={services:'Research services',pricing:'Services & pricing',institutions:'Research for business & institutions',insights:'Research insights & tools',approach:'Our approach',workspace:'Your research desk'};
-  const title=section?.[0]&&titles[section[0]]?titles[section[0]]+' — Veridanth Research Ghana':'Veridanth Research Ghana — Big questions. Brighter futures.';
+  const title=section?.[0]&&titles[section[0]]?titles[section[0]]+' — Fullview Signature — by Veridanth':'Fullview Signature — by Veridanth — Big questions. Brighter futures.';
   return {title,...(section?.[0]==='workspace'?{robots:{index:false,follow:false}}:{})};
 }
 export default async function Page({params}:{params:Promise<{section?:string[]}>}){

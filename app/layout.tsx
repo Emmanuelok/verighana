@@ -1,33 +1,33 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+import {brand} from "../lib/brand";
 import "./globals.css";
 import "./redesign.css";
 import "./readability.css";
 import "./service-gallery.css";
+import "./brand.css";
 
+export const viewport: Viewport = {width:'device-width',initialScale:1,themeColor:brand.theme};
 export const metadata: Metadata = {
   metadataBase: new URL('https://verighana-two.vercel.app'),
-  title: "Veridanth Research Ghana — Big questions. Brighter futures.",
-  description: "Explore 100 research services for students, academics, government, public and private institutions, schools, universities, businesses and NGOs. Clear scopes, Ghana cedi planning rates and a personal research desk.",
+  applicationName: brand.name,
+  title: 'Fullview Signature — by Veridanth | Research. In full view.',
+  description: brand.description,
+  manifest: '/manifest.webmanifest',
+  appleWebApp: {capable:true,title:'Fullview',statusBarStyle:'default'},
   openGraph: {
-    title: 'Veridanth Research Ghana — Big questions. Brighter futures.',
-    description: 'Research support for every ambition. Rooted in Ghana. Thinking beyond boundaries.',
-    images: [{url:'/media/og-veridanth.jpg',width:1200,height:630,alt:'Veridanth Research Ghana — Big questions. Brighter futures.'}],
+    siteName: brand.title,
+    title: brand.title,
+    description: brand.description,
+    images: [{url:'/brand/og-fullview-signature.png',width:1200,height:630,alt:'Fullview Signature — by Veridanth. Research. In full view.'}],
     type:'website',
   },
+  twitter: {card:'summary_large_image',title:brand.title,description:brand.description,images:['/brand/og-fullview-signature.png']},
   icons: {
-    icon: "/favicon.svg",
-    shortcut: "/favicon.svg",
+    icon: [{url:'/favicon.svg',type:'image/svg+xml'},{url:'/favicon.ico',sizes:'any'}],
+    shortcut: '/favicon.ico',
+    apple: [{url:'/brand/apple-touch-icon.png',sizes:'180x180'}],
   },
 };
-
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return (
-    <html lang="en">
-      <body className="antialiased">{children}</body>
-    </html>
-  );
+export default function RootLayout({children}:{children:React.ReactNode}) {
+  return <html lang="en"><body className="antialiased">{children}</body></html>;
 }

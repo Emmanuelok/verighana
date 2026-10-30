@@ -1,5 +1,5 @@
 {
-  "name": "veridanth-research-ghana",
+  "name": "fullview-signature",
   "version": "0.1.0",
   "private": true,
   "engines": {
@@ -14,7 +14,9 @@
     "db:generate": "drizzle-kit generate",
     "typecheck": "tsc --noEmit",
     "verify:catalogue": "node scripts/verify-catalogue.mjs",
-    "verify:handoff": "node scripts/verify-handoff.mjs"
+    "verify:handoff": "node scripts/verify-handoff.mjs",
+    "prebuild": "node scripts/build-offline.mjs",
+    "verify:brand": "node scripts/verify-brand-pwa.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",
