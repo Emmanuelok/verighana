@@ -17,7 +17,9 @@
     "verify:handoff": "node scripts/verify-handoff.mjs",
     "prebuild": "node scripts/build-offline.mjs",
     "verify:brand": "node scripts/verify-brand-pwa.mjs",
-    "verify:desk": "node scripts/verify-public-desk.mjs"
+    "verify:desk": "node scripts/verify-public-desk.mjs",
+    "verify:bundles": "node scripts/verify-bundles.mjs && node scripts/verify-bundle-flow.mjs",
+    "verify:estimates": "node scripts/verify-estimate-selection.mjs && node scripts/verify-brief-snapshot.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",

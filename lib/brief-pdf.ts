@@ -1,10 +1,11 @@
 import fontkit from '@pdf-lib/fontkit';
 import { PDFDocument, rgb, type PDFFont, type PDFPage } from 'pdf-lib';
-import { audiences, services, money, rate } from './catalog';
+import { audiences, money } from './catalog';
 import { loadAssets } from './estimate-pdf';
-import type { Brief } from './local-briefs';
+import { getBriefPricing, type Brief } from './local-briefs';
 
 export async function createBriefPdf(brief: Brief): Promise<Uint8Array> {
+  const pricing = getBriefPricing(brief);
   const assets = await loadAssets();
   const pdf = await PDFDocument.create();
   pdf.registerFontkit(fontkit);
@@ -58,14 +59,13 @@ export async function createBriefPdf(brief: Brief): Promise<Uint8Array> {
   block(brief.description || 'To be completed.');
   heading('Requested support');
   if (!brief.selections.length) block('Custom scope — advice requested.');
-  for (const item of brief.selections) {
-    const service = services.find(service => service.id === item.id);
-    if (!service) continue;
-    block(`${item.quantity} × ${service.title}`, 11, bold);
-    block(`GHS ${money(rate(service, brief.audience))} per ${service.unit} · GHS ${money(rate(service, brief.audience) * item.quantity)}\n${service.deliverables.join('; ')}`, 10, regular, muted);
+  for (const item of pricing.lines) {
+    block(`${item.quantity} × ${item.title}`, 11, bold);
+    block(`GHS ${money(item.unitPrice)} per ${item.unit} · GHS ${money(item.unitPrice * item.quantity)}\n${item.deliverables.join('; ')}`, 10, regular, muted);
   }
   heading('Indicative project estimate');
-  block(brief.selections.length ? `GHS ${money(brief.estimate)}` : 'To be scoped', 19, bold, green);
+  block(brief.selections.length ? `GHS ${money(pricing.total)}` : 'To be scoped', 19, bold, green);
+  block(pricing.notice, 9.5, regular, muted);
   block('Saving or downloading this brief does not send it to Fullview, confirm a consultation or create a paid engagement. Scope, availability, fees, timing and applicable taxes require separate agreement.', 9.5, regular, muted);
   for (const [index, current] of pdf.getPages().entries()) {
     current.drawLine({ start: { x: margin, y: 43 }, end: { x: width - margin, y: 43 }, thickness: .6, color: rgb(.8, .84, .8) });

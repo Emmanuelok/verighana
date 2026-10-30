@@ -6,6 +6,7 @@ export type EstimateDocument = {
   items: { title: string; quantity: number; unit: string; unitPrice: number; days: string; deliverables: string[] }[];
   generatedAt?: Date;
   offline?: boolean;
+  packageProposal?: {title: string; notes: string[]};
 };
 type Assets = { regular: Uint8Array; bold: Uint8Array; serif: Uint8Array; logo: Uint8Array };
 const assetPaths = {
@@ -39,7 +40,7 @@ export async function createEstimatePdf(input: EstimateDocument, assets?: Assets
   const generatedAt = input.generatedAt ?? new Date();
   const date = generatedAt.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
   const total = input.items.reduce((sum, item) => sum + item.quantity * item.unitPrice, 0);
-  pdf.setTitle('Project estimate | Fullview Signature by Veridanth Group');
+  pdf.setTitle((input.packageProposal ? 'Draft package proposal' : 'Project estimate') + ' | Fullview Signature by Veridanth Group');
   pdf.setAuthor('Fullview Signature by Veridanth Group');
   pdf.setSubject(`${input.pathway} - indicative project planning estimate`);
   pdf.setCreationDate(generatedAt);
@@ -81,11 +82,12 @@ export async function createEstimatePdf(input: EstimateDocument, assets?: Assets
     page = pdf.addPage([width, height]);
     const dimensions = logo.scale(268 / logo.width);
     page.drawImage(logo, { x: margin, y: height - 40 - dimensions.height, ...dimensions });
-    alignRight('PROJECT ESTIMATE', right, 46, 8.5, bold, muted);
+    alignRight(input.packageProposal ? 'DRAFT PACKAGE PROPOSAL' : 'PROJECT ESTIMATE', right, 46, 8.5, bold, muted);
     alignRight(date, right, 63, 8.5, regular, muted);
     y = 112;
     if (first) {
-      text('A clear starting point.', margin, y, 29, serif); y += 46;
+      const headingLines = wrap(input.packageProposal?.title || 'A clear starting point.', usable, serif, 26);
+      headingLines.forEach(value => {text(value, margin, y, 26, serif); y += 31;}); y += 15;
       const pathLines = wrap(input.pathway, usable - 28, bold, 10.5);
       const boxHeight = 87 + (pathLines.length - 1) * 14;
       page.drawRectangle({ x: margin, y: height - y - boxHeight, width: usable, height: boxHeight, color: paper });
@@ -117,6 +119,17 @@ export async function createEstimatePdf(input: EstimateDocument, assets?: Assets
     y += rowHeight;
     page.drawLine({ start: { x: margin, y: height - y + 7 }, end: { x: right, y: height - y + 7 }, thickness: .65, color: line });
     y += 6;
+  }
+  if (input.packageProposal) {
+    if (y > height - 145) addPage();
+    text('PACKAGE SCOPE · DRAFT FOR REVIEW', margin, y, 10, bold, green); y += 24;
+    for (const note of input.packageProposal.notes) {
+      for (const value of wrap(note, usable, regular, 9)) {
+        if (y > height - 85) addPage();
+        text(value, margin, y, 9, regular, muted); y += 13;
+      }
+      y += 10;
+    }
   }
   const notes = 'These are indicative planning rates, subject to an agreed written scope and availability. Fieldwork, travel, recruitment, software licences, journal fees and applicable taxes are excluded unless expressly included. This is not an invoice. No payment is due.';
   const noteLines = wrap(notes, usable - 28, regular, 9);
