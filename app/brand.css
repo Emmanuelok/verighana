@@ -46,8 +46,11 @@
 .site-shell .brand.light .brand-type,.site-shell .brand.light .brand-endorsement{color:#ffffff}
 
 /* Fullview contact details */
+.footer-contact-block{min-width:0}
 .footer-contact{display:grid;gap:18px;margin-top:24px;font-style:normal}
 .site-shell .footer-contact p{font:400 16px/1.75 var(--sans);color:#e5eddf;margin:0}
 .footer-contact p>span{font-size:13px;letter-spacing:1px;text-transform:uppercase;color:#b2c9b6}
 .footer-contact .footer-phone{display:inline-flex;align-items:center;min-height:44px;max-width:100%;font:500 16px/1.6 var(--sans);color:#fff;text-decoration:underline;text-underline-offset:5px;overflow-wrap:anywhere}
 .footer-contact .footer-phone:focus-visible{outline:2px solid #edc86d;outline-offset:5px}
+@media(max-width:1050px){.footer-contact-block{grid-column:1/-1;border-top:1px solid #547360;padding-top:28px}.footer-contact{grid-template-columns:repeat(3,minmax(0,1fr));align-items:start;margin-top:0}}
+@media(max-width:760px){.footer-contact{grid-template-columns:1fr;gap:14px}}

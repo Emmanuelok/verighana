@@ -4,7 +4,7 @@ Status: LOCAL DRAFT ONLY. No remote push, PR, merge, preview deployment, product
 
 Repository: https://github.com/Emmanuelok/verighana
 
-Base: `b12f31975654dea4236f82a436c580acb5935a88` (observed live deployment `dpl_2kaUsKAqzf6xCQPjgqJ6t5ANR2xw`, Vercel project `verighana`, public domain `fvsignature.com`). Branch: `codex/fullview-bundle-review`. The base already includes monochrome branding, by Veridanth Group, PDFs, public desk and mobile navigation. Open-PR search returned none when work began.
+Current reconciliation base: `dcdad9722c385f478745a758063a33db01ea7de7` (observed ready production deployment `dpl_BNCUvqFBkQw32LRfsUFqjDgYK2AG`, Vercel project `verighana`, public domain `fvsignature.com`). The initial review used `b12f31975654dea4236f82a436c580acb5935a88`; the isolated branch was rebased locally to preserve the newer contact details and non-sticky header. No remote merge or push occurred. Branch: `codex/fullview-bundle-review`. The base already includes monochrome branding, by Veridanth Group, PDFs, public desk and mobile navigation. Open-PR search returned none when work began.
 
 ## Exact proposed base prices
 
@@ -20,7 +20,7 @@ Base: `b12f31975654dea4236f82a436c580acb5935a88` (observed live deployment `dpl_
 | NGO Funding & Learning Evidence | NGO / development organisation | 21,000 |
 | School Improvement & Teacher Development | School / school network | 11,500 |
 
-Prices exactly sum the existing proposed unit rates at the stated audience level and explicit quantities. Existing catalogue rates are not evidence of approved tariffs or delivery capacity. No savings, former price or discount is claimed. Applicable taxes and external costs are excluded and must be confirmed in a written engagement. The package scopes, revisions and delivery windows are new proposals requiring owner approval.
+Prices exactly sum the existing proposed unit rates at the stated audience level and explicit quantities. “Existing proposed rates” means rates publicly displayed on the live site as proposed launch/indicative starting prices, not internal or inferred rates. The original rates and all nine package prices are unchanged in this follow-up. Existing catalogue rates are not evidence of approved tariffs or delivery capacity. No savings, former price or discount is claimed. Applicable taxes and external costs are excluded and must be confirmed in a written engagement. The package scopes, revisions and delivery windows are new proposals requiring owner approval.
 
 ## Dissertation Proposal Pathway
 
@@ -323,7 +323,8 @@ Optional extras:
 - Storage errors surfaced; fragment handoff survives blocked estimate storage; unreadable drafts preserved.
 - Dated price/scope snapshots prevent saved brief prices from silently changing. Legacy briefs disclose current-rate refresh.
 - Keyboard-operated desk tabs, focus on new form steps and errors, and corrected public-desk FAQ/PWA text.
-- Inquiry text can be reviewed/copied for the visitor to send through an existing contact channel; no outbound integration or invented recipient.
+- The inquiry handoff offers only the verified telephone link, `tel:+233209409668`, plus local project notes and PDFs. Visitors call to discuss scope and agree how to share the brief. No email, WhatsApp, booking or message-submission integration is invented.
+- The footer contact block remains visible on mobile/tablet, with the published address and telephone preserved. The new scrolling header remains unchanged.
 
 ## Verification
 
@@ -340,7 +341,24 @@ Optional extras:
 ## Remaining release decisions
 
 1. Approve exact GHS prices, service limits, revisions, timeline and delivery capacity; revise draft owner-review wording for an authorized release.
-2. Confirm the business inquiry destination before building direct delivery; this version prepares text/PDF only.
+2. Telephone is now verified from production and source; an authoritative electronic recipient/integration is still needed before direct brief delivery. This version offers calling plus local project notes/PDF only.
 3. Approve publishing separately. Recheck main and concurrent work, repeat browser download acceptance, then release using the normal repository/deployment workflow.
 
 The previous parent task creation was rejected by automatic approval review because it allowed possible live publishing and commercial prices without explicit approval. That restriction was respected; no denied publishing action was retried. This local implementation is reviewable without creating preview-access credentials or share links.
+
+## Follow-up: contacts and download diagnosis
+
+The earlier missing-phone finding is superseded. Current main and the live footer publish **+233 20 940 9668** (`tel:+233209409668`), **24 Nii Kodia Road, Adenta**, GhanaPost GPS **GM-052-8745**. Source: [footer at dcdad972](https://github.com/Emmanuelok/verighana/blob/dcdad9722c385f478745a758063a33db01ea7de7/components/platform.tsx#L54). The number supports a telephone call link; it is not evidence of WhatsApp support. No inquiry was sent or call initiated.
+
+The live contact block disappeared at 390px because the inherited `footer-principle` class is hidden below desktop widths. The isolated fix gives contacts their own block class and a responsive layout. Address, number and non-sticky header from main are preserved. The inquiry panel uses the same verified telephone constant and explains that saving/copying does not send a brief.
+
+No PDF application defect was reproduced. The actual estimate/brief download functions produced parseable application/pdf Blobs, PDF filenames and correct anchor cleanup in a controlled DOM test. Maximum-add-on package output was 3 pages (about 153 KB); a synthetic brief was 1 page (about 143 KB). PDF generation uses local browser code and static fonts/logo assets, not a PDF HTTP endpoint. The previous browser click timed out at the control layer and returned no completed download event; that does not establish an application error. No speculative PDF changes or control bypass were made.
+
+### Reconciled build verification
+
+- Production build (including TypeScript) and targeted lint passed; all eight existing verification scripts passed again. All 9 package prices and 82 base/max configuration cases remain unchanged.
+- The four PDF font/logo assets returned HTTP 200 from the loopback build with correct non-empty font/ttf or image/png bodies. Generation against these responses produced a parseable 152,842-byte, 3-page draft package PDF with GHS 18,530 and the expected scope/revision text. This confirms output and asset responses, not a browser save.
+- Desktop: package import retained GHS 10,850; synthetic Local QA brief saved only in local browser storage; reviewed notes retained the same total, scope and deadline. Inquiry and footer anchors were inspected as tel:+233209409668 without activating a call.
+- Mobile 390 x 844: both inquiry and footer contacts are visible; document width and scroll width are both 390px. Screenshots: work/verification/mobile-call-handoff.jpg and mobile-contact-footer.jpg. Tablet 1024px: footer contact text remains visible. The inherited non-sticky header CSS is unchanged from current main.
+- Browser-triggered saved-brief PDF still returned no completed download event. The attempted read of chrome://downloads/?q=Fullview was denied by browser URL security policy (only HTTP/HTTPS allowed). No alternate route to that blocked browser record was attempted. Browser save completion remains unknown; no application PDF defect was reproduced.
+- Temporary viewport overrides were reset. No live forms, call links or messages were activated; no remote branch, production pricing or deployment was changed.

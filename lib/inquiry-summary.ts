@@ -1,10 +1,10 @@
 import {audiences, money} from './catalog';
 import {getBriefPricing, type Brief} from './local-briefs';
 
-/** Prepared locally for the client to send through their existing contact channel. */
+/** Prepared locally as project notes for a client-initiated telephone inquiry. */
 export function inquirySummary(brief: Brief): string {
   const pricing = getBriefPricing(brief);
-  return [`Subject: Research inquiry — ${brief.title || 'New project'}`, '',
+  return [`Research inquiry — ${brief.title || 'New project'}`, '',
     'Hello Fullview Signature,', 'Please review the following proposed scope and confirm suitability, availability and a written quote.', '',
     `Project: ${brief.title}`, `Pathway: ${audiences.find(item => item.id === brief.audience)?.label || brief.audience}`,
     `Contact: ${brief.name || 'To be completed'} · ${brief.email || 'To be completed'}`, `Organisation: ${brief.organisation || 'Not specified'}`,
