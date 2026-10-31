@@ -92,6 +92,14 @@ The user's explicit signup/login/dashboard request continues the same implementa
 
 The new verify-message-history suite checks 605 messages, identical and sub-millisecond timestamps, new posts between pages, invalid/cross-project cursors, unauthorized/expired access, and retained UI history after refresh. Existing operations/retention suites, TypeScript and targeted ESLint passed. No mailbox content is imported and no external email history is fabricated. Posting a project message explicitly reports that it is saved in the workspace and does not send email. Office notification status still distinguishes provider acceptance from actual inbox delivery.
 
+## Submitted briefs and notification recovery
+
+The project dashboard displays each submitted service's stored title, quantity, unit, rate, deliverables and line total alongside the saved pathway, package extras and pricing date. It does not reconstruct historical prices from the current catalogue. Missing or inconsistent snapshots show an explicit review notice; a legacy recorded total is identified as unverified when its item breakdown is absent.
+
+Staff can check a sending notification after its lease expires. The server retains the original provider idempotency key, three-attempt limit and 23-hour retry window. A guarded transaction checks the current attempt and lease before sending and holds the outbox row lock until the bounded sender finishes. Retention removal reconciles an abandoned lease without sending email, while an active sender remains protected by the same row lock. Administrator permission, the exact reference and explicit retention clearance are still required for removal.
+
+The submitted-brief and notification-recovery regression suites use synthetic local records and mock senders. They do not activate accounts, configure an email provider, send real email or delete customer records. Real provider delivery and production database activation remain separately gated as described above.
+
 Real end-to-end account registration, recovery and two-client isolation testing remain pending approved runtime setup and owner-controlled test identities. No test account, verification email or new persistent credential has been created.
 
 ## Minimum runtime access manifest
