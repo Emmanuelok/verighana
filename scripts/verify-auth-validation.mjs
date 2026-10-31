@@ -33,7 +33,7 @@ async function load(entry) {
   const result = await build({entryPoints: [entry], bundle: true, write: false, format: 'esm', platform: 'node', plugins: [plugin], logLevel: 'silent'});
   return import('data:text/javascript;base64,' + Buffer.from(result.outputFiles[0].text).toString('base64'));
 }
-const keys = ['FULLVIEW_AUTH_ENABLED', 'FULLVIEW_AUTH_MODE', 'FULLVIEW_AUTH_TEST_EMAIL', 'FULLVIEW_NEON_AUTH_BASE_URL', 'FULLVIEW_AUTH_COOKIE_SECRET', 'FULLVIEW_APP_ORIGIN'];
+const keys = ['FULLVIEW_AUTH_ENABLED', 'FULLVIEW_AUTH_MODE', 'FULLVIEW_AUTH_TEST_EMAIL', 'FULLVIEW_AUTH_TEST_EMAILS', 'FULLVIEW_NEON_AUTH_BASE_URL', 'FULLVIEW_AUTH_COOKIE_SECRET', 'FULLVIEW_APP_ORIGIN'];
 const prior = Object.fromEntries(keys.map(key => [key, process.env[key]]));
 const approved = 'hello@fvsignature.com';
 const paths = ['sign-up/email', 'sign-in/email', 'email-otp/send-verification-otp', 'email-otp/verify-email', 'email-otp/request-password-reset', 'email-otp/reset-password'];
@@ -154,20 +154,79 @@ try {
   fixture.session = {data: null, error: {message: 'synthetic provider failure'}};
   await assert.rejects(auth.getPrincipal(), error => error.status === 503);
 
+  // Plural configuration replaces the singular value and is bounded to explicit unique identities.
+  const listed = ['first@example.org', 'second@example.org', 'third@example.org'];
+  for (const [list, expected] of [
+    [' First@Example.org ', listed.slice(0, 1)],
+    [' First@Example.org , SECOND@example.org ', listed.slice(0, 2)],
+    ['first@example.org\n second@example.org', listed.slice(0, 2)],
+    ['first@example.org\r\n second@example.org', listed.slice(0, 2)],
+    ['first@example.org, second@example.org\n THIRD@example.org ', listed],
+  ]) {
+    process.env.FULLVIEW_AUTH_TEST_EMAILS = list;
+    assert.equal(auth.authenticationConfigured(), true);
+    assert.equal(auth.authenticationEmailAllowed(approved), false, 'The singular value must not extend an explicit list');
+    await rejectBeforeProvider('sign-in/email', {email: approved});
+    for (const email of expected) {
+      for (const path of paths) {
+        const count = fixture.calls.length;
+        assert.equal((await invoke('POST', path, {email: ` ${email.toUpperCase()} `})).status, 200);
+        assert.equal(fixture.calls.length, count + 1);
+        assert.equal(JSON.parse(fixture.calls.at(-1).body).email, email);
+      }
+      fixture.session = {data: session(email), error: null};
+      fixture.response = fixture.session.data;
+      assert.equal((await auth.getPrincipal()).email, email);
+      assert.deepEqual(await (await invoke('GET', 'get-session')).json(), fixture.response);
+    }
+    for (const email of ['outside@example.org', 'first+alias@example.org', 'first@example.org.evil.example']) {
+      await rejectBeforeProvider('sign-in/email', {email});
+      fixture.session = {data: session(email), error: null};
+      fixture.response = fixture.session.data;
+      assert.equal(await auth.getPrincipal(), null);
+      const denied = await invoke('GET', 'get-session');
+      assert.equal(await denied.json(), null);
+      assert.equal(denied.headers.get('set-cookie'), null);
+    }
+  }
+  process.env.FULLVIEW_AUTH_TEST_EMAILS = ' '.repeat(1024 - listed[0].length) + listed[0];
+  assert.equal(auth.authenticationConfigured(), true, 'The exact raw-length boundary remains accepted');
+  for (const list of ['', ' ', 'not-an-email', 'null', 'first@example.org,', ',first@example.org', 'first@example.org,,second@example.org', 'first@example.org\n\nsecond@example.org', 'first@example.org,\nsecond@example.org', 'first@example.org;second@example.org', 'first@example.org, First@Example.org ', 'first@example.org\nFIRST@example.org', `${listed.join(',')},fourth@example.org`, 'Fullview <first@example.org>', '*@example.org', 'example.org', 'first@example.org\r\nBcc:second@example.org', ' '.repeat(1025 - listed[0].length) + listed[0]]) {
+    process.env.FULLVIEW_AUTH_TEST_EMAILS = list;
+    assert.equal(auth.authenticationConfigured(), false, 'Malformed explicit lists must not fall back to the valid singular address');
+    const count = fixture.sessionCalls.length;
+    await assert.rejects(auth.getPrincipal(), error => error.status === 503);
+    assert.equal(fixture.sessionCalls.length, count);
+    await rejectBeforeProvider('sign-up/email', {email: approved}, 503);
+    const proxyCount = fixture.calls.length;
+    assert.equal((await invoke('GET', 'get-session')).status, 503);
+    assert.equal(fixture.calls.length, proxyCount);
+  }
+  process.env.FULLVIEW_AUTH_TEST_EMAILS = listed[0];
+  process.env.FULLVIEW_AUTH_TEST_EMAIL = 'invalid-legacy-setting';
+  assert.equal(auth.authenticationConfigured(), true, 'A valid list is independent of an unused singular value');
+  process.env.FULLVIEW_AUTH_TEST_EMAIL = approved;
+  delete process.env.FULLVIEW_AUTH_TEST_EMAILS;
+  assert.equal(auth.authenticationConfigured(), true);
+  assert.equal(auth.authenticationEmailAllowed(approved), true, 'Removing the list restores singular compatibility');
+  assert.equal(auth.authenticationEmailAllowed(listed[0]), false);
+
   // Re-evaluate gates after the SDK singleton exists; mode changes must not be cached.
   process.env.FULLVIEW_AUTH_MODE = 'public';
   delete process.env.FULLVIEW_AUTH_TEST_EMAIL;
+  process.env.FULLVIEW_AUTH_TEST_EMAILS = 'invalid,duplicate,duplicate,oversized';
   assert.equal(auth.authenticationConfigured(), true);
   fixture.session = {data: session('other@example.org'), error: null};
   fixture.response = fixture.session.data;
   assert.equal((await auth.getPrincipal()).email, 'other@example.org');
   for (const path of [...paths, ...links]) assert.equal((await invoke('POST', path, {email: 'other@example.org'})).status, 200);
   assert.deepEqual(await (await invoke('GET', 'get-session')).json(), fixture.response);
+  delete process.env.FULLVIEW_AUTH_TEST_EMAILS;
   process.env.FULLVIEW_AUTH_MODE = 'validation';
   assert.equal(auth.authenticationConfigured(), false);
   await rejectBeforeProvider('sign-in/email', {email: approved}, 503);
   assert.equal(fixture.config.cookies.sameSite, 'strict');
-  console.log('PASS: explicit auth modes fail closed; exact normalized test address gates all six account/OTP actions before provider calls; link flows blocked during validation; restored identities filtered without token/cookie leaks; live session cache bypass forced; signout and public mode preserved. Mock SDK only; no real account or email.');
+  console.log('PASS: explicit auth modes fail closed; bounded normalized unique allowlists take precedence with singular compatibility; all six account/OTP actions and restored identities stay gated; invalid lists never fall back; token/cookie masking, cache bypass, signout and public mode preserved. Mock SDK only; no real account or email.');
 } finally {
   for (const key of keys) {if (prior[key] === undefined) delete process.env[key]; else process.env[key] = prior[key];}
   delete globalThis.__fullviewValidationFixture;

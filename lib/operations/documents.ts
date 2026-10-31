@@ -1,5 +1,6 @@
 import {createHash} from 'node:crypto';
 import {audit, OperationError, requireProjectAccess, requireStaff, type Actor, type Database} from './core';
+import {maxPersonalDataRetentionDays, retentionDays, requireRetentionCleanup} from './validation';
 
 export const supportedDocumentTypes = ['application/pdf', 'text/plain', 'text/csv'] as const;
 export type DocumentMimeType = typeof supportedDocumentTypes[number];
@@ -11,6 +12,8 @@ export type DocumentPolicy = {
   ownerApproved: boolean;
   version: string;
   retentionDays: number;
+  /** Documents share their parent project's submission anchor; uploads never restart retention. */
+  retentionTrigger: 'submission';
   maxBytes: number;
   allowedMimeTypes: DocumentMimeType[];
 };
@@ -52,8 +55,12 @@ function instant(value: string | Date) {return new Date(value).getTime();}
 
 export function documentExchangeReady(dependencies: Pick<Dependencies, 'storage' | 'scanner' | 'policy'>): boolean {
   const {policy, storage, scanner} = dependencies;
+  let configuredDays: number;
+  try {configuredDays = retentionDays();} catch {return false;}
   return !!(policy?.enabled && policy.ownerApproved && /^[a-zA-Z0-9._-]{1,80}$/.test(policy.version)
-    && Number.isInteger(policy.retentionDays) && policy.retentionDays >= 1 && policy.retentionDays <= 3650
+    && policy.retentionTrigger === 'submission'
+    && Number.isInteger(policy.retentionDays) && policy.retentionDays >= 1
+    && policy.retentionDays <= Math.min(maxPersonalDataRetentionDays, configuredDays)
     && Number.isInteger(policy.maxBytes) && policy.maxBytes >= 1 && policy.maxBytes <= 25 * 1024 * 1024
     && Array.isArray(policy.allowedMimeTypes) && policy.allowedMimeTypes.length > 0
     && policy.allowedMimeTypes.every(type => supportedDocumentTypes.includes(type))
@@ -112,9 +119,9 @@ export function createDocumentService(dependencies: Dependencies) {
   async function access(connection: Database, actor: Actor, projectId: string) {
     if (!uuid.test(projectId)) throw notFound();
     await requireProjectAccess(connection, actor, projectId);
-    const project = await connection.query<{expires_at: string | Date}>('SELECT expires_at FROM fv_projects WHERE id=$1 AND deleted_at IS NULL', [projectId]);
+    const project = await connection.query<{created_at: string | Date; expires_at: string | Date}>('SELECT created_at,expires_at FROM fv_projects WHERE id=$1 AND deleted_at IS NULL', [projectId]);
     if (!project.rows[0] || instant(project.rows[0].expires_at) <= now().getTime()) throw notFound();
-    return instant(project.rows[0].expires_at);
+    return {createdAt: instant(project.rows[0].created_at), expiresAt: instant(project.rows[0].expires_at)};
   }
   async function record(connection: Database, actor: Actor, projectId: string, documentId: string) {
     await access(connection, actor, projectId);
@@ -147,8 +154,9 @@ export function createDocumentService(dependencies: Dependencies) {
       const key = `projects/${projectId}/documents/${id}`;
       let row: Row;
       await db.transaction(async connection => {
-        const projectExpiry = await access(connection, actor, projectId);
-        const expiresAt = new Date(Math.min(createdAt.getTime() + policy.retentionDays * dayMs, projectExpiry));
+        const project = await access(connection, actor, projectId);
+        const expiresAt = new Date(Math.min(project.createdAt + policy.retentionDays * dayMs, project.expiresAt));
+        if (expiresAt.getTime() <= createdAt.getTime()) throw new OperationError(409, 'document_retention_expired', 'The document retention period for this project has ended.');
         const inserted = await connection.query<Row>(`INSERT INTO fv_documents
           (id,project_id,uploaded_by,filename,content_type,byte_count,sha256,storage_key,state,policy_version,created_at,expires_at)
           VALUES ($1,$2,$3,$4,$5,$6,$7,$8,'quarantined',$9,$10,$11) RETURNING *`,
@@ -214,6 +222,7 @@ export function createDocumentService(dependencies: Dependencies) {
     async delete(actor: Actor, projectId: string, documentId: string) {
       const row = await record(db, actor, projectId, documentId);
       const {storage} = ready();
+      requireRetentionCleanup();
       await db.transaction(async connection => {
         await access(connection, actor, projectId);
         await connection.query('UPDATE fv_documents SET state=\'deleted\', revoked_at=$2, deleted_at=$2, storage_cleanup_pending=true WHERE id=$1 AND project_id=$3', [documentId, now().toISOString(), projectId]);
@@ -239,6 +248,7 @@ export function createDocumentService(dependencies: Dependencies) {
       const project = await db.query('SELECT id FROM fv_projects WHERE id=$1', [projectId]);
       if (!project.rows.length) throw notFound();
       const {storage} = ready();
+      requireRetentionCleanup();
       if (!Number.isInteger(limit) || limit < 1 || limit > 100) throw new OperationError(400, 'invalid_limit', 'Use a batch size from 1 to 100.');
       const result = await db.transaction(async connection => {
         // Verified staff may purge expired/deleted projects without reopening their contents.

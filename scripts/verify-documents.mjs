@@ -5,6 +5,9 @@ import {PGlite} from '@electric-sql/pglite';
 
 const {outputFiles} = await build({entryPoints:['lib/operations/documents.ts'],bundle:true,write:false,format:'esm',platform:'node',logLevel:'silent'});
 const {createDocumentService,documentExchangeReady} = await import('data:text/javascript;base64,'+Buffer.from(outputFiles[0].text).toString('base64'));
+const envKeys=['FULLVIEW_RETENTION_DAYS','FULLVIEW_RETENTION_TRIGGER','FULLVIEW_RETENTION_CLEANUP_ENABLED'];
+const priorEnv=Object.fromEntries(envKeys.map(key=>[key,process.env[key]]));
+process.env.FULLVIEW_RETENTION_DAYS='30';process.env.FULLVIEW_RETENTION_TRIGGER='submission';process.env.FULLVIEW_RETENTION_CLEANUP_ENABLED='true';
 const pg = new PGlite();
 function database(connection) {
   return {
@@ -20,12 +23,12 @@ const bob={id:'client-b',email:'bob@example.invalid',emailVerified:true,role:'cl
 const staff={id:'staff-a',email:'staff@example.invalid',emailVerified:true,role:'staff'};
 const p1=crypto.randomUUID(),p2=crypto.randomUUID(),p3=crypto.randomUUID();
 for (const [id,owner] of [[p1,alice.id],[p2,bob.id],[p3,alice.id]]) {
-  await db.query(`INSERT INTO fv_projects(id,reference,owner_id,idempotency_key,payload_hash,title,description,brief,expires_at)
-    VALUES($1,$2,$3,$4,'synthetic','Synthetic test project','No real research data','{}','2099-01-01')`,[id,`TEST-${id}`,owner,crypto.randomUUID()]);
+  await db.query(`INSERT INTO fv_projects(id,reference,owner_id,idempotency_key,payload_hash,title,description,brief,created_at,expires_at)
+    VALUES($1,$2,$3,$4,'synthetic','Synthetic test project','No real research data','{}','2030-01-01','2099-01-01')`,[id,`TEST-${id}`,owner,crypto.randomUUID()]);
 }
 let current=new Date('2030-01-01T00:00:00Z');
 const now=()=>current;
-const policy={enabled:true,ownerApproved:true,version:'synthetic-v1',retentionDays:30,maxBytes:1024,allowedMimeTypes:['application/pdf','text/plain','text/csv']};
+const policy={enabled:true,ownerApproved:true,version:'synthetic-v1',retentionDays:30,retentionTrigger:'submission',maxBytes:1024,allowedMimeTypes:['application/pdf','text/plain','text/csv']};
 const objects=new Map();
 const storage={configured:true,privateOnly:true,
   async putPrivate(key,bytes) {objects.set(key,new Uint8Array(bytes));},
@@ -40,10 +43,13 @@ const fails=(fn,code)=>assert.rejects(fn,error=>error.code===code);
 try {
   assert.equal(documentExchangeReady({}),false);
   for (const override of [{policy:undefined},{policy:{...policy,ownerApproved:false}},
-    {policy:{...policy,retentionDays:0}},{storage:undefined},{storage:{...storage,privateOnly:false}},
+    {policy:{...policy,retentionDays:0}},{policy:{...policy,retentionDays:31}},{policy:{...policy,retentionTrigger:undefined}},{policy:{...policy,retentionTrigger:'completion'}},{storage:undefined},{storage:{...storage,privateOnly:false}},
     {scanner:undefined},{scanner:{...scanner,verified:false}}]) {
     await fails(()=>make(override).upload(alice,p1,input),'documents_unavailable');
   }
+  delete process.env.FULLVIEW_RETENTION_TRIGGER;
+  await fails(()=>service.upload(alice,p1,input),'documents_unavailable');
+  process.env.FULLVIEW_RETENTION_TRIGGER='submission';
   assert.equal(objects.size,0);
   await fails(()=>service.upload({...alice,emailVerified:false},p1,input),'email_verification_required');
   await fails(()=>service.upload(bob,p1,input),'project_not_found');
@@ -110,6 +116,11 @@ try {
   assert.equal(objects.has(corruptKey),false);
 
   const deleted=await service.upload(alice,p1,{...input,filename:'Delete.txt'});
+  delete process.env.FULLVIEW_RETENTION_CLEANUP_ENABLED;
+  await fails(()=>service.delete(alice,p1,deleted.id),'retention_cleanup_unconfigured');
+  await fails(()=>service.purgeExpired(staff,p1),'retention_cleanup_unconfigured');
+  assert.equal((await service.list(alice,p1)).find(row=>row.id===deleted.id).state,'available');
+  process.env.FULLVIEW_RETENTION_CLEANUP_ENABLED='true';
   const result=await make({storage:{...storage,async deletePrivate(){throw Error('Storage unavailable');}}}).delete(alice,p1,deleted.id);
   assert.equal(result.storageDeleted,false);
   await fails(()=>service.download(alice,p1,deleted.id),'document_not_found');
@@ -117,7 +128,16 @@ try {
   const cleanup=await service.purgeExpired(staff,p1);
   assert.equal(cleanup.retryPending,0);
 
+  const shorter=await make({policy:{...policy,retentionDays:7}}).upload(alice,p1,{...input,filename:'Short policy.txt'});
+  assert.equal(shorter.expiresAt,'2030-01-08T00:00:00.000Z');
+  current=new Date('2030-01-15T00:00:00Z');
+  await fails(()=>make({policy:{...policy,retentionDays:7}}).upload(alice,p1,input),'document_retention_expired');
   const expires=await service.upload(alice,p1,{...input,filename:'Expires.txt'});
+  assert.equal(expires.expiresAt,'2030-01-31T00:00:00.000Z');
+  current=new Date('2030-01-31T00:00:00Z');
+  const beforeLate=objects.size;
+  await fails(()=>service.upload(alice,p1,input),'document_retention_expired');
+  assert.equal(objects.size,beforeLate);
   current=new Date('2030-02-01T00:00:00Z');
   await fails(()=>service.download(alice,p1,expires.id),'document_unavailable');
   assert.equal((await service.list(alice,p1)).find(item=>item.id===expires.id).state,'expired');
@@ -126,7 +146,7 @@ try {
   await fails(()=>service.download(alice,p1,expires.id),'document_not_found');
 
   // A project expiring sooner bounds document retention; deleted projects deny all file access.
-  await db.query("UPDATE fv_projects SET expires_at='2030-02-03' WHERE id=$1",[p3]);
+  await db.query("UPDATE fv_projects SET created_at='2030-02-01',expires_at='2030-02-03' WHERE id=$1",[p3]);
   const bounded=await service.upload(alice,p3,input);
   assert.equal(bounded.expiresAt,'2030-02-03T00:00:00.000Z');
   await db.query('UPDATE fv_projects SET deleted_at=now() WHERE id=$1',[p3]);
@@ -135,6 +155,7 @@ try {
   assert.equal((await service.purgeExpired(staff,p3)).processed,1);
 
   // Unicode/quotes are encoded for attachment headers, never interpolated raw.
+  await db.query("UPDATE fv_projects SET created_at='2030-02-04' WHERE id=$1",[p2]);
   const named=await service.upload(bob,p2,{...input,filename:'Synthetic "résumé".txt'});
   const safeHeader=(await service.download(bob,p2,named.id)).headers['Content-Disposition'];
   assert.ok(safeHeader.includes('%22'));assert.ok(safeHeader.includes('%C3%A9'));assert.ok(!safeHeader.includes('\r'));
@@ -143,4 +164,4 @@ try {
   assert.ok(auditRows.rows.some(row=>row.action==='document.retention_cleanup'));
   assert.ok(!JSON.stringify(auditRows.rows).includes('Only synthetic test content'));
   console.log('PASS: private documents fail closed by default; project authorization, quarantine/scan gating, validation, integrity, retention, revocation, deletion and private download headers verified with synthetic local data.');
-} finally {await pg.close();}
+} finally {await pg.close();for(const key of envKeys){if(priorEnv[key]===undefined)delete process.env[key];else process.env[key]=priorEnv[key];}}

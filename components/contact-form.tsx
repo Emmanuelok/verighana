@@ -30,7 +30,7 @@ async function readAvailability(signal: AbortSignal): Promise<Availability> {
     const result = await responseObject(response);
     if (response.ok && result.available === true && result.recipient === fullviewContact.email &&
       result.consentVersion === consentVersion && typeof result.retentionDays === 'number' &&
-      Number.isSafeInteger(result.retentionDays) && result.retentionDays > 0) {
+      Number.isSafeInteger(result.retentionDays) && result.retentionDays > 0 && result.retentionDays <= 30) {
       return {state: 'available', retentionDays: result.retentionDays};
     }
   } catch { /* A failed readiness check must not enable submission. */ }
@@ -157,7 +157,7 @@ export function ContactForm() {
         <label className="field">Your message *<textarea name="message" value={fields.message} required minLength={20} maxLength={6000} rows={7} onChange={event => updateField('message', event.target.value)} placeholder="Tell us about your question, current stage and the support you need."/><small>{fields.message.length.toLocaleString()}/6,000 characters · Minimum 20</small></label>
         <div className="contact-honeypot" aria-hidden="true"><label>Website<input name="website" autoComplete="off" tabIndex={-1} value={fields.website} onChange={event => updateField('website', event.target.value)}/></label></div>
         <div id="contact-disclosure" className="contact-disclosure"><h3>Before you send</h3><p>Submitting sends your name, email, subject and message to Fullview and stores an inquiry record. An office notification is addressed to <strong>{fullviewContact.email}</strong>.</p>
-          {availability.state === 'available' ? <p>Your details are retained under Fullview’s inquiry policy, with a retention review after {availability.retentionDays} days. Contact Fullview to request help or deletion of your submitted information.</p> : <p>The retention policy must be available before online submission is enabled.</p>}
+          {availability.state === 'available' ? <p>Your details are retained under Fullview’s inquiry policy, with a retention review after {availability.retentionDays} days from submission. A review does not confirm automatic deletion. Contact Fullview to request help or deletion of your submitted information.</p> : <p>The retention policy must be available before online submission is enabled.</p>}
           <p>Use a high-level summary. Do not include participant identifiers, confidential datasets, passwords or private files. This inquiry does not create a booking or paid engagement.</p>
         </div>
         <label className="contact-consent"><input type="checkbox" name="consent" required checked={consent} disabled={availability.state !== 'available'} onChange={event => setConsent(event.target.checked)}/><span>I agree to send these details to Fullview for responding to this inquiry, with the storage and email handling described above.</span></label>

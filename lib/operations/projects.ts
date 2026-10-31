@@ -2,15 +2,16 @@ import {z} from 'zod';
 import {services,rate} from '../catalog';
 import {validateBrief} from '../local-briefs';
 import {audit,requireProjectAccess,requireStaff,requireVerified,OperationError,type Actor,type Database} from './core';
-import {projectSubmitSchema,payloadHash,expiry,uuid} from './validation';
+import {projectSubmitSchema,payloadHash,uuid,requireRetentionDays} from './validation';
 import {enqueueNotification} from './email';
 import {rateLimit} from './inquiries';
 export async function submitProject(db:Database,actor:Actor,input:unknown,retention:number){requireVerified(actor);const data=projectSubmitSchema.parse(input),brief=validateBrief(data.brief);if(brief.email.toLowerCase()!==actor.email.toLowerCase())throw new OperationError(400,'email_mismatch','Use the verified account email for this project.');
+ requireRetentionDays(retention);
  const hash=payloadHash(brief);return db.transaction(async tx=>{await tx.query('SELECT pg_advisory_xact_lock(hashtext($1))',[`${actor.id}:${data.idempotencyKey}`]);const previous=(await tx.query<{id:string;reference:string;payload_hash:string}>('SELECT id,reference,payload_hash FROM fv_projects WHERE owner_id=$1 AND idempotency_key=$2',[actor.id,data.idempotencyKey])).rows[0];if(previous){if(previous.payload_hash!==hash)throw new OperationError(409,'idempotency_conflict','This submission changed. Review before submitting again.');return {id:previous.id,reference:previous.reference};}
  await rateLimit(tx,`project:${actor.id}`,5);const id=crypto.randomUUID(),reference=`FVP-${id.replaceAll('-','').slice(0,16).toUpperCase()}`;
  const lines=brief.selections.map(item=>{const service=services.find(s=>s.id===item.id)!;return {id:item.id,title:service.title,quantity:item.quantity,unit:service.unit,unitPrice:rate(service,brief.audience),deliverables:service.deliverables};});
  const stored={...brief,consentVersion:data.consentVersion,consentedAt:new Date().toISOString(),priceSnapshot:{version:1,currency:'GHS',capturedAt:new Date().toISOString(),lines},estimate:lines.reduce((a,l)=>a+l.quantity*l.unitPrice,0)};
- await tx.query('INSERT INTO fv_projects(id,reference,owner_id,idempotency_key,payload_hash,title,description,brief,expires_at) VALUES($1,$2,$3,$4,$5,$6,$7,$8::jsonb,$9)',[id,reference,actor.id,data.idempotencyKey,hash,brief.title,brief.description,JSON.stringify(stored),expiry(retention)]);
+ await tx.query('INSERT INTO fv_projects(id,reference,owner_id,idempotency_key,payload_hash,title,description,brief,expires_at) VALUES($1,$2,$3,$4,$5,$6,$7,$8::jsonb,now()+$9::integer*interval \'24 hours\')',[id,reference,actor.id,data.idempotencyKey,hash,brief.title,brief.description,JSON.stringify(stored),retention]);
  await enqueueNotification(tx,id,'project',{reference,name:brief.name,email:actor.email,subject:brief.title,message:`A verified client explicitly submitted a project. Review the complete brief in the staff workspace.\nRequested completion: ${brief.deadline}\nPlanning estimate: GHS ${stored.estimate}\nNo booking or payment has been confirmed.`});await audit(tx,actor.id,'project.submitted',id,{consentVersion:data.consentVersion});return {id,reference};});
 }
 export async function listProjects(db:Database,actor:Actor){requireVerified(actor);return (await db.query("SELECT id,reference,CASE WHEN expires_at>now() THEN title ELSE 'Expired project' END AS title,status,assigned_to,version,created_at,expires_at<=now() AS expired FROM fv_projects WHERE deleted_at IS NULL AND (owner_id=$1 OR $2=true) ORDER BY created_at DESC LIMIT 100",[actor.id,actor.role!=='client'])).rows;}

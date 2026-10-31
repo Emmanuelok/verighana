@@ -11,12 +11,31 @@ export function normalizeAuthenticationEmail(value: unknown): string|null {
   return result.success ? result.data : null;
 }
 
+function validationEmails(): string[]|null {
+  const list = process.env.FULLVIEW_AUTH_TEST_EMAILS;
+  if (list === undefined) {
+    const email = normalizeAuthenticationEmail(process.env.FULLVIEW_AUTH_TEST_EMAIL);
+    return email ? [email] : null;
+  }
+  // An explicitly present list replaces the legacy setting; malformed lists never fall back.
+  if (list.length > 1024) return null;
+  const entries = list.split(/\r?\n|,/);
+  if (entries.length > 3) return null;
+  const emails: string[] = [];
+  for (const entry of entries) {
+    const email = normalizeAuthenticationEmail(entry);
+    if (!email || emails.includes(email)) return null;
+    emails.push(email);
+  }
+  return emails;
+}
+
 function configuration() {
   if (process.env.FULLVIEW_AUTH_ENABLED !== 'true') return null;
   const mode = process.env.FULLVIEW_AUTH_MODE;
   if (mode !== 'validation' && mode !== 'public') return null;
-  const testEmail = normalizeAuthenticationEmail(process.env.FULLVIEW_AUTH_TEST_EMAIL);
-  if (mode === 'validation' && !testEmail) return null;
+  const testEmails = mode === 'validation' ? validationEmails() : [];
+  if (!testEmails) return null;
   const baseUrl = process.env.FULLVIEW_NEON_AUTH_BASE_URL;
   const secret = process.env.FULLVIEW_AUTH_COOKIE_SECRET;
   const appOrigin = process.env.FULLVIEW_APP_ORIGIN;
@@ -29,7 +48,7 @@ function configuration() {
     const loopback = ['localhost', '127.0.0.1', '[::1]'].includes(app.hostname);
     if ((app.protocol !== 'https:' && !(loopback && app.protocol === 'http:')) ||
       app.username || app.password || app.search || app.hash || app.pathname !== '/') return null;
-    return {baseUrl, secret, appOrigin: app.origin, mode, testEmail} as const;
+    return {baseUrl, secret, appOrigin: app.origin, mode, testEmails} as const;
   } catch {return null;}
 }
 
@@ -40,7 +59,7 @@ export function authenticationMode(): 'validation'|'public'|null {return configu
 export function authenticationEmailAllowed(email: unknown): boolean {
   const config = configuration();
   const normalized = normalizeAuthenticationEmail(email);
-  return !!config && !!normalized && (config.mode === 'public' || normalized === config.testEmail);
+  return !!config && !!normalized && (config.mode === 'public' || config.testEmails.includes(normalized));
 }
 
 export function getFullviewAuth(): FullviewAuth {

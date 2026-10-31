@@ -13,11 +13,12 @@ async function load(path,plugins=[]){
 }
 const pg=new PGlite();
 let forbiddenSenderCalls=0,networkCalls=0;
-const priorFetch=globalThis.fetch,envKeys=['FULLVIEW_RESEND_API_KEY','FULLVIEW_EMAIL_FROM','FULLVIEW_APP_ORIGIN'];
+const priorFetch=globalThis.fetch,envKeys=['FULLVIEW_RESEND_API_KEY','FULLVIEW_EMAIL_FROM','FULLVIEW_APP_ORIGIN','FULLVIEW_RETENTION_DAYS','FULLVIEW_RETENTION_TRIGGER','FULLVIEW_RETENTION_CLEANUP_ENABLED'];
 const priorEnv=Object.fromEntries(envKeys.map(key=>[key,process.env[key]]));
 globalThis.fetch=async()=>{networkCalls++;assert.fail('No provider or network request is permitted in this regression');};
 delete process.env.FULLVIEW_RESEND_API_KEY;delete process.env.FULLVIEW_EMAIL_FROM;
 process.env.FULLVIEW_APP_ORIGIN='https://fvsignature.com';
+process.env.FULLVIEW_RETENTION_DAYS='30';process.env.FULLVIEW_RETENTION_TRIGGER='submission';process.env.FULLVIEW_RETENTION_CLEANUP_ENABLED='true';
 try{
  for(const file of readdirSync('migrations/operations').filter(file=>file.endsWith('.sql')).sort())await pg.exec(readFileSync('migrations/operations/'+file,'utf8'));
  const adapt=client=>({query:async(sql,params=[])=>{const result=await client.query(sql,params);return {rows:result.rows,rowCount:result.affectedRows??result.rows.length};},transaction:work=>client.transaction(tx=>work(adapt(tx)))});

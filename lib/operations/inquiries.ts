@@ -1,6 +1,6 @@
 import {z} from 'zod';
 import {audit,OperationError,requireStaff,type Actor,type Database} from './core';
-import {inquirySchema,payloadHash,expiry,uuid} from './validation';
+import {inquirySchema,payloadHash,uuid,requireRetentionDays} from './validation';
 import {enqueueNotification,type NotificationState} from './email';
 export async function rateLimit(db:Database,key:string,limit:number,now=new Date()){
  const window=Math.floor(now.valueOf()/600000);const bucket=`${window}:${key}`;
@@ -9,6 +9,7 @@ export async function rateLimit(db:Database,key:string,limit:number,now=new Date
 }
 export async function submitInquiry(db:Database,input:unknown,options:{retentionDays:number;ip:string;now?:Date}){
  const data=inquirySchema.parse(input), now=options.now??new Date();
+ requireRetentionDays(options.retentionDays);
  if(now.valueOf()-data.startedAt<3000||now.valueOf()-data.startedAt>86400000)throw new OperationError(400,'form_expired','Please review the form and try again.');
  const payload={name:data.name,email:data.email,subject:data.subject,message:data.message,consentVersion:data.consentVersion};const hash=payloadHash(payload);
  return db.transaction(async tx=>{
@@ -17,7 +18,7 @@ export async function submitInquiry(db:Database,input:unknown,options:{retention
   if(prior){if(prior.payload_hash!==hash)throw new OperationError(409,'idempotency_conflict','This request changed. Review it before submitting as a new inquiry.');return {...prior,replayed:true};}
   await rateLimit(tx,`ip:${payloadHash(options.ip)}`,10,now);await rateLimit(tx,`email:${payloadHash(data.email)}`,5,now);
   const id=crypto.randomUUID(),reference=`FVS-${id.replaceAll('-','').slice(0,16).toUpperCase()}`;
-  await tx.query('INSERT INTO fv_inquiries(id,reference,idempotency_key,payload_hash,data,expires_at) VALUES($1,$2,$3,$4,$5::jsonb,$6)',[id,reference,data.idempotencyKey,hash,JSON.stringify({...payload,consentedAt:now.toISOString()}),expiry(options.retentionDays,now)]);
+  await tx.query('INSERT INTO fv_inquiries(id,reference,idempotency_key,payload_hash,data,expires_at) VALUES($1,$2,$3,$4,$5::jsonb,now()+$6::integer*interval \'24 hours\')',[id,reference,data.idempotencyKey,hash,JSON.stringify({...payload,consentedAt:now.toISOString()}),options.retentionDays]);
   await enqueueNotification(tx,id,'inquiry',{...payload,reference});await audit(tx,null,'inquiry.submitted',id,{consentVersion:data.consentVersion});return {id,reference,replayed:false};
  });
 }

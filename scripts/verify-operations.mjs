@@ -3,6 +3,7 @@ import {readFileSync,readdirSync} from 'node:fs';
 import {build} from 'esbuild';
 import {PGlite} from '@electric-sql/pglite';
 async function load(path){const {outputFiles}=await build({entryPoints:[path],bundle:true,write:false,format:'esm',platform:'node',logLevel:'silent'});return import('data:text/javascript;base64,'+Buffer.from(outputFiles[0].text).toString('base64'));}
+process.env.FULLVIEW_RETENTION_DAYS='30';process.env.FULLVIEW_RETENTION_TRIGGER='submission';
 const pg=new PGlite();
 for(const file of readdirSync('migrations/operations').filter(f=>f.endsWith('.sql')).sort())await pg.exec(readFileSync('migrations/operations/'+file,'utf8'));
 const adapt=client=>({query:async(sql,params=[])=>{const result=await client.query(sql,params);return {rows:result.rows,rowCount:result.affectedRows??result.rows.length};},transaction:work=>client.transaction(tx=>work(adapt(tx)))});
