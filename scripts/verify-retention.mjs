@@ -4,6 +4,9 @@ import {build} from 'esbuild';
 import {PGlite} from '@electric-sql/pglite';
 
 async function load(path){const {outputFiles}=await build({entryPoints:[path],bundle:true,write:false,format:'esm',platform:'node',logLevel:'silent'});return import('data:text/javascript;base64,'+Buffer.from(outputFiles[0].text).toString('base64'));}
+const envKeys=['FULLVIEW_RETENTION_DAYS','FULLVIEW_RETENTION_TRIGGER','FULLVIEW_RETENTION_CLEANUP_ENABLED'];
+const priorEnv=Object.fromEntries(envKeys.map(key=>[key,process.env[key]]));
+process.env.FULLVIEW_RETENTION_DAYS='30';process.env.FULLVIEW_RETENTION_TRIGGER='submission';process.env.FULLVIEW_RETENTION_CLEANUP_ENABLED='true';
 const pg=new PGlite();
 try{
  for(const file of readdirSync('migrations/operations').filter(file=>file.endsWith('.sql')).sort())await pg.exec(readFileSync('migrations/operations/'+file,'utf8'));
@@ -75,7 +78,7 @@ try{
  assert.ok(reviews.some(row=>row.id===requested.id&&row.kind==='project'&&row.reason==='deletion_requested'));
  assert.ok(!reviews.some(row=>row.id===active.id||row.id===activeInquiry.id));
  assert.ok(!JSON.stringify(reviews).includes(marker));
- assert.deepEqual(Object.keys(reviews[0]).sort(),['kind','id','reference','status','createdAt','expiresAt','reason','deletionRequestStatus','documentCleanupRequired'].sort());
+ assert.deepEqual(Object.keys(reviews[0]).sort(),['kind','id','reference','status','createdAt','expiresAt','reason','deletionRequestStatus','documentCleanupRequired','financialRetentionRequired'].sort());
  const requestedResult=await retention.purgeReviewedRecord(db,admin,args('project',requested));
  assert.deepEqual(requestedResult,{purged:true,kind:'project',id:requested.id,reference:requested.reference});
 
@@ -89,7 +92,7 @@ try{
  const sending=await inquiry();await notification(sending,'sending');
  await rejects(retention.purgeReviewedRecord(db,admin,args('inquiry',sending)),'notification_in_flight');
 
- // Cleaned file metadata, quotes, invoices, messages and outbox payloads are removed together.
+ // Financial records have a separate policy: even a cleared personal-data review cannot remove them.
  await document(expired);await notification(expired);
  await db.query('INSERT INTO fv_messages(id,project_id,author_id,body) VALUES($1,$2,$3,$4)',[crypto.randomUUID(),expired.id,owner.id,marker]);
  const quoteId=crypto.randomUUID();
@@ -97,23 +100,47 @@ try{
     VALUES($1,$2,1,$3::jsonb,$4::jsonb,0,now()+interval '7 days',$5)`,[quoteId,expired.id,JSON.stringify([{private:marker}]),JSON.stringify({private:marker}),staff.id]);
  await db.query(`INSERT INTO fv_invoices(id,project_id,quote_id,reference,total_minor,currency,due_date,snapshot,created_by)
     VALUES($1,$2,$3,$4,0,'GHS',current_date,$5::jsonb,$6)`,[crypto.randomUUID(),expired.id,quoteId,'INV-TEST-'+expired.id,JSON.stringify({private:marker}),staff.id]);
+ await rejects(retention.purgeReviewedRecord(db,admin,args('project',expired)),'financial_retention_unconfigured');
+ assert.equal((await retention.listRetentionReviews(db,admin)).find(row=>row.id===expired.id).financialRetentionRequired,true);
+ for(const table of ['fv_quotes','fv_invoices','fv_documents','fv_messages'])assert.equal((await db.query(`SELECT count(*)::int AS count FROM ${table} WHERE project_id=$1`,[expired.id])).rows[0].count,1);
+ assert.equal((await db.query('SELECT id FROM fv_projects WHERE id=$1',[expired.id])).rows.length,1);
+ assert.equal((await db.query('SELECT id FROM fv_email_outbox WHERE resource_id=$1',[expired.id])).rows.length,1);
+ // A quote by itself also protects the parent, irrespective of quote state or expiry.
+ const quoted=await project({expired:true});
+ await db.query(`INSERT INTO fv_quotes(id,project_id,version,lines,terms,total_minor,expires_at,created_by)
+   VALUES($1,$2,1,'[]','{}',0,now()-interval '1 day',$3)`,[crypto.randomUUID(),quoted.id,staff.id]);
+ await rejects(retention.purgeReviewedRecord(db,admin,args('project',quoted)),'financial_retention_unconfigured');
+ assert.equal((await retention.listRetentionReviews(db,admin)).find(row=>row.id===quoted.id).financialRetentionRequired,true);
+
+ // Ordinary personal records purge atomically, only while explicit cleanup is enabled.
+ const removable=await project({expired:true});await document(removable);await notification(removable);
+ await db.query('INSERT INTO fv_messages(id,project_id,author_id,body) VALUES($1,$2,$3,$4)',[crypto.randomUUID(),removable.id,owner.id,marker]);
+ for(const [key,value] of [['FULLVIEW_RETENTION_CLEANUP_ENABLED',undefined],['FULLVIEW_RETENTION_CLEANUP_ENABLED','false'],['FULLVIEW_RETENTION_TRIGGER',undefined],['FULLVIEW_RETENTION_TRIGGER','completion'],['FULLVIEW_RETENTION_DAYS','31']]){
+  const previous=process.env[key];if(value===undefined)delete process.env[key];else process.env[key]=value;
+  await rejects(retention.purgeReviewedRecord(db,admin,args('project',removable)),'retention_cleanup_unconfigured');
+  if(previous===undefined)delete process.env[key];else process.env[key]=previous;
+  assert.equal((await db.query('SELECT id FROM fv_projects WHERE id=$1',[removable.id])).rows.length,1);
+  assert.equal((await db.query('SELECT id FROM fv_email_outbox WHERE resource_id=$1',[removable.id])).rows.length,1);
+ }
+ assert.equal((await retention.listRetentionReviews(db,admin)).find(row=>row.id===removable.id).financialRetentionRequired,false);
+ assert.equal((await retention.listRetentionReviews(db,admin)).find(row=>row.id===expiredInquiry.id).financialRetentionRequired,false);
  // Failure at the final audit must roll the entire removal back.
  const failAudit={...db,transaction:work=>db.transaction(tx=>work({...tx,query:(sql,values)=>sql.startsWith('INSERT INTO fv_audit')?Promise.reject(Error('synthetic audit failure')):tx.query(sql,values)}))};
- await assert.rejects(retention.purgeReviewedRecord(failAudit,admin,args('project',expired)),/synthetic audit failure/);
- assert.equal((await db.query('SELECT id FROM fv_projects WHERE id=$1',[expired.id])).rows.length,1);
- assert.equal((await db.query('SELECT id FROM fv_invoices WHERE project_id=$1',[expired.id])).rows.length,1);
- assert.equal((await db.query('SELECT id FROM fv_email_outbox WHERE resource_id=$1',[expired.id])).rows.length,1);
- await retention.purgeReviewedRecord(db,admin,args('project',expired));
- for(const table of ['fv_messages','fv_invoices','fv_quotes','fv_documents','fv_deletion_requests'])assert.equal((await db.query(`SELECT count(*)::int AS count FROM ${table} WHERE project_id=$1`,[expired.id])).rows[0].count,0);
- assert.equal((await db.query('SELECT id FROM fv_projects WHERE id=$1',[expired.id])).rows.length,0);
- assert.equal((await db.query('SELECT id FROM fv_email_outbox WHERE resource_id=$1',[expired.id])).rows.length,0);
- const audit=(await db.query("SELECT actor_id,resource_id,metadata FROM fv_audit WHERE action='retention.record_purged' AND resource_id=$1",[expired.id])).rows;
- assert.deepEqual(audit,[{actor_id:admin.id,resource_id:expired.id,metadata:{kind:'project',reference:expired.reference}}]);
+ await assert.rejects(retention.purgeReviewedRecord(failAudit,admin,args('project',removable)),/synthetic audit failure/);
+ assert.equal((await db.query('SELECT id FROM fv_projects WHERE id=$1',[removable.id])).rows.length,1);
+ assert.equal((await db.query('SELECT id FROM fv_documents WHERE project_id=$1',[removable.id])).rows.length,1);
+ assert.equal((await db.query('SELECT id FROM fv_email_outbox WHERE resource_id=$1',[removable.id])).rows.length,1);
+ await retention.purgeReviewedRecord(db,admin,args('project',removable));
+ for(const table of ['fv_messages','fv_documents','fv_deletion_requests'])assert.equal((await db.query(`SELECT count(*)::int AS count FROM ${table} WHERE project_id=$1`,[removable.id])).rows[0].count,0);
+ assert.equal((await db.query('SELECT id FROM fv_projects WHERE id=$1',[removable.id])).rows.length,0);
+ assert.equal((await db.query('SELECT id FROM fv_email_outbox WHERE resource_id=$1',[removable.id])).rows.length,0);
+ const audit=(await db.query("SELECT actor_id,resource_id,metadata FROM fv_audit WHERE action='retention.record_purged' AND resource_id=$1",[removable.id])).rows;
+ assert.deepEqual(audit,[{actor_id:admin.id,resource_id:removable.id,metadata:{kind:'project',reference:removable.reference}}]);
  assert.ok(!JSON.stringify(audit).includes(marker));
  await notification(expiredInquiry);await retention.purgeReviewedRecord(db,admin,args('inquiry',expiredInquiry));
  assert.equal((await db.query('SELECT id FROM fv_inquiries WHERE id=$1',[expiredInquiry.id])).rows.length,0);
  assert.equal((await db.query('SELECT id FROM fv_email_outbox WHERE resource_id=$1',[expiredInquiry.id])).rows.length,0);
  assert.equal((await db.query('SELECT id FROM fv_projects WHERE id=$1',[active.id])).rows.length,1);
  assert.equal((await db.query('SELECT id FROM fv_messages WHERE project_id=$1',[active.id])).rows.length,205);
- console.log('PASS: newest 200 messages; expired owner deletion request without content access; admin-only metadata review; exact reference and explicit clearance; active/unreviewed/files/in-flight refusals; atomic local purge of related private records with minimal audit. Synthetic local Postgres only, no remote deletion or automatic retention removal.');
-}finally{await pg.close();}
+ console.log('PASS: newest 200 messages; expired owner deletion request without content access; admin-only metadata review; exact reference and explicit clearance; active/unreviewed/files/in-flight refusals; cleanup-off/unknown-trigger/max30 refusals; financial quote/invoice holds; atomic local purge of eligible personal records with minimal audit. Synthetic local Postgres only, no remote deletion or automatic retention removal.');
+}finally{await pg.close();for(const key of envKeys){if(priorEnv[key]===undefined)delete process.env[key];else process.env[key]=priorEnv[key];}}

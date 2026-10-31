@@ -1,26 +1,28 @@
 import {z} from 'zod';
 import {audit,OperationError,requireStaff,type Actor,type Database} from './core';
-import {uuid} from './validation';
+import {uuid,requireRetentionCleanup} from './validation';
 import {reconcileExpiredNotificationLease} from './email';
 
 export type RetentionReview={
  kind:'project'|'inquiry';id:string;reference:string;status:string;createdAt:string;expiresAt:string;
- reason:'expired'|'deletion_requested';deletionRequestStatus:null|'pending'|'in_review';documentCleanupRequired:boolean;
+ reason:'expired'|'deletion_requested';deletionRequestStatus:null|'pending'|'in_review';documentCleanupRequired:boolean;financialRetentionRequired:boolean;
 };
-type ReviewRow={id:string;reference:string;status:string;created_at:Date|string;expires_at:Date|string;expired:boolean;deletion_status:null|'pending'|'in_review';document_cleanup_required:boolean};
+type ReviewRow={id:string;reference:string;status:string;created_at:Date|string;expires_at:Date|string;expired:boolean;deletion_status:null|'pending'|'in_review';document_cleanup_required:boolean;financial_retention_required:boolean};
 function requireAdmin(actor:Actor){requireStaff(actor);if(actor.role!=='admin')throw new OperationError(403,'admin_required','An administrator must review retention obligations before removing records.');}
 function iso(value:Date|string){return value instanceof Date?value.toISOString():new Date(value).toISOString();}
-function review(kind:RetentionReview['kind'],row:ReviewRow):RetentionReview{return {kind,id:row.id,reference:row.reference,status:row.status,createdAt:iso(row.created_at),expiresAt:iso(row.expires_at),reason:row.expired?'expired':'deletion_requested',deletionRequestStatus:row.deletion_status,documentCleanupRequired:row.document_cleanup_required};}
+function review(kind:RetentionReview['kind'],row:ReviewRow):RetentionReview{return {kind,id:row.id,reference:row.reference,status:row.status,createdAt:iso(row.created_at),expiresAt:iso(row.expires_at),reason:row.expired?'expired':'deletion_requested',deletionRequestStatus:row.deletion_status,documentCleanupRequired:row.document_cleanup_required,financialRetentionRequired:row.financial_retention_required};}
 
 /** Metadata only. Expiry makes a record eligible for human review, never automatic deletion. */
 export async function listRetentionReviews(db:Database,actor:Actor):Promise<RetentionReview[]>{
  requireAdmin(actor);
  const inquiries=await db.query<ReviewRow>(`SELECT id,reference,status,created_at,expires_at,true AS expired,
-   NULL::text AS deletion_status,false AS document_cleanup_required
+   NULL::text AS deletion_status,false AS document_cleanup_required,false AS financial_retention_required
    FROM fv_inquiries WHERE expires_at<=now() ORDER BY expires_at ASC,id ASC LIMIT 200`);
  const projects=await db.query<ReviewRow>(`SELECT p.id,p.reference,p.status,p.created_at,p.expires_at,p.expires_at<=now() AS expired,
    d.status AS deletion_status,EXISTS(SELECT 1 FROM fv_documents f WHERE f.project_id=p.id
-     AND (f.state<>'deleted' OR f.storage_cleanup_pending=true)) AS document_cleanup_required
+     AND (f.state<>'deleted' OR f.storage_cleanup_pending=true)) AS document_cleanup_required,
+   (EXISTS(SELECT 1 FROM fv_quotes q WHERE q.project_id=p.id)
+     OR EXISTS(SELECT 1 FROM fv_invoices i WHERE i.project_id=p.id)) AS financial_retention_required
    FROM fv_projects p LEFT JOIN fv_deletion_requests d ON d.project_id=p.id
    WHERE p.expires_at<=now() OR d.status='in_review' ORDER BY p.expires_at ASC,p.id ASC LIMIT 200`);
  return [...inquiries.rows.map(row=>review('inquiry',row)),...projects.rows.map(row=>review('project',row))]
@@ -32,7 +34,7 @@ type RecordRow={id:string;reference:string;expired:boolean};
 
 /** An administrator must explicitly clear business retention obligations. Storage deletion is handled separately. */
 export async function purgeReviewedRecord(db:Database,actor:Actor,input:unknown){
- requireAdmin(actor);const data=purgeSchema.parse(input);
+ requireAdmin(actor);const data=purgeSchema.parse(input);requireRetentionCleanup();
  return db.transaction(async tx=>{
   // Lock the parent first: foreign-key inserts must finish before this lock, or fail after deletion.
   const record=(await tx.query<RecordRow>(data.kind==='project'
@@ -43,6 +45,9 @@ export async function purgeReviewedRecord(db:Database,actor:Actor,input:unknown)
   if(data.kind==='project'){
    const request=(await tx.query<{status:string}>('SELECT status FROM fv_deletion_requests WHERE project_id=$1 FOR UPDATE',[data.id])).rows[0];
    if(!record.expired&&request?.status!=='in_review')throw new OperationError(409,'retention_review_required','Only an expired project or a deletion request under review can be removed.');
+   const financial=(await tx.query<{required:boolean}>(`SELECT EXISTS(SELECT 1 FROM fv_quotes WHERE project_id=$1)
+     OR EXISTS(SELECT 1 FROM fv_invoices WHERE project_id=$1) AS required`,[data.id])).rows[0];
+   if(financial.required)throw new OperationError(409,'financial_retention_unconfigured','This project has quotes or invoices. Their separate retention policy must be confirmed before this record can be removed.');
    const documents=await tx.query<{state:string;storage_cleanup_pending:boolean}>('SELECT state,storage_cleanup_pending FROM fv_documents WHERE project_id=$1 FOR UPDATE',[data.id]);
    if(documents.rows.some(file=>file.state!=='deleted'||file.storage_cleanup_pending))throw new OperationError(409,'document_cleanup_required','Delete all project files and confirm private storage cleanup before removing the project record.');
   }else if(!record.expired)throw new OperationError(409,'retention_review_required','Only an expired inquiry can be removed.');
@@ -54,8 +59,6 @@ export async function purgeReviewedRecord(db:Database,actor:Actor,input:unknown)
   await tx.query('DELETE FROM fv_email_outbox WHERE resource_id=$1',[data.id]);
   if(data.kind==='project'){
    await tx.query('DELETE FROM fv_messages WHERE project_id=$1',[data.id]);
-   await tx.query('DELETE FROM fv_invoices WHERE project_id=$1',[data.id]);
-   await tx.query('DELETE FROM fv_quotes WHERE project_id=$1',[data.id]);
    await tx.query('DELETE FROM fv_documents WHERE project_id=$1',[data.id]);
    await tx.query('DELETE FROM fv_deletion_requests WHERE project_id=$1',[data.id]);
    await tx.query('DELETE FROM fv_projects WHERE id=$1',[data.id]);
