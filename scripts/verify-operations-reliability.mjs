@@ -32,13 +32,15 @@ try{
   const item=await outbox(fixture);
   assert.equal(await email.dispatchNotification(db,item.resource,()=>assert.fail('Must not send outside lease/retry/idempotency bounds')),fixture.expected??fixture.state);
  }
- // A late worker must not overwrite a newer worker's accepted result.
- const raced=await outbox();let enter,failOld;
+ // A worker paused after claiming must be fenced before it can send or overwrite a newer receipt.
+ const raced=await outbox();let enter,resumeOld;
  const entered=new Promise(resolve=>enter=resolve);
- const old=email.dispatchNotification(db,raced.resource,()=>{enter();return new Promise((_resolve,reject)=>failOld=reject);});
+ const resume=new Promise(resolve=>resumeOld=resolve);
+ const pausedDb={...db,transaction:async work=>{enter();await resume;return db.transaction(work);}};
+ const old=email.dispatchNotification(pausedDb,raced.resource,()=>assert.fail('Stale worker must be fenced before sending'));
  await entered;await db.query("UPDATE fv_email_outbox SET last_attempt_at=now()-interval '3 minutes' WHERE id=$1",[raced.id]);
  assert.equal(await email.dispatchNotification(db,raced.resource,async()=>({id:'newer-worker-accepted'})),'accepted');
- failOld(Error('late old worker timeout'));assert.equal(await old,'accepted');
+ resumeOld();assert.equal(await old,'accepted');
  const final=(await db.query('SELECT state,provider_id,attempts FROM fv_email_outbox WHERE id=$1',[raced.id])).rows[0];
  assert.deepEqual(final,{state:'accepted',provider_id:'newer-worker-accepted',attempts:2});
  const owner={id:'owner',email:'synthetic@example.org',emailVerified:true,role:'client'};

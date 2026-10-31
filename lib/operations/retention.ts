@@ -1,6 +1,7 @@
 import {z} from 'zod';
 import {audit,OperationError,requireStaff,type Actor,type Database} from './core';
 import {uuid} from './validation';
+import {reconcileExpiredNotificationLease} from './email';
 
 export type RetentionReview={
  kind:'project'|'inquiry';id:string;reference:string;status:string;createdAt:string;expiresAt:string;
@@ -45,6 +46,9 @@ export async function purgeReviewedRecord(db:Database,actor:Actor,input:unknown)
    const documents=await tx.query<{state:string;storage_cleanup_pending:boolean}>('SELECT state,storage_cleanup_pending FROM fv_documents WHERE project_id=$1 FOR UPDATE',[data.id]);
    if(documents.rows.some(file=>file.state!=='deleted'||file.storage_cleanup_pending))throw new OperationError(409,'document_cleanup_required','Delete all project files and confirm private storage cleanup before removing the project record.');
   }else if(!record.expired)throw new OperationError(409,'retention_review_required','Only an expired inquiry can be removed.');
+  // This no-send reconciliation holds its updated-row locks until this transaction ends.
+  // A sender holding the row lock finishes first; a later guarded sender sees the deleted row.
+  await reconcileExpiredNotificationLease(tx,data.id);
   const notifications=await tx.query<{state:string}>('SELECT state FROM fv_email_outbox WHERE resource_id=$1 FOR UPDATE',[data.id]);
   if(notifications.rows.some(notification=>notification.state==='sending'))throw new OperationError(409,'notification_in_flight','Resolve the notification delivery state before removing this record.');
   await tx.query('DELETE FROM fv_email_outbox WHERE resource_id=$1',[data.id]);

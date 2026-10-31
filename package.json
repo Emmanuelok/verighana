@@ -20,7 +20,7 @@
     "verify:desk": "node scripts/verify-public-desk.mjs",
     "verify:bundles": "node scripts/verify-bundles.mjs && node scripts/verify-bundle-flow.mjs",
     "verify:estimates": "node scripts/verify-estimate-selection.mjs && node scripts/verify-brief-snapshot.mjs",
-    "verify:operations": "node scripts/verify-operations.mjs && node scripts/verify-operations-reliability.mjs && node scripts/verify-auth-boundaries.mjs && node scripts/verify-documents.mjs && node scripts/verify-quotes.mjs && node scripts/verify-retention.mjs && node scripts/verify-message-history.mjs",
+    "verify:operations": "node scripts/verify-operations.mjs && node scripts/verify-operations-reliability.mjs && node scripts/verify-auth-boundaries.mjs && node scripts/verify-documents.mjs && node scripts/verify-quotes.mjs && node scripts/verify-retention.mjs && node scripts/verify-message-history.mjs && node scripts/verify-submitted-brief.mjs && node scripts/verify-notification-recovery.mjs",
     "verify:package-pdf": "node scripts/verify-package-pdf.mjs",
     "operations:migrate": "node scripts/operations-migrate.mjs"
   },
