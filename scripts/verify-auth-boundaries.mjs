@@ -28,7 +28,7 @@ async function load(entry) {
   const result=await build({entryPoints:[entry],bundle:true,write:false,format:'esm',platform:'node',plugins:[plugin],logLevel:'silent'});
   return import('data:text/javascript;base64,'+Buffer.from(result.outputFiles[0].text).toString('base64'));
 }
-const keys=['FULLVIEW_AUTH_ENABLED','FULLVIEW_NEON_AUTH_BASE_URL','FULLVIEW_AUTH_COOKIE_SECRET','FULLVIEW_APP_ORIGIN'];
+const keys=['FULLVIEW_AUTH_ENABLED','FULLVIEW_AUTH_MODE','FULLVIEW_AUTH_TEST_EMAIL','FULLVIEW_NEON_AUTH_BASE_URL','FULLVIEW_AUTH_COOKIE_SECRET','FULLVIEW_APP_ORIGIN'];
 const prior=Object.fromEntries(keys.map(key=>[key,process.env[key]]));
 try {
   keys.forEach(key=>delete process.env[key]);
@@ -36,6 +36,7 @@ try {
   assert.equal(auth.authenticationConfigured(),false);
   await assert.rejects(auth.getPrincipal(),error=>error.status===503);
   process.env.FULLVIEW_AUTH_ENABLED='true';
+  process.env.FULLVIEW_AUTH_MODE='public';
   process.env.FULLVIEW_NEON_AUTH_BASE_URL='https://example.neonauth.neon.tech/project/auth';
   process.env.FULLVIEW_AUTH_COOKIE_SECRET='test-fixture-only-never-a-live-secret';
   process.env.FULLVIEW_APP_ORIGIN='https://fvsignature.com';
