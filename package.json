@@ -18,6 +18,7 @@
     "prebuild": "node scripts/build-offline.mjs",
     "verify:brand": "node scripts/verify-brand-pwa.mjs",
     "verify:desk": "node scripts/verify-public-desk.mjs",
+    "verify:account": "node scripts/verify-account-experience.mjs",
     "verify:bundles": "node scripts/verify-bundles.mjs && node scripts/verify-bundle-flow.mjs",
     "verify:estimates": "node scripts/verify-estimate-selection.mjs && node scripts/verify-brief-snapshot.mjs",
     "verify:operations": "node scripts/verify-operations.mjs && node scripts/verify-operations-reliability.mjs && node scripts/verify-auth-boundaries.mjs && node scripts/verify-auth-validation.mjs && node scripts/verify-documents.mjs && node scripts/verify-quotes.mjs && node scripts/verify-retention-policy.mjs && node scripts/verify-retention.mjs && node scripts/verify-retention-ui.mjs && node scripts/verify-message-history.mjs && node scripts/verify-submitted-brief.mjs && node scripts/verify-notification-recovery.mjs",
