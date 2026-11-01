@@ -1,5 +1,6 @@
 'use client';
 import {useEffect, useRef, useState} from 'react';
+import Link from 'next/link';
 import {ArrowUpRight,ArrowRight,ArrowDown,ShieldCheck,Globe2,Menu,X,FolderOpen,Play,Pause,Compass,BookOpen,ChartNoAxesCombined,House,LayoutDashboard} from 'lucide-react';
 import {ResearchProvider,useResearch,Icon,Dialog} from './research-context';
 import {audiences,categories,articles,services} from '../lib/catalog';
@@ -20,18 +21,36 @@ export function Brand({light=false}:{light?:boolean}){return <a href="/" classNa
 function Header({view,mobile,setMobile}:{view:View;mobile:boolean;setMobile:(open:boolean)=>void}){
   const {items,estimate}=useResearch();
   const links=[['Services','/services','services'],['Packages','/bundles','bundles'],['Organisations','/institutions','institutions'],['Our approach','/approach','approach'],['Insights','/insights','insights'],['Pricing','/pricing','pricing']];
-  useEffect(()=>{if(!mobile)return;const close=(e:KeyboardEvent)=>{if(e.key==='Escape')setMobile(false)};document.addEventListener('keydown',close);return()=>document.removeEventListener('keydown',close)},[mobile]);
-  return <header className="header"><div className="header-inner"><Brand/><nav id="main-navigation" className={mobile?'main-nav open':'main-nav'} aria-label="Main navigation">{links.map(([name,url,id])=><a key={id} href={url} aria-current={view===id?'page':undefined} onClick={()=>setMobile(false)}>{name}</a>)}<a className="mobile-desk" href="/workspace">Start your research <ArrowUpRight size={18}/></a></nav><div className="header-actions"><button className="estimate-icon" onClick={estimate} aria-label={`Open project estimate, ${items.length} services`}><FolderOpen size={21} strokeWidth={1.7}/>{items.length>0&&<span>{items.length}</span>}</button><a className="button small" href="/workspace">Let’s talk research <ArrowUpRight size={17}/></a><button className="menu-button icon-button" aria-label={mobile?'Close menu':'Open menu'} aria-expanded={mobile} aria-controls="main-navigation" onClick={()=>setMobile(!mobile)}>{mobile?<X/>:<Menu/>}</button></div></div></header>
+  useEffect(()=>{if(!mobile)return;const close=(e:KeyboardEvent)=>{if(e.key==='Escape')setMobile(false)};document.addEventListener('keydown',close);return()=>document.removeEventListener('keydown',close)},[mobile,setMobile]);
+  return <header className="header"><div className="header-inner"><Brand/>
+    <nav id="main-navigation" className={mobile?'main-nav open':'main-nav'} aria-label="Main navigation">
+      {links.map(([name,url,id])=><a key={id} href={url} aria-current={view===id?'page':undefined} onClick={()=>setMobile(false)}>{name}</a>)}
+      <div className="mobile-account-links" role="group" aria-label="Account access">
+        <Link className="account-sign-in" href="/account?mode=signin" onClick={()=>setMobile(false)}>Sign in</Link>
+        <Link className="button account-create-account" href="/account?mode=signup" onClick={()=>setMobile(false)}>Create account</Link>
+      </div>
+      <a className="mobile-desk" href="/workspace" onClick={()=>setMobile(false)}>Start your research <ArrowUpRight size={18} aria-hidden="true"/></a>
+    </nav>
+    <div className="header-actions">
+      <button type="button" className="estimate-icon" onClick={estimate} aria-label={`Open project estimate, ${items.length} services`}><FolderOpen size={21} strokeWidth={1.7} aria-hidden="true"/>{items.length>0&&<span>{items.length}</span>}</button>
+      <div className="header-account-links" role="group" aria-label="Account access">
+        <Link className="account-sign-in" href="/account?mode=signin" onClick={()=>setMobile(false)}>Sign in</Link>
+        <Link className="button small account-create-account" href="/account?mode=signup" onClick={()=>setMobile(false)}>Create account</Link>
+      </div>
+      <a className="button small" href="/workspace">Let’s talk research <ArrowUpRight size={17} aria-hidden="true"/></a>
+      <button type="button" className="menu-button icon-button" aria-label={mobile?'Close menu':'Open menu'} aria-expanded={mobile} aria-controls="main-navigation" onClick={()=>setMobile(!mobile)}>{mobile?<X aria-hidden="true"/>:<Menu aria-hidden="true"/>}</button>
+    </div>
+  </div></header>
 }
 function MobileNavigation({view,mobile,setMobile}:{view:View;mobile:boolean;setMobile:(open:boolean)=>void}){
   const {items,estimate}=useResearch();
   const moreActive=!['home','services','workspace'].includes(view);
   return <nav className="mobile-bottom-nav" aria-label="Mobile navigation">
-    <a href="/" aria-current={view==='home'?'page':undefined}><House aria-hidden="true"/><span>Home</span></a>
-    <a href="/services" aria-current={view==='services'?'page':undefined}><BookOpen aria-hidden="true"/><span>Services</span></a>
-    <button onClick={()=>{setMobile(false);estimate()}} aria-label={`Open project estimate, ${items.length} services`}><span className="mobile-nav-icon"><FolderOpen aria-hidden="true"/>{items.length>0&&<span className="mobile-nav-count" aria-hidden="true">{items.length}</span>}</span><span>Estimate</span></button>
-    <a href="/workspace" aria-label="Research desk" aria-current={view==='workspace'?'page':undefined}><LayoutDashboard aria-hidden="true"/><span>Desk</span></a>
-    <button aria-label={mobile?'Close menu':'Open menu'} aria-expanded={mobile} aria-controls="main-navigation" data-active={mobile||moreActive} onClick={()=>setMobile(!mobile)}>{mobile?<X aria-hidden="true"/>:<Menu aria-hidden="true"/>}<span>Menu</span></button>
+    <a href="/" aria-current={view==='home'?'page':undefined} onClick={()=>setMobile(false)}><House aria-hidden="true"/><span>Home</span></a>
+    <a href="/services" aria-current={view==='services'?'page':undefined} onClick={()=>setMobile(false)}><BookOpen aria-hidden="true"/><span>Services</span></a>
+    <button type="button" onClick={()=>{setMobile(false);estimate()}} aria-label={`Open project estimate, ${items.length} services`}><span className="mobile-nav-icon"><FolderOpen aria-hidden="true"/>{items.length>0&&<span className="mobile-nav-count" aria-hidden="true">{items.length}</span>}</span><span>Estimate</span></button>
+    <a href="/workspace" aria-label="Research desk" aria-current={view==='workspace'?'page':undefined} onClick={()=>setMobile(false)}><LayoutDashboard aria-hidden="true"/><span>Desk</span></a>
+    <button type="button" aria-label={mobile?'Close menu':'Open menu'} aria-expanded={mobile} aria-controls="main-navigation" data-active={mobile||moreActive} onClick={()=>setMobile(!mobile)}>{mobile?<X aria-hidden="true"/>:<Menu aria-hidden="true"/>}<span>Menu</span></button>
   </nav>
 }
 function CinemaHero(){
