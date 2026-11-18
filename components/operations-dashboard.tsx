@@ -2,7 +2,6 @@
 
 import {useEffect, useRef, useState, type FormEvent} from 'react';
 import Link from 'next/link';
-import {fullviewContact} from '../lib/contact';
 import {ContactEmail} from './contact-email';
 import {NotificationFollowUp,notificationLabel,type NotificationSummary} from './notification-follow-up';
 import {SubmittedBrief} from './submitted-brief';
@@ -98,8 +97,15 @@ export function OperationsDashboard({mode}:{mode:'client'|'staff'}) {
   const isStaff=overview?.actor.role==='staff'||overview?.actor.role==='admin';
   const signedOut=error?.status===401;
   return <main id="main" className="wrap operations-shell">
-    <nav className="operations-toolbar" aria-label="Workspace navigation"><Link className="text-link" href="/">Fullview Signature</Link><Link className="text-link" href="/workspace">Local research desk</Link><Link className="text-link" href="/account">Your account</Link>{isStaff&&<Link className="text-link" href={mode==='staff'?'/projects':'/staff'}>{mode==='staff'?'Projects view':'Staff workspace'}</Link>}</nav>
-    <header className="page-intro operations-editorial-intro"><div><span className="eyebrow">{mode==='staff'?'FULLVIEW STAFF WORKSPACE':'YOUR SHARED PROJECTS'}</span><h1>{mode==='staff'?'A clear view of the work.':'Your project, together.'}</h1><p>{mode==='staff'?'Review inquiries, coordinate project stages and prepare clear terms for client acceptance.':'Review submitted projects, discuss the scope and keep track of agreed work. Signing in does not upload your device-local drafts.'}</p></div><div className="operations-header-art" aria-hidden="true"><img src="/services/photography/gallery-hero.webp" alt=""/><span>THE WORK.<br/><em>IN FULL VIEW.</em></span></div></header>
+
+    <header className="studio-ops-head">
+      <div><h1>{mode === 'staff' ? 'Studio operations' : 'Shared projects'}</h1>
+        <p>{mode === 'staff' ? 'Review inquiries, coordinate active work and manage quotes.' : 'Follow project stages, review quotes and message the research team.'}</p></div>
+      <nav className="studio-ops-links" aria-label="Workspace navigation">
+        <Link href="/workspace">Research desk</Link><Link href="/account">Your account</Link>
+        {isStaff && <Link href={mode === 'staff' ? '/projects' : '/staff'}>{mode === 'staff' ? 'Projects view' : 'Staff workspace'}</Link>}
+      </nav>
+    </header>
     <div ref={feedback} tabIndex={-1} className="operations-feedback">
       {error&&<div className="muted-info" role="alert"><h2>{signedOut?'Sign in to continue.':error.status===403?'Access needs attention.':error.status===503?'Online services are not available yet.':'This action needs attention.'}</h2><p>{error.message}</p>{error.requestId&&<p className="fine-print">Support reference: {error.requestId}</p>}<div className="hero-buttons"><Link className="button outline" href="/account">{signedOut?'Sign in':'Manage your account'}</Link><ContactEmail withPhone/><button className="text-link" type="button" disabled={busy} onClick={()=>void retry()}>Try again</button></div></div>}
       {message&&<p role="status" className="muted-info">{message}</p>}
@@ -133,7 +139,7 @@ export function OperationsDashboard({mode}:{mode:'client'|'staff'}) {
         {(!isStaff||overview.actor.role==='admin')&&<DeletionRequest key={detail.id} projectId={detail.id} busy={busy} perform={perform}/>}
       </section>}
     </>}
-    <footer className="operations-toolbar"><ContactEmail/><a href={fullviewContact.phoneHref}>{fullviewContact.phoneDisplay}</a></footer>
+
   </main>;
 }
 

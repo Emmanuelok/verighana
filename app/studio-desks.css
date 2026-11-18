@@ -1,0 +1,131 @@
+/* Working surfaces: readable project information, cobalt actions and neutral form fields. */
+:is(.studio-task-page,.view-workspace,.operations-shell) {
+  --task-ink: #10141f; --task-blue: #163bea; --task-accent: #ff6538;
+  --task-paper: #fff; --task-mist: #f3f5f9; --task-label: #465166; --task-line: #ccd2dc;
+  --task-font: "DM Sans", Arial, sans-serif;
+  --account-ink: var(--task-ink); --account-copy: var(--task-label);
+  --green: var(--task-ink); --ink: var(--task-ink); --sage: var(--task-label);
+  color:var(--task-ink); font-family:var(--task-font);
+}
+.studio-task-page, .site-shell.view-workspace {background:var(--task-paper); padding-bottom:0}
+.studio-account-layout,.studio-contact-layout {
+  display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr); align-items:start;
+  width:min(1320px,100%); padding:clamp(36px,6.2vw,94px) clamp(24px,5.4vw,84px);
+  gap:clamp(44px,8.2vw,132px); margin-inline:auto;
+}
+.studio-account-panel,.studio-contact-form {min-width:0}
+.studio-task-heading {margin-bottom:clamp(22px,3vw,40px)}
+.studio-task-page .studio-task-heading h1,.view-workspace .studio-desk-head h1,.operations-shell .studio-ops-head h1{
+  color:var(--task-ink); font:600 clamp(44px,5.6vw,84px)/1 var(--task-font);letter-spacing:-.065em;
+  margin:0; text-wrap:balance;
+}
+.studio-task-page .studio-task-heading p,.view-workspace .studio-desk-head p,.operations-shell .studio-ops-head p {
+  font:400 clamp(16px,1.3vw,19px)/1.55 var(--task-font); color:var(--task-label);margin:15px 0 0;max-width:54ch;
+}
+.studio-task-page :is(.account-form-heading,.contact-receipt,.contact-form-panel,.account-availability) h2,
+.view-workspace .brief-form form>h2,.view-workspace .scope-summary h3,.view-workspace .receipt-panel h2,.view-workspace .project-records h2,
+.operations-shell :is(.operations-card,.operations-feedback,.operations-details) :is(h2,h3),
+.operations-shell section>h2 {
+  font:600 clamp(24px,2.5vw,37px)/1.13 var(--task-font);letter-spacing:-.047em;color:var(--task-ink);
+}
+.studio-task-page .account-availability {padding:16px 18px;background:#f3f5ff;border-radius:0;border:0;border-left:3px solid var(--task-blue);margin:20px 0}
+.studio-task-page .account-availability p{font:400 15px/1.55 var(--task-font);color:var(--task-ink);margin:0}
+.studio-task-page .account-availability strong{color:var(--task-ink)}
+.studio-task-page .account-availability .hero-buttons{margin:18px 0 0;display:flex;align-items:center}
+.studio-task-page .account-mode-nav {display:flex;gap:26px; margin:25px 0; border:0;border-bottom:1px solid var(--task-line);border-radius:0;background:transparent;padding:0}
+.studio-task-page .account-mode-link {display:inline-flex;padding:10px 0;min-height:44px;color:var(--task-label);background:none;box-shadow:none;border-radius:0;border-bottom:3px solid transparent}
+.studio-task-page .account-mode-link[aria-current=page]{color:var(--task-ink);border-color:var(--task-blue)}
+.studio-task-page .account-mode-link:hover{color:var(--task-blue);background:transparent}
+.studio-task-page .account-form-icon{display:none}
+.studio-task-page .account-form-heading p, .studio-task-page .account-disclosure, .studio-task-page .account-field-help {color:var(--task-label)}
+.studio-task-page .account-field, .studio-task-page .field, .view-workspace .field {color:var(--task-ink);font-weight:600}
+.studio-task-page :is(.account-field,.field) :is(input,textarea,select),
+.view-workspace .brief-form :is(.field,.audience-select) :is(input,textarea,select),
+.operations-shell .operations-form :is(input:not([type="checkbox"]),textarea,select){
+  background:#fff;color:#10141f;border:1px solid #9ba6b8;border-radius:3px;box-shadow:none;
+  font:400 16px/1.5 var(--task-font);min-height:47px;padding:11px 13px;
+}
+.studio-task-page input::placeholder,.studio-task-page textarea::placeholder {color:#667185}
+.studio-task-page :is(button,a,input,textarea,select):focus-visible,.operations-shell :focus-visible,.view-workspace main :focus-visible {outline:3px solid #4364ff;outline-offset:3px}
+.studio-task-page .account-submit,.studio-task-page .button:not(.outline),.view-workspace .workspace-section .button:not(.outline),.operations-shell .button:not(.outline) {
+  background:var(--task-blue);border:1px solid var(--task-blue);color:#fff;border-radius:3px;
+}
+.studio-task-page .account-submit:hover,.studio-task-page .button:not(.outline):hover,.view-workspace .workspace-section .button:not(.outline):hover,.operations-shell .button:not(.outline):hover {background:#0f2ebc;color:white}
+.studio-task-page .account-text-link, .studio-task-page .text-link, .view-workspace .workspace-section .text-link, .operations-shell .text-link {color:var(--task-blue)}
+.studio-task-page .account-support {margin:30px 0 12px;padding:15px 0 0;border-top:1px solid var(--task-line);font:500 14px/1.5 var(--task-font)}
+.studio-task-page .account-support p{font-size:15px;color:var(--task-ink)}
+.studio-task-page .account-support a {color:var(--task-blue);overflow-wrap:anywhere}
+.studio-task-page .account-disclosure {font:400 13px/1.5 var(--task-font);margin:12px 0 0}
+.studio-account-visual,.studio-contact-office {display:flex;flex-direction:column;min-width:0;overflow:hidden;background:#121827;color:white;margin:0;align-self:start}
+.studio-account-visual {position:relative;padding:0}
+.studio-account-visual img, .studio-contact-office>img {display:block;width:100%;height:auto;aspect-ratio:1.45;object-fit:cover}
+.studio-account-visual>div {padding:clamp(24px,3vw,50px);background:var(--task-blue)}
+.studio-account-visual h2,.studio-contact-office h2 {font:600 clamp(27px,2.6vw,42px)/1.08 var(--task-font);letter-spacing:-.055em;color:#fff}
+.studio-task-page .studio-account-visual p {color:#f2f5ff;font-size:16px;line-height:1.6;margin:13px 0 22px;max-width:36ch}
+.studio-account-visual a,.studio-office-link {display:inline-flex;align-items:center;gap:15px;color:#fff;font-weight:600;min-height:44px;text-decoration:underline;text-underline-offset:5px}
+.studio-contact-office .studio-office-body{padding:clamp(24px,3.3vw,50px)}
+.studio-contact-office h2 {margin:0 0 20px}
+.studio-contact-office address{display:grid;gap:12px;font:normal 16px/1.55 var(--task-font)}
+.studio-contact-office address p,.studio-contact-office address strong {margin:0;color:#fff}
+.studio-contact-office .studio-gps{font:400 13px/1.5 var(--task-font);color:#c5cbd8}
+.studio-contact-office address a{color:#fff;overflow-wrap:anywhere;width:fit-content;text-decoration:underline;text-underline-offset:4px}
+.studio-contact-office .studio-office-link{margin-top:25px;border-top:1px solid #546075;padding-top:17px}
+.studio-task-page .contact-form-panel,.studio-task-page .contact-receipt{border:0;padding:0;background:transparent}
+.studio-task-page .contact-form-panel>h2 {font-size:22px;margin:0 0 20px}
+.studio-task-page .contact-availability,.studio-task-page .contact-disclosure {background:var(--task-mist);color:var(--task-ink);border:0;border-left:3px solid #9ca6bc;padding:16px 18px}
+.studio-task-page .contact-availability {border-left-color:var(--task-accent)}
+.studio-task-page :is(.contact-availability,.contact-disclosure,.contact-receipt) p {font:400 15px/1.6 var(--task-font);color:var(--task-label)}
+.studio-task-page .contact-availability a,.studio-task-page .contact-receipt a {color:var(--task-blue);overflow-wrap:anywhere}
+.studio-task-page .contact-availability {margin-bottom:24px}
+.studio-task-page .field small,.studio-task-page .contact-disclosure small{color:var(--task-label)}
+.studio-task-page .contact-consent{align-items:flex-start}
+.studio-desk-head,.studio-ops-head{
+  padding-block:clamp(32px,4.5vw,68px) clamp(26px,3.1vw,48px);
+  display:flex;align-items:flex-end;justify-content:space-between;gap:26px;
+  border-bottom:1px solid var(--task-line);
+}
+.studio-task-link,.studio-ops-links a{
+  min-height:44px;display:inline-flex;align-items:center;gap:10px;
+  font:600 15px/1.4 var(--task-font);color:var(--task-blue);text-decoration:underline;text-underline-offset:4px;
+}
+.studio-ops-links {display:flex;flex-wrap:wrap;gap:6px 18px}
+.view-workspace .workspace-section{padding-top:25px}
+.view-workspace .desk-access-note{border:0;border-left:3px solid var(--task-blue);background:#f0f3fb}
+.view-workspace .desk-access-note strong,.view-workspace .desk-access-note p {color:#303c50}
+.view-workspace .desk-access-note svg {color:var(--task-blue)}
+.view-workspace .workspace-bar{border-color:var(--task-line)}
+.view-workspace .workspace-tabs button {background:white;color:var(--task-ink);border:1px solid #b6beca;border-radius:3px}
+.view-workspace .workspace-tabs button.active,.view-workspace .form-steps>div.current>span {background:var(--task-blue);color:white;border-color:var(--task-blue)}
+.view-workspace .workspace-tabs button.active span,.view-workspace .form-steps>div.complete>span{background:white;color:var(--task-blue);border-color:var(--task-blue)}
+.view-workspace .form-steps>div {color:#4b5767}
+.view-workspace .brief-form,.view-workspace .brief-card,.view-workspace .receipt-panel{background:white;border:1px solid var(--task-line);border-radius:4px}
+.view-workspace .scope-summary{background:var(--task-mist);color:var(--task-ink);border:0;border-top:4px solid var(--task-blue)}
+.view-workspace .scope-summary h3{font-size:clamp(24px,2.3vw,34px)}
+.view-workspace .scope-summary li,.view-workspace .scope-summary li strong,.view-workspace .scope-total>strong,.view-workspace .scope-summary .summary-note p{color:var(--task-ink)}
+.view-workspace .project-records .status-tag,.view-workspace .review-brief,.view-workspace .brief-form .muted-info {background:var(--task-mist);color:var(--task-ink)}
+.view-workspace .form-steps>div.current {color:var(--task-blue)}
+.view-workspace .receipt-panel>svg {color:var(--task-blue)}
+.operations-shell {padding-bottom:65px}
+.operations-shell .operations-feedback{border:0;background:transparent;padding:0;margin:26px 0}
+.operations-shell .operations-feedback:empty{display:none}
+.operations-shell .operations-feedback .muted-info {color:var(--task-ink);border:1px solid var(--task-line);border-left:4px solid var(--task-blue);background:#f4f6fb;padding:clamp(20px,3.3vw,42px)}
+.operations-shell .operations-feedback p{color:var(--task-label)}
+.operations-shell .operations-card,.operations-shell .operations-quote {background:#fff; border:1px solid var(--task-line);border-radius:3px}
+.operations-shell .operations-status {color:#14309e;background:#edf0ff}
+.operations-shell .button.outline {border:1px solid var(--task-ink);background:white;color:var(--task-ink);border-radius:3px}
+@media (max-width:960px){
+  .studio-account-layout,.studio-contact-layout{gap:32px;padding-inline:4vw;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr)}
+}
+@media (max-width:760px){
+  .studio-account-layout,.studio-contact-layout{grid-template-columns:1fr;padding:32px 20px 44px;gap:30px}
+  .studio-account-visual {display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr)}
+  .studio-account-visual img{width:100%;height:100%;min-height:140px}
+  .studio-account-visual>div {padding:23px 17px}
+  .studio-account-visual h2 {font-size:23px}
+  .studio-task-page .studio-account-visual p{font-size:14px;margin:10px 0}
+  .studio-account-visual a{font-size:14px;gap:7px}
+  .studio-contact-office>img{aspect-ratio:2.1}
+  .studio-desk-head,.studio-ops-head{align-items:flex-start;flex-direction:column;gap:8px}
+  .view-workspace .brief-form-layout{grid-template-columns:minmax(0,1fr)}
+  .view-workspace .scope-summary{position:static}
+}

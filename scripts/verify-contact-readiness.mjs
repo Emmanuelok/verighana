@@ -32,7 +32,7 @@ for (const ready of [false, true]) {
     }
   }
 }
-for (const file of ['components/platform.tsx','components/inquiry-handoff.tsx','components/contact-form.tsx',
+for (const file of ['components/studio-shell.tsx','components/inquiry-handoff.tsx','components/contact-form.tsx',
   'components/operations-dashboard.tsx','components/share-project.tsx','app/contact/page.tsx','app/account/page.tsx']) {
   const source = readFileSync(file, 'utf8');
   assert.ok(source.includes('ContactEmail'), `${file}: contact fallback should use readiness-aware rendering`);
