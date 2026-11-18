@@ -1,90 +1,174 @@
 'use client';
 
-import {useEffect, useRef, useState} from 'react';
-import {ArrowRight, ArrowUpRight, ArrowDown, Play, Pause, Globe2, Plus, Minus} from 'lucide-react';
-import {useResearch, Dialog} from './research-context';
-import {services, categories, articles} from '../lib/catalog';
+import Link from 'next/link';
+import Image from 'next/image';
+import {useId, useState, type FormEvent, type KeyboardEvent} from 'react';
+import {ArrowDown, ArrowRight, ArrowUpRight, Minus, Play, Plus, Search} from 'lucide-react';
+import {articles, audiences, categories, money, rate, services, type Service} from '../lib/catalog';
+import {servicePhotography} from '../lib/service-photography';
+import {Dialog, useResearch} from './research-context';
 
 const pathways = [
-  {id:'students',label:'Students & graduates',title:'Your next chapter,',emphasis:'with a clearer direction.',body:'From the first research question to the final presentation. Find thoughtful support that helps you understand the work, make progress and keep your authorship.',image:'/services/photography/gallery-hero.webp',alt:'Illustrative sunlit research library',href:'/services?client=students',tags:['Proposals','Methods & analysis','Dissertation support']},
-  {id:'researchers',label:'Scholars & researchers',title:'Ideas worth pursuing.',emphasis:'Evidence worth sharing.',body:'Strengthen your methods, make sense of your findings and bring your contribution into focus. Specialist support for ambitious, independent scholarship.',image:'/media/researchers.jpg',alt:'Illustrative researchers working together',href:'/services?client=researchers',tags:['Evidence synthesis','Advanced analytics','Publication support']},
-  {id:'organisations',label:'Business & institutions',title:'See the full picture.',emphasis:'Make your next move.',body:'Understand your market, evaluate an intervention or answer a policy question. Commission research around the decisions that matter to your organisation.',image:'/media/ghana-landscape.jpg',alt:'Illustrative landscape inspired by Ghana',href:'/institutions',tags:['Market intelligence','Policy & evaluation','Team development']},
+  {title:'Students & graduates', subject:'Research proposals, dissertations and thesis support.', photo:'proposal-review', href:'/services?client=students#service-collection'},
+  {title:'Academics & researchers', subject:'Study design, data analysis and publication.', photo:'advanced-modelling', href:'/services?client=researchers#service-collection'},
+  {title:'Businesses & institutions', subject:'Market intelligence, programme evaluation and policy.', photo:'market-research', href:'/institutions'},
 ];
 
-function SignatureCinema(){
-  const {guide}=useResearch();
-  const video=useRef<HTMLVideoElement>(null);
-  const motion=useRef(false);
-  const [playing,setPlaying]=useState(false);
-  const [film,setFilm]=useState(false);
-  const [failed,setFailed]=useState(false);
-  useEffect(()=>{
-    const preference=window.matchMedia('(prefers-reduced-motion: reduce)');
-    const apply=()=>{motion.current=!preference.matches;if(motion.current)video.current?.play().catch(()=>{});else video.current?.pause()};
-    const visibility=()=>{if(document.hidden)video.current?.pause();else if(motion.current)video.current?.play().catch(()=>{})};
-    apply();preference.addEventListener('change',apply);document.addEventListener('visibilitychange',visibility);
-    return()=>{preference.removeEventListener('change',apply);document.removeEventListener('visibilitychange',visibility)};
-  },[]);
-  useEffect(()=>{if(film)video.current?.pause();else if(motion.current)video.current?.play().catch(()=>{})},[film]);
-  return <>
-    <section className="signature-hero" aria-labelledby="signature-title">
-      <div className="signature-film" aria-hidden="true">
-        <img src="/media/hero-poster.jpg" alt="" fetchPriority="high"/>
-        <video ref={video} muted playsInline loop preload="metadata" poster="/media/hero-poster.jpg" onPlay={()=>setPlaying(true)} onPause={()=>setPlaying(false)} onError={()=>{setFailed(true);setPlaying(false)}}><source src="/media/veridanth-film.mp4" type="video/mp4"/></video>
-      </div>
-      <div className="signature-film-shade"/>
-      <div className="signature-hero-top wrap"><span><i/> INDEPENDENT RESEARCH. SHARED POSSIBILITY.</span><span><Globe2 size={15}/> GHANA · OPEN TO THE WORLD</span></div>
-      <div className="signature-hero-copy wrap">
-        <span className="signature-pretitle">A different perspective changes everything.</span>
-        <h1 id="signature-title">A fuller view.<br/>A <em>bolder</em><br className="hero-poetry"/> future<span className="signature-dot">.</span></h1>
-        <p>Big questions deserve extraordinary thinking.<br/>Research, insight and expertise for the work<br className="desktop-break"/> you want to move forward.</p>
-        <div className="signature-hero-actions"><a className="button signature-lime" href="/services">Explore our expertise <ArrowUpRight size={20}/></a><button className="signature-quiet-link" onClick={guide}>Find my pathway <ArrowRight size={18}/></button></div>
-      </div>
-      <button className="signature-play" onClick={()=>setFilm(true)} aria-label="Watch the Fullview film"><span><Play size={19} fill="currentColor"/></span><span>THE FULLVIEW FILM<small>A world of possibility</small></span></button>
-      <div className="signature-hero-bottom wrap"><a href="#possibilities"><ArrowDown size={17}/> SCROLL TO EXPLORE</a><span>CURIOUS MINDS. REAL POSSIBILITIES.</span>{!failed&&<button onClick={()=>{motion.current=!playing;if(playing)video.current?.pause();else video.current?.play().catch(()=>{})}} aria-label={playing?'Pause background film':'Play background film'}>{playing?<Pause size={15}/>:<Play size={15}/>}<span>{playing?'Pause motion':'Play motion'}</span></button>}</div>
-    </section>
-    {film&&<Dialog title="The Fullview film · A world of possibility" onClose={()=>setFilm(false)}><div className="film-player"><video controls autoPlay playsInline muted loop poster="/media/hero-poster.jpg"><source src="/media/veridanth-film.mp4" type="video/mp4"/></video><p>An AI-generated cinematic impression of Ghana, research and possibility. These illustrative scenes do not depict our staff or premises. This film has no audio.</p></div></Dialog>}
-  </>;
+const featured = ['research-consultation', 'systematic-protocol', 'quantitative', 'market-research']
+  .map(id => services.find(item => item.id === id))
+  .filter((item): item is Service => item !== undefined);
+
+const index = services.map(service => ({
+  service,
+  text:[service.title, service.description, ...service.deliverables, categories.find(item => item.id === service.category)?.title].join(' ').toLowerCase(),
+}));
+
+function ServiceFinder() {
+  const {detail} = useResearch();
+  const [query,setQuery] = useState('');
+  const [open,setOpen] = useState(false);
+  const [active,setActive] = useState(-1);
+  const id = useId();
+  const term = query.trim().toLowerCase();
+  const matches = term ? index.filter(item => item.text.includes(term)) : [];
+  const shortlist = matches.slice(0,4);
+  const visible = Boolean(term && open);
+  const catalogue = term ? '/services?q=' + encodeURIComponent(query.trim()) + '#service-collection' : '/services#service-collection';
+
+  function choose(service:Service) {
+    setOpen(false);
+    setActive(-1);
+    detail(service);
+  }
+
+  function onSubmit(event:FormEvent) {
+    event.preventDefault();
+    if (visible && active >= 0 && shortlist[active]) {
+      choose(shortlist[active].service);
+    } else {
+      window.location.assign(catalogue);
+    }
+  }
+
+  function navigate(event:KeyboardEvent<HTMLInputElement>) {
+    if (event.key === 'Escape') {
+      setOpen(false);
+      setActive(-1);
+      return;
+    }
+    if (!shortlist.length || (event.key !== 'ArrowUp' && event.key !== 'ArrowDown')) return;
+    event.preventDefault();
+    setOpen(true);
+    setActive(previous => {
+      if (previous < 0) return event.key === 'ArrowUp' ? shortlist.length - 1 : 0;
+      return (previous + (event.key === 'ArrowUp' ? -1 : 1) + shortlist.length) % shortlist.length;
+    });
+  }
+
+  return <div className="os-finder-strip" id="service-finder">
+    <div className="os-frame os-finder-layout">
+      <div><label htmlFor={id + '-search'}>Find a research service</label><p>Search {services.length} services by topic, method or deliverable.</p></div>
+      <form action="/services" method="get" role="search" onSubmit={onSubmit} onBlur={event => {
+        if (!event.currentTarget.contains(event.relatedTarget)) {setOpen(false);setActive(-1);}
+      }}>
+        <div className="os-input-line">
+          <Search size={21} strokeWidth={1.8} aria-hidden="true"/>
+          <input id={id + '-search'} name="q" type="search" autoComplete="off" role="combobox"
+            aria-autocomplete="list" aria-expanded={visible && shortlist.length > 0} aria-controls={visible && shortlist.length ? id + '-results' : undefined}
+            aria-activedescendant={visible && active >= 0 ? id + '-option-' + active : undefined}
+            placeholder="Try “survey” or “fieldwork”" value={query}
+            onChange={event => {setQuery(event.target.value);setOpen(true);setActive(-1);}}
+            onFocus={()=>setOpen(true)} onKeyDown={navigate}/>
+          <button type="submit" aria-label="Search the catalogue"><ArrowRight size={21} aria-hidden="true"/></button>
+        </div>
+        {visible && <div className="os-suggestions">
+          {shortlist.length > 0 ? <>
+            <div id={id+'-results'} role="listbox" aria-label="Matching research services">
+              {shortlist.map(({service},i) => <button type="button" role="option" id={id+'-option-'+i} aria-selected={active===i}
+                key={service.id} tabIndex={-1} onMouseDown={e=>e.preventDefault()} onClick={()=>choose(service)}>
+                {service.title}<ArrowUpRight size={17} aria-hidden="true"/>
+              </button>)}
+            </div>
+            <Link href={catalogue}>See all {matches.length} {matches.length===1?'result':'results'} <ArrowRight size={17}/></Link>
+          </> : <><p role="status">No matching services. Try a shorter search.</p><Link href="/services#service-collection">Browse the catalogue <ArrowRight size={17}/></Link></>}
+        </div>}
+      </form>
+    </div>
+  </div>;
 }
 
-export function EditorialHome(){
-  const {guide,article}=useResearch();
-  const [path,setPath]=useState(0);
-  const [method,setMethod]=useState(0);
-  const selected=pathways[path];
-  const steps=[
-    {title:'Bring us your question.',copy:'Tell us what you are exploring, what you have already done and the outcome you have in mind. A clear brief starts the conversation.',detail:'Your question · Your context · Your ambition'},
-    {title:'Build the right approach.',copy:'Agree the methods, deliverables, timing and responsibilities. Set a transparent scope and budget before any commissioned work begins.',detail:'Defined scope · Clear fees · Shared expectations'},
-    {title:'Move forward with evidence.',copy:'Review the findings, understand the reasoning and put the work to use. Academic support strengthens your capabilities and respects your authorship.',detail:'Thoughtful analysis · Useful outputs · Your next step'},
-  ];
-  return <>
-    <SignatureCinema/>
-    <div className="signature-index"><div className="wrap"><span>RESEARCH. IN FULL VIEW.</span><a href="/services">{services.length} specialist services <ArrowUpRight size={16}/></a><a href="/institutions">Individuals & institutions <ArrowUpRight size={16}/></a><a href="/approach">Integrity, at every step <ArrowUpRight size={16}/></a></div></div>
-    <section className="signature-intro wrap" id="possibilities">
-      <div className="signature-section-label"><span>01 / THE BIGGER PICTURE</span><span className="signature-asterisk" aria-hidden="true">✳</span></div>
-      <div><h2>Good research opens doors.<br/><em>Great thinking opens worlds.</em></h2><div className="signature-intro-bottom"><p>From a student’s first proposal to an organisation’s next big decision, we help people see further. Fullview Signature brings specialist research support, analysis and insight together—around you.</p><a className="signature-round-link" href="/approach" aria-label="Discover the Fullview approach"><ArrowUpRight size={30}/></a></div></div>
+function ProjectScopes() {
+  const {detail,audience} = useResearch();
+  const [current,setCurrent] = useState<string | null>(featured[0]?.id ?? null);
+  return <section className="os-scopes" aria-labelledby="os-scopes-title">
+    <div className="os-frame os-scope-layout">
+      <div className="os-scope-intro">
+        <h2 id="os-scopes-title">Inside a <br/>service.</h2>
+        <p>See what’s included, how long it takes and where pricing starts. We confirm the fee once we agree your scope.</p>
+        <Link className="os-text-link" href="/pricing">Open the rate guide <ArrowUpRight size={17}/></Link>
+      </div>
+      <div className="os-accordions">{featured.map(s=>{
+        const expanded=s.id===current;
+        const priceFor=s.audiences.includes(audience)?audience:s.audiences[0];
+        return <div className="os-scope-item" key={s.id}>
+          <h3><button type="button" aria-expanded={expanded} aria-controls={'os-scope-'+s.id} onClick={()=>setCurrent(expanded?null:s.id)}>
+            {s.title}{expanded?<Minus size={20}/>:<Plus size={20}/>}
+          </button></h3>
+          <div id={'os-scope-'+s.id} hidden={!expanded} className="os-scope-detail">
+            <p>{s.description}</p>
+            <ul>{s.deliverables.map(deliverable=><li key={deliverable}>{deliverable}</li>)}</ul>
+            <div className="os-scope-meta"><div><small>Starting fee{s.fixed?'':' · '+audiences.find(a=>a.id===priceFor)?.short}</small><strong>GHS {money(rate(s,priceFor))}</strong></div><div><small>Timing</small><strong>{s.days}</strong></div></div>
+            <button className="os-text-link" type="button" onClick={()=>detail(s)}>Full scope and estimate <ArrowRight size={17}/></button>
+          </div>
+        </div>;
+      })}</div>
+    </div>
+  </section>;
+}
+
+export function EditorialHome() {
+  const {guide,article} = useResearch();
+  const [film,setFilm] = useState(false);
+  return <div className="optics-home">
+    <section className="os-hero" aria-labelledby="os-title">
+      <picture className="os-hero-art">
+        <source media="(max-width: 660px)" srcSet="/media/research-optics-mobile.webp"/>
+        <img src="/media/research-optics.webp" alt="" fetchPriority="high" loading="eager"/>
+      </picture>
+      <div className="os-frame os-cover">
+        <div className="os-hero-copy">
+          <span className="os-location"><i aria-hidden="true"/>Independent research studio · Ghana</span>
+          <h1 id="os-title">Research<br/>in focus<span>.</span></h1>
+          <p>Shape your study, analyse your data or commission research for your organisation.</p>
+          <div className="os-actions"><a className="os-action os-white" href="#service-finder">Find a service <ArrowDown size={18}/></a>
+            <button className="os-film-trigger" onClick={()=>setFilm(true)}><span><Play size={12} fill="currentColor"/></span>Studio film</button></div>
+        </div>
+      </div>
     </section>
-    <section className="signature-pathways" aria-labelledby="pathways-title">
-      <div className="wrap"><div className="signature-section-heading"><div><span className="signature-section-label">02 / FIND YOUR PERSPECTIVE</span><h2 id="pathways-title">Where do you<br/><em>want to go?</em></h2></div><p>Different questions. Different ambitions.<br/>A pathway shaped around your world.</p></div>
-      <div className="signature-path-tabs" role="tablist" aria-label="Research pathways">{pathways.map((p,i)=><button key={p.id} id={'perspective-'+p.id} role="tab" aria-selected={i===path} aria-controls="perspective-panel" tabIndex={i===path?0:-1} onClick={()=>setPath(i)} onKeyDown={event=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(event.key)){event.preventDefault();const next=event.key==='Home'?0:event.key==='End'?2:(i+(event.key==='ArrowRight'?1:2))%3;setPath(next);document.getElementById('perspective-'+pathways[next].id)?.focus()}}}><span>0{i+1}</span>{p.label}<ArrowUpRight size={20}/></button>)}</div>
-      <div className="signature-path-panel" id="perspective-panel" role="tabpanel" aria-labelledby={'perspective-'+selected.id} tabIndex={0}>
-        <div className="signature-path-image" key={selected.image}><img src={selected.image} alt={selected.alt} loading="lazy"/><span>YOUR AMBITION. OUR STARTING POINT.</span></div>
-        <div className="signature-path-copy" key={selected.id}><span className="signature-section-label">FOR {selected.label.toUpperCase()}</span><h3>{selected.title}<br/><em>{selected.emphasis}</em></h3><p>{selected.body}</p><div className="signature-tags">{selected.tags.map(t=><span key={t}>{t}</span>)}</div><a className="button signature-lime" href={selected.href}>Explore this pathway <ArrowUpRight size={19}/></a></div>
-      </div></div>
+    {film && <Dialog title="The Fullview studio film" onClose={()=>setFilm(false)}><div className="film-player"><video controls autoPlay playsInline muted poster="/media/hero-poster.jpg"><source src="/media/veridanth-film.mp4" type="video/mp4"/></video><p>A silent, AI-generated film inspired by Ghana and the settings where research takes place.</p></div></Dialog>}
+    <ServiceFinder/>
+    <section className="os-frame os-pathways" aria-labelledby="os-path-title">
+      <div className="os-section-heading"><h2 id="os-path-title">Who we work with.</h2><button className="os-text-link" onClick={guide}>Help me choose <ArrowRight size={17}/></button></div>
+      <div className="os-path-grid">{pathways.map(path=>{
+        const photo=servicePhotography[path.photo];
+        return <Link className="os-path" href={path.href} key={path.title}><figure><Image unoptimized src={photo.src} alt={photo.alt} loading="lazy" width={1200} height={800}/></figure>
+          <div><h3>{path.title}</h3><ArrowUpRight size={22}/></div><p>{path.subject}</p>
+        </Link>;
+      })}</div>
     </section>
-    <section className="signature-expertise wrap">
-      <div className="signature-section-heading"><div><span className="signature-section-label">03 / A WORLD OF EXPERTISE</span><h2>From the first question.<br/><em>To the full picture.</em></h2></div><a className="text-link" href="/services">View all {services.length} services <ArrowRight size={20}/></a></div>
-      <div className="signature-expertise-grid"><div className="signature-expertise-art"><img src="/services/photography/advanced-modelling.webp" alt="Illustrative analytical workspace with data visualisations" loading="lazy"/><span>{categories.length}<small>CONNECTED AREAS<br/>OF EXPERTISE</small></span></div><div className="signature-expertise-list">{[
-        ['01','Research design & proposals','A sound question. A well-considered plan.','design'],
-        ['02','Literature & evidence','Bring the knowledge that matters into focus.','evidence'],
-        ['03','Data & advanced analytics','Turn observations into meaningful understanding.','data'],
-        ['04','Writing & publication','Clarity and confidence in your own contribution.','publication'],
-        ['05','Business, policy & impact','Better evidence for consequential decisions.','business']
-      ].map(([n,title,copy,id])=><a key={id} href={'/services?category='+id}><span>{n}</span><div><h3>{title}</h3><p>{copy}</p></div><ArrowUpRight size={25}/></a>)}</div></div>
-      <div className="signature-expertise-note"><span>Not sure what your project needs?</span><button onClick={guide}>Let’s find your starting point <ArrowRight size={18}/></button></div>
+    <ProjectScopes/>
+    <section className="os-frame os-journal" aria-labelledby="os-journal-title">
+      <div className="os-section-heading"><h2 id="os-journal-title">Research journal.</h2><Link className="os-text-link" href="/insights">All field notes <ArrowUpRight size={17}/></Link></div>
+      <div className="os-journal-layout">
+        <button className="os-lead" onClick={()=>article('fieldwork')}>
+          <Image unoptimized src={servicePhotography.fieldwork.src} alt={servicePhotography.fieldwork.alt} loading="lazy" width={1200} height={800}/>
+          <div><span>Ghana field notes</span><h3>The work before the fieldwork.</h3><ArrowUpRight size={24}/></div>
+        </button>
+        <div className="os-reading">{articles.filter(note=>note.id!=='fieldwork').map(note=>
+          <button onClick={()=>article(note.id)} key={note.id}><small>{note.category} <span> / {note.read}</span></small><h3>{note.title}</h3><ArrowUpRight size={18}/></button>)}</div>
+      </div>
     </section>
-    <section className="signature-manifesto"><div className="signature-manifesto-image"><img src="/courtyard.jpg" alt="Illustrative Ghana-inspired academic courtyard" loading="lazy"/></div><div className="signature-manifesto-copy"><span className="signature-section-label">THE FULLVIEW STANDARD</span><h2>Ambition,<br/>meet <em>integrity.</em></h2><p>Rigorous thinking. Human understanding. Work that respects your context, your questions and your authorship.</p><a className="button signature-lime" href="/approach">The way we work <ArrowUpRight size={20}/></a><div className="signature-manifesto-caption"><Globe2 size={20}/><span>ROOTED IN GHANA.<br/>LOOKING BEYOND BORDERS.</span></div></div></section>
-    <section className="signature-method wrap"><div><span className="signature-section-label">04 / MAKE YOUR NEXT MOVE</span><h2>Big ambitions.<br/><em>Clear next steps.</em></h2><p>A thoughtful process, from the first conversation to the work ahead.</p><a className="text-link" href="/workspace">Start your research brief <ArrowRight size={20}/></a></div><div className="signature-method-list">{steps.map((step,i)=><div key={step.title} className={method===i?'active':''}><button aria-expanded={method===i} aria-controls={'method-'+i} onClick={()=>setMethod(method===i?-1:i)}><span>0{i+1}</span><h3>{step.title}</h3>{method===i?<Minus size={22}/>:<Plus size={22}/>}</button><div id={'method-'+i} hidden={method!==i}><p>{step.copy}</p><span>{step.detail}</span></div></div>)}</div></section>
-    <section className="signature-journal"><div className="wrap"><div className="signature-section-heading"><div><span className="signature-section-label">05 / NOTES FOR THE CURIOUS</span><h2>A fresh <em>perspective.</em></h2></div><a className="text-link" href="/insights">Open the journal <ArrowUpRight size={20}/></a></div><div className="signature-journal-grid">{articles.slice(0,3).map((a,i)=><button className="signature-journal-card" key={a.id} onClick={()=>article(a.id)}><div><span>{['The art\nof asking.','Method\nin the making.','Notes\nfrom the field.'][i]}</span><ArrowUpRight size={28}/><small>FULLVIEW / FIELD NOTES — 0{i+1}</small></div><p>{a.category} <span>{a.read}</span></p><h3>{a.title}</h3><span>Read the field note <ArrowRight size={17}/></span></button>)}</div></div></section>
-  </>;
+    <section className="os-brief"><div className="os-frame os-brief-inner"><div><h2>Build your<br/>research brief.</h2><p>Set out your question, timetable and budget. Save your brief or download it as a PDF.</p></div>
+      <Link className="os-action os-dark" href="/workspace">Open the research desk <ArrowUpRight size={19}/></Link></div></section>
+  </div>;
 }

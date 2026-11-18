@@ -1,6 +1,5 @@
 import Link from 'next/link';
-import Image from 'next/image';
-import {ArrowLeft, ArrowRight} from 'lucide-react';
+import {ArrowRight} from 'lucide-react';
 import {AccountAccess} from '../../components/account-access';
 import {authConfigured, authenticationMode, getPrincipal} from '../../lib/fullview-auth';
 import {ContactEmail} from '../../components/contact-email';
@@ -36,30 +35,13 @@ export default async function AccountPage({searchParams}: {searchParams: SearchP
     catch {projectsAvailable = false;}
   }
 
-  return <div className="site-shell account-page">
+  return <div className="site-shell studio-task-page">
     <a className="skip-link" href="#account-main">Skip to account</a>
-    <header className="account-header wrap">
-      <Link href="/" className="brand" aria-label="Fullview Signature by Veridanth Group home">
-        <Image className="brand-emblem" src="/brand/emblem-dark.svg?v=mono-v8" alt="" width={52} height={64}/>
-        <span className="brand-type"><span className="brand-name"><span className="fullview-word">Fullview</span><em className="signature-word">Signature</em></span><span className="brand-endorsement">by Veridanth Group</span></span>
-      </Link>
-      <Link href="/" className="account-back text-link"><ArrowLeft size={17} aria-hidden="true"/>Back to Fullview</Link>
-    </header>
-    <main id="account-main" className="account-shell wrap">
-      <section className="account-story" aria-labelledby="account-heading">
-        <div className="account-story-image" aria-hidden="true"><Image src="/services/photography/gallery-hero.webp" alt="" fill sizes="(max-width: 800px) 100vw, 50vw" priority/></div>
-        <span className="account-story-index" aria-hidden="true">FV / YOUR NEXT CHAPTER</span>
-        <span className="account-kicker">YOUR FULLVIEW ACCOUNT</span>
-        <h1 id="account-heading">Your next chapter.<br/><em>In full view.</em></h1>
-        <p>A clearer view of the work you share with Fullview, from the first conversation to the next step.</p>
-        <div className="account-story-details">
-          <div><span aria-hidden="true">01</span><div><h2>Your work, in view.</h2><p>Review submitted briefs, agreed scope and project stages when project services are available.</p></div></div>
-          <div><span aria-hidden="true">02</span><div><h2>A shared conversation.</h2><p>Keep messages about each submitted project together in its workspace.</p></div></div>
-          <div><span aria-hidden="true">03</span><div><h2>Your next step, considered.</h2><p>Prepare your brief at your own pace. You choose when to share it with Fullview.</p></div></div>
+    <main id="account-main" className="studio-account-layout">
+      <div className="studio-account-panel">
+        <div className="studio-task-heading">
+          <h1>Client account</h1>
         </div>
-        <Link href="/workspace" className="text-link">Explore the research desk<ArrowRight size={18} aria-hidden="true"/></Link>
-      </section>
-      <div className="account-panel">
         {available && availability ? <>
           {(availability === 'validation' || !projectsAvailable) && <aside className="account-availability" aria-label="Account availability">
             {availability === 'validation' && <p><strong>Limited account access.</strong> Account access is currently limited to approved email addresses.</p>}
@@ -67,15 +49,18 @@ export default async function AccountPage({searchParams}: {searchParams: SearchP
           </aside>}
           <AccountAccess initialPrincipal={principal} initialMode={initialMode} availability={availability} projectsAvailable={projectsAvailable}/>
         </> : <section className="account-availability" aria-labelledby="account-unavailable">
-          <span className="account-kicker">WE’RE GETTING READY</span>
           <h2 id="account-unavailable">Account access is being connected.</h2>
           <p>You can still prepare your brief in the local research desk or speak with Fullview about your project.</p>
           <div className="hero-buttons"><Link className="button" href="/workspace">Open the research desk<ArrowRight size={18} aria-hidden="true"/></Link><Link className="text-link" href="/contact">Contact Fullview</Link></div>
         </section>}
-        <div className="account-support"><p>Need a hand with your account?</p><ContactEmail/><a href={fullviewContact.phoneHref}>{fullviewContact.phoneDisplay}</a></div>
-        <p className="account-disclosure">Signing in does not upload your device-local drafts. Creating an account does not submit a project, accept a quote or book a service.</p>
+        <div className="account-support"><p>Account support</p><ContactEmail/><a href={fullviewContact.phoneHref}>{fullviewContact.phoneDisplay}</a></div>
+        <p className="account-disclosure">Local drafts stay on your device. You can share a brief from your research desk when you are ready.</p>
       </div>
+      <aside className="studio-account-visual" aria-label="Research desk">
+        <img src="/services/photography/proposal-review.webp" alt="" width={1200} height={800}/>
+        <div><h2>Preparing a project?</h2><p>Outline your question and build an estimate in the public research desk.</p>
+        <Link href="/workspace">Create a research brief <ArrowRight size={18} aria-hidden="true"/></Link></div>
+      </aside>
     </main>
-    <footer className="account-editorial-footer wrap"><span>Independent thinking. Shared possibility.</span><Link href="/contact">Talk to Fullview <ArrowRight size={16} aria-hidden="true"/></Link></footer>
   </div>;
 }

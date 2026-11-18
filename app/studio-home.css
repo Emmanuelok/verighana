@@ -1,0 +1,139 @@
+/* The research studio cover and homepage index. */
+.optics-home {
+  --os-ink: #10141f;
+  --os-cobalt: #163bea;
+  --os-orange: #ff6538;
+  --os-mist: #eef1f7;
+  --os-rule: #ccd2df;
+  --os-type: "DM Sans", Arial, sans-serif;
+  --os-gutter: clamp(23px, 5.5vw, 96px);
+  background: white;
+  color: var(--os-ink);
+  font-family: var(--os-type);
+}
+.optics-home .os-frame { width:min(100%, 1820px); margin-inline:auto; padding-inline:var(--os-gutter); }
+.optics-home :is(h1,h2,h3,strong) { color:inherit; font-family:var(--os-type); letter-spacing:-.058em; }
+.optics-home *:focus-visible { outline:3px solid #3667ff; outline-offset:4px; }
+.optics-home :is(.os-hero,.os-brief) *:focus-visible { outline-color:white; }
+.optics-home :is(p,ul,figure) { margin:0; }
+.optics-home :is(a,button) { -webkit-tap-highlight-color:transparent; }
+.optics-home h2 { font-size:clamp(40px,5.2vw,86px); font-weight:600; line-height:.98; }
+.optics-home p { color:#424a59; font:400 17px/1.6 var(--os-type); }
+.os-hero { position:relative; isolation:isolate; overflow:hidden; background:#020d1d; color:white; }
+.os-hero-art, .os-hero-art img { display:block; position:absolute; inset:0; width:100%; height:100%; }
+.os-hero-art { z-index:-2; }
+.os-hero-art img { object-fit:cover; object-position:center 50%; }
+.os-hero::after { position:absolute; content:""; z-index:-1; inset:0; pointer-events:none; background:linear-gradient(90deg,rgba(1,8,21,.30),transparent 55%); }
+.os-cover { display:flex; align-items:center; min-height:clamp(515px,43.6vw,795px); padding-block:clamp(48px,4.65vw,91px); }
+.os-hero-copy { position:relative; max-width:52%; }
+.os-location { display:flex; align-items:center; gap:10px; font:600 11px/1.45 var(--os-type); letter-spacing:.105em; text-transform:uppercase; color:#e1e6f1; }
+.os-location i { display:block; width:6px; height:6px; background:#ff825c; border-radius:50%; }
+.optics-home .os-hero h1 { margin:25px 0 23px -.047em; color:white; font-size:clamp(80px,8.8vw,164px); font-weight:600; line-height:.84; letter-spacing:-.081em; }
+.optics-home .os-hero h1 span { color:var(--os-orange); }
+.site-shell .optics-home .os-hero p { max-width:35ch; color:#e4e9f1; font:400 clamp(16px,1.28vw,23px)/1.48 var(--os-type); }
+.os-actions { display:flex; align-items:center; flex-wrap:wrap; gap:clamp(20px,2vw,36px); margin-top:clamp(23px,2.15vw,40px); }
+.optics-home .os-action { display:inline-flex; justify-content:center; align-items:center; gap:28px; min-height:48px; padding:13px 20px; font:650 15px/1.3 var(--os-type); text-decoration:none; border-radius:2px; transition:background-color .18s,color .18s; }
+.os-action.os-white { background:white; color:var(--os-ink); }
+.os-action.os-white:hover { background:#d9e1ff; }
+.optics-home .os-film-trigger { display:inline-flex; align-items:center; gap:10px; min-height:45px; color:white; font:600 14px/1.35 var(--os-type); }
+.os-film-trigger > span { display:grid; place-items:center; width:31px; height:31px; padding-left:2px; border:1px solid #a9b1c4; border-radius:50%; transition:color .16s,background .16s; }
+.os-film-trigger:hover > span { color:var(--os-ink); background:white; }
+.os-finder-strip { position:relative; z-index:4; scroll-margin-top:90px; color:white; background:var(--os-cobalt); }
+.os-finder-layout { display:grid; grid-template-columns:1fr minmax(290px,1fr); align-items:center; gap:40px; min-height:126px; padding-block:24px; }
+.os-finder-layout label { display:block; font:600 clamp(25px,2.5vw,42px)/1.05 var(--os-type); letter-spacing:-.05em; cursor:text; }
+.site-shell .optics-home .os-finder-layout > div > p { color:#e3e8ff; font:400 14px/1.4 var(--os-type); margin:6px 0 0; }
+.os-finder-layout form { position:relative; }
+.os-input-line { display:flex; align-items:center; gap:12px; padding:6px 6px 6px 17px; background:white; color:#364157; border-radius:3px; border:1px solid white; }
+.os-input-line:focus-within { outline:2px solid white; outline-offset:4px; }
+.site-shell .optics-home .os-input-line input { display:block; min-width:0; width:0; flex:1; padding:0; margin:0; border:none; outline:none; box-shadow:none; border-radius:0; background:white; color:var(--os-ink); font:400 16px/1.4 var(--os-type)!important; }
+.os-input-line input::placeholder { color:#5c6372; opacity:1; }
+.os-input-line button { display:grid; place-items:center; flex-shrink:0; width:43px; height:43px; background:var(--os-ink); color:white; border-radius:2px; }
+.os-input-line button:hover { background:var(--os-cobalt); }
+.os-suggestions { position:absolute; top:calc(100% + 7px); width:100%; padding:5px; background:white; border:1px solid var(--os-rule); color:var(--os-ink); box-shadow:0 12px 28px #07133124; }
+.os-suggestions :is(button,a) { display:flex; align-items:center; justify-content:space-between; text-align:left; gap:14px; width:100%; min-height:44px; padding:9px 12px; font:500 15px/1.45 var(--os-type); }
+.os-suggestions :is(button[aria-selected=true],button:hover,a:hover) { background:var(--os-mist); }
+.os-suggestions a { color:var(--os-cobalt); border-top:1px solid var(--os-rule); font-weight:600; }
+.site-shell .optics-home .os-suggestions p { color:var(--os-ink); padding:10px 12px; font:400 15px/1.5 var(--os-type); }
+.os-pathways,.os-journal,.os-scope-layout,.os-brief-inner { padding-block:clamp(62px,7.6vw,135px); }
+.os-section-heading { display:flex; align-items:flex-end; justify-content:space-between; gap:20px; margin-bottom:clamp(25px,3.3vw,60px); }
+.optics-home .os-text-link { display:inline-flex; align-items:center; justify-content:space-between; gap:13px; min-height:40px; width:fit-content; max-width:100%; padding:4px 0; border:0; border-bottom:1px solid currentColor; color:var(--os-ink); font:600 15px/1.4 var(--os-type); text-decoration:none; text-align:left; }
+.optics-home .os-text-link:hover { color:var(--os-cobalt); }
+.os-path-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(16px,2vw,38px); }
+.os-path { display:block; text-decoration:none; color:var(--os-ink); }
+.os-path figure { background:var(--os-mist); overflow:hidden; aspect-ratio:1.58; }
+.os-path figure img,.os-lead > img { width:100%; height:100%; object-fit:cover; transition:transform .35s ease; }
+.os-path:hover figure img,.os-lead:hover > img { transform:scale(1.035); }
+.os-path > div { display:flex; justify-content:space-between; gap:12px; align-items:center; margin:20px 0 7px; }
+.optics-home .os-path h3 { margin:0; font-size:clamp(22px,2.25vw,39px); font-weight:600; line-height:1.08; letter-spacing:-.055em; }
+.os-path:hover h3 { color:var(--os-cobalt); }
+.site-shell .optics-home .os-path p { max-width:34ch; color:#4d5564; font:400 16px/1.5 var(--os-type); }
+.os-scopes { background:var(--os-mist); }
+.os-scope-layout { display:grid; grid-template-columns:.8fr 1.2fr; gap:clamp(30px,8vw,145px); }
+.site-shell .optics-home .os-scope-intro p { max-width:35ch; color:#465165; font:400 17px/1.55 var(--os-type); margin:22px 0; }
+.os-accordions { min-width:0; border-top:2px solid var(--os-ink); }
+.os-scope-item { border-bottom:1px solid #adb6c6; }
+.os-scope-item h3 { margin:0; }
+.os-scope-item h3 button { display:flex; justify-content:space-between; align-items:center; gap:16px; width:100%; min-height:67px; text-align:left; font:600 clamp(19px,1.6vw,29px)/1.15 var(--os-type); letter-spacing:-.035em; padding:15px 0; color:var(--os-ink); }
+.os-scope-item h3 button[aria-expanded=true] { color:#1839c8; }
+.os-scope-detail { padding:0 0 21px; }
+.site-shell .optics-home .os-scope-detail p,.os-scope-detail li { margin:0; color:#354155; font:400 16px/1.52 var(--os-type); }
+.os-scope-detail ul { list-style:disc; margin:13px 0 22px; padding-left:20px; }
+.os-scope-meta { display:flex; gap:clamp(16px,3.8vw,60px); flex-wrap:wrap; padding:15px 0; border-top:1px solid #c6cedb; }
+.os-scope-meta :is(small,strong) { display:block; }
+.os-scope-meta small { color:#526073; font:500 12px/1.4 var(--os-type); margin:0 0 4px; }
+.os-scope-meta strong { font:600 clamp(17px,1.5vw,24px)/1.3 var(--os-type); letter-spacing:-.035em; }
+.os-journal-layout { display:grid; grid-template-columns:1.15fr .85fr; gap:clamp(20px,4vw,65px); }
+.os-lead { position:relative; isolation:isolate; width:100%; min-height:330px; overflow:hidden; text-align:left; color:white; background:#142332; }
+.os-lead > img { position:absolute; inset:0; z-index:-2; }
+.os-lead::before { content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(0deg,#06101bed,transparent 85%); }
+.os-lead > div { position:absolute; bottom:0; left:0; width:100%; padding:clamp(22px,2.7vw,47px); }
+.os-lead span,.os-reading small { display:block; font:600 11px/1.45 var(--os-type); letter-spacing:.09em; text-transform:uppercase; }
+.optics-home .os-lead h3 { max-width:12ch; margin:12px 30px 0 0; font-size:clamp(32px,3.5vw,62px); font-weight:600; line-height:1; }
+.os-lead svg { position:absolute; bottom:clamp(22px,2.7vw,47px); right:clamp(22px,2.7vw,47px); }
+.os-reading { border-top:2px solid var(--os-ink); }
+.os-reading button { display:grid; grid-template-columns:1fr auto; width:100%; gap:8px 14px; text-align:left; padding:19px 0; border-bottom:1px solid var(--os-rule); }
+.os-reading small { grid-column:1/-1; color:var(--os-cobalt); }
+.os-reading small span { font-weight:400; text-transform:none; letter-spacing:0; color:#4d5564; }
+.optics-home .os-reading h3 { font-size:clamp(20px,1.7vw,31px); font-weight:600; line-height:1.2; letter-spacing:-.04em; }
+.os-reading button:hover h3 { color:var(--os-cobalt); }
+.os-brief { background:var(--os-orange); color:#111623; }
+.os-brief-inner { display:flex; justify-content:space-between; align-items:flex-end; gap:36px; }
+.site-shell .optics-home .os-brief p { max-width:45ch; margin-top:22px; color:#251d1c; font:400 17px/1.55 var(--os-type); }
+.os-action.os-dark { color:white; background:var(--os-ink); }
+.os-action.os-dark:hover { background:#203c7e; }
+@media(min-width:1600px){ .os-hero-art img { object-position:center 42%; } }
+@media(max-width:900px){
+  .optics-home { --os-gutter:clamp(22px,4.5vw,40px); }
+  .os-cover { min-height:490px; }.os-hero-copy{ max-width:57%; }
+  .os-finder-layout { grid-template-columns: .78fr 1fr; gap:22px; }
+  .os-path > div { align-items:flex-start; }.os-path h3 { overflow-wrap:break-word; }
+  .os-scope-layout { grid-template-columns:.75fr 1.25fr; gap:28px; }
+}
+@media(max-width:660px){
+  .optics-home { --os-gutter:22px; }
+  .os-cover { min-height:clamp(540px,75svh,640px); padding-top:120px; padding-bottom:34px; align-items:flex-end; }
+  .os-hero-copy { max-width:100%; width:100%; }
+  .os-hero-art { height:82%; }
+  .os-hero-art img { object-position:center 42%; }
+  .os-hero::after { background:linear-gradient(0deg,#020d1d 0%,#020d1d 18%,rgba(2,13,29,.96) 26%,rgba(2,13,29,.78) 45%,rgba(2,13,29,.12) 70%,transparent 87%); }
+  .os-location { font-size:10px; letter-spacing:.09em; }
+  .optics-home .os-hero h1 { font-size:clamp(70px,17vw,99px); margin:18px 0 16px -.044em; line-height:.88; }
+  .site-shell .optics-home .os-hero p { font-size:16px; line-height:1.45; max-width:34ch; }
+  .os-actions { gap:22px; margin-top:20px; }.optics-home .os-action { padding:12px 15px; font-size:14px; min-height:45px; gap:16px; }
+  .os-finder-layout { grid-template-columns:1fr; gap:13px; padding-block:21px; }
+  .site-shell .optics-home .os-finder-layout > div > p { font-size:13px; }
+  .os-input-line { gap:8px; padding:4px 4px 4px 12px; }
+  .os-section-heading { align-items:flex-start; flex-direction:column; gap:11px; margin-bottom:23px; }
+  .os-path-grid,.os-scope-layout,.os-journal-layout { grid-template-columns:1fr; }
+  .os-path-grid { gap:28px; }
+  .os-path figure { aspect-ratio:1.85; }
+  .os-path > div { margin:14px 0 6px; }
+  .optics-home .os-path h3 { font-size:26px; }
+  .os-scope-intro h2 br { display:none; }
+  .site-shell .optics-home .os-scope-intro p { margin:15px 0 12px; }
+  .os-lead { min-height:300px; }
+  .os-brief-inner { flex-direction:column; align-items:flex-start; gap:22px; }
+}
+@media(prefers-reduced-motion:reduce){
+  .optics-home *, .optics-home *::before, .optics-home *::after { transition:none!important; animation:none!important; scroll-behavior:auto!important; }
+}
