@@ -26,12 +26,12 @@ export function BundleCatalogue() {
   }
   return <>
     <section className="bundle-hero wrap">
-      <div><span className="eyebrow"><span className="line"/> THE FULLVIEW PACKAGE COLLECTION</span>
-        <h1>A complete pathway.<br/><em>One clear price.</em></h1>
+      <div><span className="eyebrow"><span className="line"/> 02 / THE PACKAGE COLLECTION</span>
+        <h1>Move your research<br/><em>forward. Together.</em></h1>
         <p>Bring the right expertise together for a defined milestone. Compare the scope, choose your research level and shape a package around the work ahead.</p>
         <a href="#bundle-collection" className="button">Find your package <ArrowRight size={18}/></a>
       </div>
-      <div className="bundle-hero-note"><Layers3 size={42} strokeWidth={1}/><span className="eyebrow">CLARITY, FROM THE START</span><h2>Scope.<br/>Support.<br/><em>Next steps.</em></h2><p>{serviceBundles.length} considered packages for students, scholars and organisations.</p></div>
+      <div className="bundle-hero-note"><img src="/services/photography/doctoral-milestones.webp" alt="Illustrative research planning desk with notes and reference material" width={1200} height={800} fetchPriority="high"/><div className="bundle-hero-note-caption"><Layers3 size={28} strokeWidth={1.5}/><span><strong>{String(serviceBundles.length).padStart(2,'0')}</strong> considered packages</span><p>For your next<br/><em>meaningful milestone.</em></p></div></div>
     </section>
     <div className="bundle-draft wrap" role="note"><strong>Defined scope · Clear package pricing</strong><p>Each price covers the listed quantities at the selected client level. Availability, timing and the written engagement are confirmed before work begins. Taxes and external costs are excluded; no discount is claimed. No payment is collected here.</p></div>
     <section id="bundle-collection" className="bundle-collection wrap" aria-label="Package catalogue">
@@ -40,8 +40,8 @@ export function BundleCatalogue() {
       </div>
       <div className="bundle-results"><p aria-live="polite">{filtered.length} package{filtered.length !== 1 ? 's' : ''}</p><button className="text-link" disabled={compared.length < 2} onClick={() => setComparisonOpen(true)}>Compare selected ({compared.length}/3) <ArrowRight size={17}/></button></div>
       {message && <p role="status" className="muted-info">{message}</p>}
-      {filtered.length ? <div className="bundle-grid">{filtered.map((bundle, index) => <article key={bundle.id} className="bundle-card">
-        <div className="bundle-card-top"><span className="eyebrow">{bundle.category}</span><span className="bundle-number">{String(index + 1).padStart(2, '0')}</span></div>
+      {filtered.length ? <div className="bundle-grid">{filtered.map((bundle) => <article key={bundle.id} className="bundle-card">
+        <div className="bundle-card-top"><span className="eyebrow">{bundle.category}</span><span className="bundle-number">{String(serviceBundles.findIndex(item=>item.id===bundle.id) + 1).padStart(2, '0')}</span></div>
         <h2>{bundle.title}</h2><p>{bundle.summary}</p>
         <div className="bundle-price"><span>PACKAGE TOTAL</span><strong>GHS {money(quoteBundle(bundle.id, bundle.defaultAudience).total)}</strong><small>{audiences.find(item => item.id === bundle.defaultAudience)?.label} · Base scope</small></div>
         <ul>{bundle.deliverables.map(value => <li key={value}><Check size={16}/><span>{value}</span></li>)}</ul>

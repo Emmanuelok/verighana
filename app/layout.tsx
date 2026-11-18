@@ -10,6 +10,9 @@ import "./workspace.css";
 import "./bundles.css";
 import "./operations.css";
 import "./account.css";
+import "./research-editorial.css";
+import "./desk-editorial.css";
+import "./signature.css";
 
 export const viewport: Viewport = {width:'device-width',initialScale:1,viewportFit:'cover',themeColor:brand.theme};
 export const metadata: Metadata = {
