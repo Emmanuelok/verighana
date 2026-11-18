@@ -82,3 +82,12 @@ html{scroll-padding-top:20px}
 @media(max-width:360px){.st-brand img{width:124px}.st-mast-inner{padding-inline:9px}.st-header-actions{gap:6px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.st-app *,.st-app *::before,.st-app *::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 @media print{.st-mast,.st-footer,.st-app .pwa-install-band{display:none}}
+.st-header-actions{flex-shrink:0}
+.st-header-actions a{white-space:nowrap}
+@media(max-width:420px){
+  .st-mast-inner{padding-inline:12px;gap:6px}
+  .st-mast .st-brand img{width:clamp(112px,32vw,134px)}
+  .st-header-actions{gap:7px}
+  .st-header-actions .st-signup{padding-inline:8px}
+  .st-nav-switch{width:34px}
+}
