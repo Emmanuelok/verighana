@@ -1,1 +1,11 @@
-export default function NotFound(){return <main className="not-found"><a href="/" className="eyebrow">FULLVIEW SIGNATURE | BY AVALON GROUP</a><h1>A question<br/><em>without a page.</em></h1><p>This address does not lead to a research page.</p><a className="button" href="/">Return to Fullview Signature →</a></main>}
+import {ArrowRight} from 'lucide-react';
+import {FieldHeader, FieldFooter} from '../components/field-shell';
+
+export default function NotFound() {
+  return <div className="site-shell"><a className="skip-link" href="#main">Skip to content</a>
+    <FieldHeader current=""/><main id="main" className="field-recovery">
+      <small>404 / Page unavailable</small><h1>Page not found.</h1>
+      <p>Explore the service catalogue or use the menu to find your research desk.</p>
+      <a href="/services">Browse services <ArrowRight size={17}/></a>
+    </main><FieldFooter/></div>;
+}

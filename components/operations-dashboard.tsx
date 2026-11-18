@@ -2,7 +2,7 @@
 
 import {useEffect, useRef, useState, type FormEvent} from 'react';
 import Link from 'next/link';
-import {fullviewContact} from '../lib/contact';
+import {ArrowRight, FolderOpen, Search, SlidersHorizontal} from 'lucide-react';
 import {ContactEmail} from './contact-email';
 import {NotificationFollowUp,notificationLabel,type NotificationSummary} from './notification-follow-up';
 import {SubmittedBrief} from './submitted-brief';
@@ -59,6 +59,8 @@ export function OperationsDashboard({mode}:{mode:'client'|'staff'}) {
   const [busy,setBusy]=useState(false);
   const [error,setError]=useState<ApiFailure|null>(null);
   const [message,setMessage]=useState('');
+  const [projectQuery,setProjectQuery]=useState('');
+  const [stageFilter,setStageFilter]=useState('');
   const overviewController=useRef<AbortController|null>(null);
   const detailController=useRef<AbortController|null>(null);
   const feedback=useRef<HTMLDivElement>(null);
@@ -97,9 +99,21 @@ export function OperationsDashboard({mode}:{mode:'client'|'staff'}) {
   async function afterProjectAction(){await refreshOverview();if(selected)await refreshDetail(selected);}
   const isStaff=overview?.actor.role==='staff'||overview?.actor.role==='admin';
   const signedOut=error?.status===401;
-  return <main id="main" className="wrap operations-shell">
-    <nav className="operations-toolbar" aria-label="Workspace navigation"><Link className="text-link" href="/">Fullview Signature</Link><Link className="text-link" href="/workspace">Local research desk</Link><Link className="text-link" href="/account">Your account</Link>{isStaff&&<Link className="text-link" href={mode==='staff'?'/projects':'/staff'}>{mode==='staff'?'Projects view':'Staff workspace'}</Link>}</nav>
-    <header className="page-intro"><span className="eyebrow">{mode==='staff'?'FULLVIEW STAFF WORKSPACE':'YOUR SHARED PROJECTS'}</span><h1>{mode==='staff'?'A clear view of the work.':'Your project, together.'}</h1><p>{mode==='staff'?'Review inquiries, coordinate project stages and prepare clear terms for client acceptance.':'Review submitted projects, discuss the scope and keep track of agreed work. Signing in does not upload your device-local drafts.'}</p></header>
+  const projects = overview?.projects ?? [];
+  const query = projectQuery.trim().toLowerCase();
+  const visibleProjects = projects.filter(project =>
+    (!stageFilter || project.status === stageFilter) &&
+    (!query || project.title.toLowerCase().includes(query) || project.reference.toLowerCase().includes(query))
+  );
+  return <main id="main">
+    <header className="wf-ops-top">
+      <div><span className="wf-label">{mode === 'staff' ? 'Staff workspace' : 'Client workspace'}</span>
+        <h1>{mode === 'staff' ? <>Research <em>operations.</em></> : <>Your shared <em>projects.</em></>}</h1>
+        <p>{mode === 'staff' ? 'Review inquiries, assign project work and prepare terms for client acceptance.' : 'Review project stages, exchange messages and see the terms of your engagement.'}</p></div>
+      <figure aria-hidden="true"><img src={mode === 'staff' ? '/services/photography/methodology.webp' : '/services/photography/research-visualisation.webp'} alt="" width="1200" height="800"/></figure>
+    </header>
+    <div className="operations-shell wf-ops-body">
+    <nav className="wf-ops-nav" aria-label="Workspace navigation"><Link href="/workspace"><FolderOpen size={17} aria-hidden="true"/>Local research desk</Link><Link href="/account">Account <ArrowRight size={16} aria-hidden="true"/></Link>{isStaff&&<Link href={mode==='staff'?'/projects':'/staff'}>{mode==='staff'?'Projects view':'Staff workspace'} <ArrowRight size={16} aria-hidden="true"/></Link>}</nav>
     <div ref={feedback} tabIndex={-1} className="operations-feedback">
       {error&&<div className="muted-info" role="alert"><h2>{signedOut?'Sign in to continue.':error.status===403?'Access needs attention.':error.status===503?'Online services are not available yet.':'This action needs attention.'}</h2><p>{error.message}</p>{error.requestId&&<p className="fine-print">Support reference: {error.requestId}</p>}<div className="hero-buttons"><Link className="button outline" href="/account">{signedOut?'Sign in':'Manage your account'}</Link><ContactEmail withPhone/><button className="text-link" type="button" disabled={busy} onClick={()=>void retry()}>Try again</button></div></div>}
       {message&&<p role="status" className="muted-info">{message}</p>}
@@ -118,7 +132,13 @@ export function OperationsDashboard({mode}:{mode:'client'|'staff'}) {
         {!!overview.retentionReviews?.length&&<section className="operations-card" aria-labelledby="retention-review-heading"><h2 id="retention-review-heading">Retention review queue</h2><p>This queue contains metadata for records that reached their review date or received a deletion request. Expiry does not automatically delete data.</p><div className="operations-table-wrap"><table className="operations-table"><thead><tr><th scope="col">Record</th><th scope="col">Reason</th><th scope="col">Review date</th><th scope="col">Administrator action</th></tr></thead><tbody>{overview.retentionReviews.map(item=><tr key={`${item.kind}:${item.id}`}><td>{item.reference}<br/><span className="fine-print">{item.kind==='project'?'Project':'Inquiry'}</span></td><td>{item.reason==='expired'?'Review date reached':'Deletion requested'}</td><td>{date(item.expiresAt)}</td><td>{overview.actor.role==='admin'?<RetentionRemoval candidate={item} cleanupAvailable={overview.retentionCleanupAvailable===true} busy={busy} perform={perform} refresh={refreshOverview}/>:<span className="fine-print">Administrator review required</span>}</td></tr>)}</tbody></table></div></section>}
       </>}
       <section aria-labelledby="projects-heading"><h2 id="projects-heading">{mode==='staff'?'Projects':'Your submitted projects'}</h2>
-        {!overview.projects.length?<div className="muted-info"><p>No shared projects are available here.</p><Link className="text-link" href="/workspace">Prepare a brief in the research desk</Link><p className="fine-print">A local draft appears here only after you explicitly submit it while signed in.</p></div>:<div className="operations-grid">{overview.projects.map(project=><article key={project.id} className="operations-card"><span className="eyebrow">{project.reference}</span><h3>{project.title}</h3><p className="operations-status">{labels[project.status]??project.status}</p><p className="fine-print">Submitted {date(project.created_at)}</p>{project.expired?<><p className="muted-info">The retention review date has been reached. Project content is no longer available here; removal has not been confirmed.</p>{overview.actor.role==='client'&&<DeletionRequest projectId={project.id} busy={busy} perform={perform}/>}</>:<button type="button" className="button outline" aria-pressed={selected===project.id} disabled={busy||detailLoading} onClick={()=>void openProject(project.id)}>Open project</button>}</article>)}</div>}
+        {projects.length > 0 && <div className="wf-project-filters">
+          <label><Search size={17} aria-hidden="true"/><span className="sr-only">Search projects</span><input type="search" value={projectQuery} placeholder="Search by project or reference" onChange={event => setProjectQuery(event.target.value)}/></label>
+          <label><SlidersHorizontal size={17} aria-hidden="true"/><span className="sr-only">Filter project stage</span><select value={stageFilter} onChange={event => setStageFilter(event.target.value)}><option value="">All stages</option>{Array.from(new Set(projects.map(project => project.status))).map(status => <option value={status} key={status}>{labels[status] ?? status}</option>)}</select></label>
+          <span role="status">{visibleProjects.length} {visibleProjects.length === 1 ? 'project' : 'projects'}</span>
+        </div>}
+        {projects.length > 0 && !visibleProjects.length && <div className="muted-info"><p>No projects match your search.</p><button type="button" className="text-link" onClick={() => {setProjectQuery(''); setStageFilter('');}}>Clear filters</button></div>}
+        {!overview.projects.length?<div className="muted-info"><p>No shared projects are available here.</p><Link className="text-link" href="/workspace">Prepare a brief in the research desk</Link><p className="fine-print">A local draft appears here only after you explicitly submit it while signed in.</p></div>:<div className="operations-grid">{visibleProjects.map(project=><article key={project.id} className="operations-card"><span className="eyebrow">{project.reference}</span><h3>{project.title}</h3><p className="operations-status">{labels[project.status]??project.status}</p><p className="fine-print">Submitted {date(project.created_at)}</p>{project.expired?<><p className="muted-info">The retention review date has been reached. Project content is no longer available here; removal has not been confirmed.</p>{overview.actor.role==='client'&&<DeletionRequest projectId={project.id} busy={busy} perform={perform}/>}</>:<button type="button" className="button outline" aria-pressed={selected===project.id} disabled={busy||detailLoading} onClick={()=>void openProject(project.id)}>Open project</button>}</article>)}</div>}
       </section>
       {detailLoading&&<p role="status">Loading the project and its quotes…</p>}
       {detail&&<section className="operations-details" aria-labelledby="project-detail-heading"><div className="operations-toolbar"><div><span className="eyebrow">{detail.reference} · {labels[detail.status]??detail.status}</span><h2 id="project-detail-heading" tabIndex={-1} ref={projectHeading}>{detail.title}</h2></div><button className="text-link" disabled={busy} onClick={()=>{setSelected(null);setDetail(null);setQuotes([]);setInvoices([]);}}>Close project</button></div>
@@ -133,8 +153,7 @@ export function OperationsDashboard({mode}:{mode:'client'|'staff'}) {
         {(!isStaff||overview.actor.role==='admin')&&<DeletionRequest key={detail.id} projectId={detail.id} busy={busy} perform={perform}/>}
       </section>}
     </>}
-    <footer className="operations-toolbar"><ContactEmail/><a href={fullviewContact.phoneHref}>{fullviewContact.phoneDisplay}</a></footer>
-  </main>;
+    </div></main>;
 }
 
 function Assignee({staff,value,onChange}:{staff:Staff[];value:string;onChange:(value:string)=>void}) {

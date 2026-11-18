@@ -1,13 +1,33 @@
 'use client';
 
-import {useState} from 'react';
 import Link from 'next/link';
-import {ArrowRight, Check, Download, Layers3, Search, SlidersHorizontal, X} from 'lucide-react';
-import {audiences, money, rate, services, type Audience, type Selection} from '../lib/catalog';
+
+import {useState} from 'react';
+import {ArrowDown, ArrowLeft, ArrowRight, ArrowUpRight, Check, Download, Search, X} from 'lucide-react';
+import {audiences, money, rate, serviceImage, services, type Audience, type Selection} from '../lib/catalog';
 import {bundleAuthorshipNotice, bundlePricingNotice, getBundle, quoteBundle, serviceBundles, type ServiceBundle} from '../lib/service-bundles';
 import {bundleDeskUrl} from '../lib/bundle-handoff';
 import {Dialog} from './research-context';
 import {packagePdfUrl} from '../lib/package-pdf';
+
+const coverService: Record<string,string> = {
+  'dissertation-proposal': 'proposal-review',
+  'dissertation-quantitative': 'quantitative',
+  'dissertation-qualitative': 'qualitative',
+  'journal-readiness': 'manuscript-review',
+  'business-evidence': 'market-research',
+  'policy-decision': 'government-local-planning',
+  'institutional-measurement': 'public-performance',
+  'ngo-funding-evidence': 'ngo-outcomes',
+  'school-improvement': 'school-improvement',
+};
+
+function bundlePhoto(bundle: ServiceBundle) {
+  return serviceImage(services.find(item => item.id === coverService[bundle.id])!);
+}
+
+const frontCovers = ['business-evidence', 'journal-readiness', 'ngo-funding-evidence']
+  .map(id => getBundle(id)!);
 
 export function BundleCatalogue() {
   const [query, setQuery] = useState('');
@@ -24,35 +44,56 @@ export function BundleCatalogue() {
     if (compared.length === 3) { setMessage('Compare up to three packages. Remove one to add another.'); return; }
     setCompared([...compared, id]); setMessage('');
   }
-  return <>
-    <section className="bundle-hero wrap">
-      <div><span className="eyebrow"><span className="line"/> THE FULLVIEW PACKAGE COLLECTION</span>
-        <h1>A complete pathway.<br/><em>One clear price.</em></h1>
-        <p>Bring the right expertise together for a defined milestone. Compare the scope, choose your research level and shape a package around the work ahead.</p>
-        <a href="#bundle-collection" className="button">Find your package <ArrowRight size={18}/></a>
+  const [featureIndex, setFeatureIndex] = useState(0);
+  const feature = frontCovers[featureIndex];
+  const featurePhoto = bundlePhoto(feature);
+  return <div className="field-catalogue fc-bundles">
+    <header className="fc-package-cover"><div className="fc-bound fc-package-spread">
+      <div className="fc-package-copy"><span className="fc-kicker">Fullview Signature / Packages</span>
+        <h1>Research<br/><em>packages.</em></h1>
+        <p>Bring the right services together for a dissertation, publication or organisational decision. Choose a defined scope and adapt it to your needs.</p>
+        <a href="#bundle-collection" className="fc-action fc-dark">Browse all packages <ArrowDown size={17}/></a>
       </div>
-      <div className="bundle-hero-note"><Layers3 size={42} strokeWidth={1}/><span className="eyebrow">CLARITY, FROM THE START</span><h2>Scope.<br/>Support.<br/><em>Next steps.</em></h2><p>{serviceBundles.length} considered packages for students, scholars and organisations.</p></div>
-    </section>
-    <div className="bundle-draft wrap" role="note"><strong>Defined scope · Clear package pricing</strong><p>Each price covers the listed quantities at the selected client level. Availability, timing and the written engagement are confirmed before work begins. Taxes and external costs are excluded; no discount is claimed. No payment is collected here.</p></div>
-    <section id="bundle-collection" className="bundle-collection wrap" aria-label="Package catalogue">
-      <div className="bundle-filters"><label className="bundle-search"><Search size={19}/><span className="sr-only">Search packages</span><input type="search" placeholder="Dissertation, journal, business…" value={query} onChange={event => setQuery(event.target.value)}/></label>
-        <label className="bundle-category"><SlidersHorizontal size={18}/><span className="sr-only">Package category</span><select value={category} onChange={event => setCategory(event.target.value)}><option value="all">All purposes</option>{categories.map(value => <option key={value}>{value}</option>)}</select></label>
+      <div className="fc-package-feature">
+        <div className="fc-package-cover-photo"><img key={feature.id} src={featurePhoto.src} alt={featurePhoto.alt} width={1200} height={800} fetchPriority="high"/></div>
+        <div className="fc-feature-footer"><div><span className="fc-kicker">{feature.category} package</span>
+          <button className="fc-plate-link" onClick={() => setSelected(feature)}>{feature.title} <ArrowUpRight size={17}/></button></div>
+          <div className="fc-feature-step"><button aria-label="Previous featured package" onClick={() => setFeatureIndex(i => (i + frontCovers.length - 1) % frontCovers.length)}><ArrowLeft size={16}/></button><button aria-label="Next featured package" onClick={() => setFeatureIndex(i => (i + 1) % frontCovers.length)}><ArrowRight size={16}/></button></div>
+        </div>
       </div>
-      <div className="bundle-results"><p aria-live="polite">{filtered.length} package{filtered.length !== 1 ? 's' : ''}</p><button className="text-link" disabled={compared.length < 2} onClick={() => setComparisonOpen(true)}>Compare selected ({compared.length}/3) <ArrowRight size={17}/></button></div>
-      {message && <p role="status" className="muted-info">{message}</p>}
-      {filtered.length ? <div className="bundle-grid">{filtered.map((bundle, index) => <article key={bundle.id} className="bundle-card">
-        <div className="bundle-card-top"><span className="eyebrow">{bundle.category}</span><span className="bundle-number">{String(index + 1).padStart(2, '0')}</span></div>
-        <h2>{bundle.title}</h2><p>{bundle.summary}</p>
-        <div className="bundle-price"><span>PACKAGE TOTAL</span><strong>GHS {money(quoteBundle(bundle.id, bundle.defaultAudience).total)}</strong><small>{audiences.find(item => item.id === bundle.defaultAudience)?.label} · Base scope</small></div>
-        <ul>{bundle.deliverables.map(value => <li key={value}><Check size={16}/><span>{value}</span></li>)}</ul>
-        <div className="bundle-card-actions"><button className="button outline full" onClick={() => setSelected(bundle)}>Explore & configure <ArrowRight size={17}/></button>
-          <label className="bundle-compare"><input type="checkbox" checked={compared.includes(bundle.id)} onChange={() => compare(bundle.id)}/> Compare this package</label></div>
-      </article>)}</div> : <div className="empty-state"><Search size={30}/><h2>No matching packages.</h2><p>Try a broader search or explore individual services.</p><button className="button outline" onClick={() => {setQuery(''); setCategory('all');}}>Reset filters</button></div>}
+    </div></header>
+    <section className="fc-bound fc-packages" id="bundle-collection" aria-label="Package catalogue">
+      <div className="fc-section-top"><div><span className="fc-kicker">The collection</span><h2>Choose a package<span>.</span></h2></div>
+        <Link className="fc-quiet" href="/services">Individual services <ArrowUpRight size={17}/></Link></div>
+      <div className="fc-package-filters">
+        <label className="fc-query"><Search size={19}/><span className="sr-only">Search packages</span><input type="search" placeholder="Search packages or deliverables" value={query} onChange={event => setQuery(event.target.value)}/></label>
+        <label className="fc-select"><span>Package category</span><select value={category} onChange={event => setCategory(event.target.value)}><option value="all">All purposes</option>{categories.map(value => <option key={value}>{value}</option>)}</select></label>
+      </div>
+      <p className="fc-row-count" aria-live="polite">{filtered.length} {filtered.length === 1 ? 'package' : 'packages'} available</p>
+      {filtered.length ? <div className="fc-package-grid">{filtered.map(bundle => {
+        const photo = bundlePhoto(bundle);
+        return <article key={bundle.id} className="fc-package-card">
+          <button className="fc-package-photo" onClick={() => setSelected(bundle)} aria-label={'Configure ' + bundle.title}><img src={photo.src} alt={photo.alt} loading="lazy" width={1200} height={800}/><span className="fc-category-tab">{bundle.category}</span></button>
+          <div className="fc-package-body"><h3>{bundle.title}</h3><p>{bundle.summary}</p>
+            <div className="fc-package-price"><span>Base package</span><strong>GHS {money(quoteBundle(bundle.id, bundle.defaultAudience).total)}</strong><small>{audiences.find(item => item.id === bundle.defaultAudience)?.label} · {bundle.items.length} services</small></div>
+            <details className="fc-included"><summary>What’s included</summary><ul>{bundle.deliverables.map(value => <li key={value}><Check size={14}/>{value}</li>)}</ul></details>
+            <button className="fc-action fc-dark" onClick={() => setSelected(bundle)}>Explore &amp; configure <ArrowRight size={17}/></button>
+            <label className="fc-compare-check"><input type="checkbox" checked={compared.includes(bundle.id)} onChange={() => compare(bundle.id)}/> Compare this package</label>
+          </div>
+        </article>;
+      })}</div> : <div className="fc-empty"><h3>No matching packages.</h3><p>Try another search or browse all purposes.</p><button className="fc-quiet" onClick={() => {setQuery(''); setCategory('all');}}>Reset filters <X size={16}/></button></div>}
+      {compared.length > 0 && <aside className="fc-compare-tray" aria-label="Package comparison">
+        <div role="status"><strong>{compared.length} of 3 selected</strong><span>{message || (compared.length === 1 ? 'Choose another package to compare.' : 'Compare the scope, price and delivery.')}</span></div>
+        <button className="fc-action fc-citron" disabled={compared.length < 2} onClick={() => setComparisonOpen(true)}>Compare selected <ArrowRight size={16}/></button>
+        <button className="fc-tray-clear" aria-label="Clear package comparison" onClick={() => {setCompared([]); setMessage('');}}><X size={16}/></button>
+      </aside>}
+      <div className="fc-package-terms"><h3>Before you <em>commission.</em></h3><div>
+        <p>Each package covers one project, the listed service quantities and one consolidated correction round. Availability, timing, applicable taxes and external costs are confirmed in writing before work begins. No payment is collected here.</p>
+        <details><summary>Academic authorship and integrity</summary><p>{bundleAuthorshipNotice}</p></details></div></div>
     </section>
-    <section className="bundle-principles wrap"><div><span className="eyebrow">BEFORE WE BEGIN</span><h2>Your work.<br/><em>A defined scope.</em></h2></div><div><p>{bundleAuthorshipNotice}</p><p>Each package covers one project and one consolidated correction round. Additional work, external costs and taxes require a separate written agreement.</p><Link className="text-link" href="/services">Need a different combination? Explore individual services <ArrowRight size={17}/></Link></div></section>
     {selected && <Dialog title="Configure your package" onClose={() => setSelected(null)}><BundleConfigurator bundle={selected}/></Dialog>}
     {comparisonOpen && <Dialog title="Compare research packages" onClose={() => setComparisonOpen(false)}><div className="bundle-comparison"><p>Base scopes shown at each package’s stated client level. Select a package to see the price for another eligible level.</p>{compared.map(id => {const bundle = getBundle(id)!; return <article key={id}><div className="flex-between"><h2>{bundle.title}</h2><button className="icon-button" aria-label={`Remove ${bundle.title} from comparison`} onClick={() => setCompared(compared.filter(value => value !== id))}><X size={17}/></button></div><strong>GHS {money(quoteBundle(id, bundle.defaultAudience).total)}</strong><p>{audiences.find(item => item.id === bundle.defaultAudience)?.label}</p><dl><dt>Included scope</dt><dd>{bundle.items.map(item => item.scope).join(' ')}</dd><dt>Proposed timing</dt><dd>{bundle.timeline}</dd><dt>Revisions</dt><dd>{bundle.revisionPolicy}</dd><dt>Excluded</dt><dd>{bundle.exclusions.join(' ')}</dd></dl><button className="button outline" onClick={() => {setComparisonOpen(false); setSelected(bundle);}}>Configure this package <ArrowRight size={17}/></button></article>})}{!compared.length && <p>No packages selected. Close this comparison to choose packages.</p>}</div></Dialog>}
-  </>;
+  </div>;
 }
 
 function BundleConfigurator({bundle}: {bundle: ServiceBundle}) {
