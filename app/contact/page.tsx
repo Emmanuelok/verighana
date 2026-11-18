@@ -1,7 +1,7 @@
 import type {Metadata} from 'next';
 import Link from 'next/link';
-import {ArrowLeft, ArrowRight} from 'lucide-react';
-import {Brand} from '../../components/platform';
+import {ArrowRight} from 'lucide-react';
+import {FieldHeader, FieldFooter} from '../../components/field-shell';
 import {ContactForm} from '../../components/contact-form';
 import {fullviewContact} from '../../lib/contact';
 import {ContactEmail} from '../../components/contact-email';
@@ -13,13 +13,26 @@ export const metadata: Metadata = {
 };
 
 export default function ContactPage() {
-  return <div className="site-shell contact-page">
-    <a className="skip-link" href="#contact-main">Skip to content</a>
-    <header className="contact-header wrap"><Brand/><nav aria-label="Contact page navigation"><Link href="/services">Explore services</Link><Link href="/workspace">Research desk <ArrowRight size={16}/></Link></nav></header>
-    <main id="contact-main" className="wrap contact-main">
-      <div className="contact-intro"><span className="eyebrow">LET’S TALK RESEARCH</span><h1>Every project starts<br/>with <em>a question.</em></h1><p>Tell us what you are working towards. Share a short outline so Fullview can discuss the right support, availability and next steps.</p></div>
-      <div className="contact-layout"><ContactForm/><aside className="contact-aside" aria-label="Fullview contact details"><span className="eyebrow">FULLVIEW SIGNATURE</span><h2>A conversation,<br/><em>in full view.</em></h2><address><ContactEmail/><a href={fullviewContact.phoneHref}>{fullviewContact.phoneDisplay}</a><p>{fullviewContact.street}<br/>{fullviewContact.locality}</p><p>GhanaPost GPS<br/><strong>{fullviewContact.ghanaPostGps}</strong></p></address><div className="contact-account-note"><h3>Ongoing project?</h3><p>Visit the account area for project access and secure collaboration when the service is available. Use this form for a general inquiry, with no private research files.</p><Link className="text-link" href="/account">Project account <ArrowRight size={17}/></Link></div></aside></div>
+  return <div className="site-shell wf-page wf-contact">
+    <a className="skip-link" href="#main">Skip to contact</a>
+    <FieldHeader current="contact"/>
+    <main id="main" className="wf-contact-main">
+      <section className="wf-contact-top" aria-labelledby="contact-heading">
+        <div className="wf-contact-lede"><span className="wf-label">Contact Fullview</span>
+          <h1 id="contact-heading">What’s your<br/><em>question?</em></h1>
+          <p>Tell us what you’re working on. We’ll discuss the scope, timing and research support that fits.</p>
+          <a className="wf-underlink" href="#write-inquiry">Write an inquiry <ArrowRight size={18} aria-hidden="true"/></a>
+        </div>
+        <div className="wf-contact-photo" aria-hidden="true"><img src="/services/photography/research-consultation.webp" alt="" width="1200" height="800" fetchPriority="high"/></div>
+      </section>
+      <div className="wf-contact-body">
+        <aside className="wf-office" aria-labelledby="office-heading"><span className="wf-label">Direct contact</span><h2 id="office-heading">Adenta, <em>Ghana.</em></h2>
+          <address><div><span>Email</span><ContactEmail/></div><div><span>Telephone</span><a href={fullviewContact.phoneHref}>{fullviewContact.phoneDisplay}</a></div><div><span>Office</span><p>{fullviewContact.street}<br/>{fullviewContact.locality}</p></div><div><span>GhanaPost GPS</span><p>{fullviewContact.ghanaPostGps}</p></div></address>
+          <div className="wf-office-account"><strong>Working with us already?</strong><Link className="wf-underlink" href="/projects">Open your projects <ArrowRight size={16} aria-hidden="true"/></Link></div>
+        </aside>
+        <section id="write-inquiry" className="wf-inquiry" aria-label="Write an inquiry"><ContactForm/></section>
+      </div>
     </main>
-    <footer className="wrap contact-footer"><Link href="/" className="text-link"><ArrowLeft size={17}/>Back to Fullview</Link><span>Fullview Signature by Veridanth Group</span></footer>
+    <FieldFooter/>
   </div>;
 }

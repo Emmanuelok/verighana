@@ -1,6 +1,74 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#073d35"><meta name="robots" content="noindex"><title>Offline catalogue — Fullview Signature</title><link rel="icon" href="/favicon.svg"><link rel="stylesheet" href="/offline.css"><script src="/offline.js" type="module"></script></head>
-<body><header><a class="offline-brand" href="/" aria-label="Fullview Signature by Veridanth Group home"><img src="/brand/icon-192.png?v=mono-v8" width="52" height="52" alt=""><span><b>Fullview</b><em>Signature</em><small>by Veridanth Group</small></span></a><button class="retry" type="button">Try online view <span aria-hidden="true">↗</span></button></header>
-<main><section class="intro"><p class="eyebrow" id="connection-state">YOUR OFFLINE RESEARCH CATALOGUE</p><h1>A fuller view.<br><em>Even between connections.</em></h1><p class="lead">Explore the service catalogue and revisit the estimate saved on this device. Return online to open the public research desk. Your saved estimate can be downloaded here as a PDF.</p></section>
-<div class="layout"><section aria-label="Service catalogue"><div class="filters"><label class="search">Find a service<input type="search" id="search" placeholder="Search topics, methods or services…"></label><label>Your pathway<select id="audience"><option value="all">All client types</option></select></label></div><p id="result-count" role="status" aria-live="polite"></p><div id="catalogue" class="catalogue"></div><p id="load-error" hidden>The offline catalogue is still being prepared. Please reconnect and open the website once to save it.</p></section>
-<aside><div class="estimate"><p class="eyebrow">SAVED ON THIS DEVICE</p><h2>Your next chapter.</h2><div id="estimate"></div><p class="note">Planning rates in Ghana cedis. Final scope, availability, taxes and fees require agreement.</p></div><p class="help">Reconnect to open the public research desk. Your personal briefs are never copied into this shared offline catalogue.</p></aside></div></main><footer>Fullview Signature <span>by Veridanth Group</span><p>Research. In full view.</p></footer></body></html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#181a17">
+  <meta name="robots" content="noindex">
+  <title>Offline research catalogue — Fullview Signature</title>
+  <link rel="icon" href="/favicon.svg">
+  <link rel="stylesheet" href="/offline.css">
+  <script src="/offline.js" type="module"></script>
+</head>
+<body>
+  <a class="skip" href="#catalogue-title">Skip to services</a>
+  <header class="masthead">
+    <div class="wrap masthead-inner">
+      <a class="brand" href="/" aria-label="Fullview Signature by Veridanth Group home">
+        <img src="/brand/logo-light.svg" width="901" height="174" alt="Fullview Signature by Veridanth Group">
+      </a>
+      <button class="retry" type="button">Try online view <span aria-hidden="true">↗</span></button>
+    </div>
+  </header>
+
+  <main>
+    <section class="cover" aria-labelledby="cover-title">
+      <div class="wrap cover-inner">
+        <div>
+          <p class="status"><span class="status-dot" aria-hidden="true"></span><span id="connection-state" role="status">Offline edition</span></p>
+          <h1 id="cover-title">Research <em>catalogue.</em></h1>
+        </div>
+        <div class="cover-intro">
+          <p>Explore research services and planning rates. Your saved estimate is available on this device, even offline.</p>
+          <nav aria-label="On this page">
+            <a href="#catalogue-title">Browse services <span aria-hidden="true">↓</span></a>
+            <a href="#estimate-title">Saved estimate <span aria-hidden="true">↓</span></a>
+          </nav>
+        </div>
+      </div>
+    </section>
+
+    <div class="wrap layout">
+      <section class="listing" aria-labelledby="catalogue-title">
+        <h2 id="catalogue-title" tabindex="-1">Service directory</h2>
+        <div class="filters" role="search" aria-label="Filter services">
+          <label class="search" for="search">Search services
+            <input id="search" type="search" placeholder="Topic, method or service">
+          </label>
+          <label for="audience">Client type
+            <select id="audience"><option value="all">All client types</option></select>
+          </label>
+        </div>
+        <p id="result-count" role="status" aria-live="polite"></p>
+        <div id="catalogue" class="catalogue"></div>
+        <p class="no-results">Try a different search term or select another client type.</p>
+        <p id="load-error" role="alert" hidden>Reconnect and open the website once to save the catalogue on this device.</p>
+      </section>
+      <aside aria-labelledby="estimate-title">
+        <div class="estimate">
+          <p class="eyebrow">On this device</p>
+          <h2 id="estimate-title" tabindex="-1">Saved estimate</h2>
+          <div id="estimate"></div>
+          <p class="note">Planning rates are in Ghana cedis. Final scope, availability, taxes and fees require agreement.</p>
+        </div>
+        <p class="help">Reconnect to open your research desk and access private briefs.</p>
+      </aside>
+    </div>
+  </main>
+
+  <footer><div class="wrap footer-inner">
+    <a class="brand" href="/" aria-label="Fullview Signature by Veridanth Group home"><img src="/brand/logo-light.svg" width="901" height="174" alt="Fullview Signature by Veridanth Group"></a>
+    <a href="#cover-title">Back to top <span aria-hidden="true">↑</span></a>
+  </div></footer>
+</body>
+</html>

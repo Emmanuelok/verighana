@@ -142,9 +142,9 @@ export function ContactForm() {
   </section>;
 
   return <div className="contact-form-panel">
-    <h2>A clear first step.</h2>
+    <h2>Write an inquiry.</h2>
     {availability.state === 'loading' ? <p role="status" className="muted-info">Checking online inquiry availability…</p> :
-      availability.state === 'unavailable' ? <div className="contact-availability" role="status"><p>Online inquiries are not available right now. Please call Fullview. Sending is disabled until availability is confirmed.</p><ContactFallback/><button className="text-link" type="button" onClick={() => {setAvailability({state: 'loading'}); setConsent(false); void checkAvailability();}}>Check availability again</button></div> : null}
+      availability.state === 'unavailable' ? <div className="contact-availability" role="status"><p>The online form is currently unavailable. Contact the research desk directly, or check again.</p><ContactFallback/><button className="text-link" type="button" onClick={() => {setAvailability({state: 'loading'}); setConsent(false); void checkAvailability();}}>Check availability again</button></div> : null}
     <form onSubmit={event => void submit(event)} aria-describedby="contact-disclosure">
       {error && <div className="contact-error" role="alert" tabIndex={-1} ref={errorRef}><p>{error}</p>{requestId && <p>Support reference: {requestId}</p>}</div>}
       <fieldset disabled={busy} className="contact-fields">
