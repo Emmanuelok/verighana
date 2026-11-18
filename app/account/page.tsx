@@ -47,8 +47,10 @@ export default async function AccountPage({searchParams}: {searchParams: SearchP
     </header>
     <main id="account-main" className="account-shell wrap">
       <section className="account-story" aria-labelledby="account-heading">
+        <div className="account-story-image" aria-hidden="true"><Image src="/services/photography/gallery-hero.webp" alt="" fill sizes="(max-width: 800px) 100vw, 50vw" priority/></div>
+        <span className="account-story-index" aria-hidden="true">FV / YOUR NEXT CHAPTER</span>
         <span className="account-kicker">YOUR FULLVIEW ACCOUNT</span>
-        <h1 id="account-heading">Welcome to your<br/><em>research space.</em></h1>
+        <h1 id="account-heading">Your next chapter.<br/><em>In full view.</em></h1>
         <p>A clearer view of the work you share with Fullview, from the first conversation to the next step.</p>
         <div className="account-story-details">
           <div><span aria-hidden="true">01</span><div><h2>Your work, in view.</h2><p>Review submitted briefs, agreed scope and project stages when project services are available.</p></div></div>
@@ -74,5 +76,6 @@ export default async function AccountPage({searchParams}: {searchParams: SearchP
         <p className="account-disclosure">Signing in does not upload your device-local drafts. Creating an account does not submit a project, accept a quote or book a service.</p>
       </div>
     </main>
+    <footer className="account-editorial-footer wrap"><span>Independent thinking. Shared possibility.</span><Link href="/contact">Talk to Fullview <ArrowRight size={16} aria-hidden="true"/></Link></footer>
   </div>;
 }

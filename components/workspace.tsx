@@ -6,7 +6,6 @@ import { audiences, money, rate } from '../lib/catalog';
 import { services } from '../lib/catalog';
 import { BRIEFS_KEY, DRAFT_KEY, getBriefPricing, budgets, emptyForm, localDate, readLocalBriefs, readLocalDraft, removeLocalBrief, saveLocalBrief, validateBrief, type Brief, type BriefForm } from '../lib/local-briefs';
 import { AudienceSelect, useResearch } from './research-context';
-import { PageIntro } from './research-pages';
 import {ShareProject} from './share-project';
 import {PdfDownload} from './pdf-download';
 import {InquiryHandoff} from './inquiry-handoff';
@@ -146,7 +145,7 @@ export function Workspace({ viewer }: { viewer: Viewer | null }) {
   }
 
   return <>
-    <PageIntro eyebrow="YOUR PUBLIC RESEARCH DESK" title="A considered start." italic="A clearer next chapter." description="Bring your question, selected services and timeline together. Create a research brief and keep a PDF copy—no account required." />
+    <section className="desk-editorial-hero"><div className="wrap desk-editorial-hero-inner"><div><span className="eyebrow">YOUR PUBLIC RESEARCH DESK</span><h1>Give your idea<br/><em>a place to begin.</em></h1><p>Bring your question, selected services and timeline together. Create a research brief and keep a PDF copy—no account required.</p><div className="desk-hero-steps" aria-label="How the research desk works"><span><b>01</b> Shape your brief</span><span><b>02</b> Review the scope</span><span><b>03</b> Save your copy</span></div></div><figure className="desk-hero-image"><img src="/services/photography/proposal-review.webp" width={1200} height={800} alt="Illustrative research materials on a working desk"/><figcaption>SPACE FOR YOUR NEXT BIG QUESTION.</figcaption></figure></div></section>
     <section className="workspace-section wrap">
       <div className="desk-access-note"><Laptop size={22} aria-hidden="true" /><div><strong>{viewer ? 'Signed-in research desk' : 'Open to everyone. Your work stays with you.'}</strong><p>{viewer ? 'Your briefs are saved to your signed-in account.' : 'Drafts and saved briefs stay in this browser on this device. Download a PDF to keep or share a copy. Saving does not send your brief to Fullview.'}</p></div></div>
       {bundleError && <div className="form-error" role="alert">{bundleError} <a href="/bundles">Return to packages</a></div>}
