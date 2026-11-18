@@ -30,6 +30,8 @@
 .fs-ed :is(.fs-ed-action,.fs-ed-underline):hover svg { transform: translate(2px,-1px); }
 .fs-ed .fs-ed-citron { background: var(--ed-lime); color: var(--ed-ink); }
 .fs-ed .fs-ed-dark { background: var(--ed-ink); color: var(--ed-paper); }
+/* Retain each colour plate's foreground when the legacy shell sets paragraph colour. */
+.site-shell .fs-ed :is(.fs-sector-intro,.fs-journal-lead-copy,.fs-readiness-copy,.fs-principle-grid) p { color: inherit; }
 .fs-ed .fs-ed-citron:hover { background: #f0ff9c; }
 .fs-ed .fs-ed-dark:hover { background: #244b44; }
 .fs-ed .fs-ed-section { padding-block: clamp(62px, 7vw, 124px); }
